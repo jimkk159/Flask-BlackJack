@@ -1,3 +1,7 @@
+from flask import Blueprint
+
+player_blueprint = Blueprint('player', __name__)
+
 class Hand:
 
     def __init__(self):

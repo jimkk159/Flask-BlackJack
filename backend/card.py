@@ -1,6 +1,6 @@
 import uuid
 import random
-from flask import request, Blueprint, jsonify
+from flask import Blueprint
 
 suits = ["spade", "heart", "diamond", "club"]
 poker_symbol = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
