@@ -1,11 +1,13 @@
 import random
-from flask import Flask, Blueprint, jsonify, render_template, request
-from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
+from flask import Flask, render_template
 
 # self module
-from backend.game import game_blueprint
+from backend.game import game_blueprint, Blackjack
 from backend.card import card_blueprint
 from backend.player import player_blueprint
+from backend.setting import setting_blueprint
+
 
 def create_app():
     app = Flask(__name__)
@@ -14,7 +16,15 @@ def create_app():
     app.register_blueprint(card_blueprint)
     app.register_blueprint(game_blueprint)
     app.register_blueprint(player_blueprint)
+    app.register_blueprint(setting_blueprint)
 
+    # WTF Form
+    app.config['SECRET_KEY'] = "Jim's Secret key"
+    Bootstrap(app)
+
+    # Initial the blackjack game
+    game = Blackjack()
+    app.config["blackjack_game"] = game
 
     @app.route("/")
     def home():
@@ -24,16 +34,13 @@ def create_app():
     def game():
         return render_template('game.html'), 200
 
-    @app.route("/setting")
-    def setting():
-        return render_template('setting.html'), 200
-
     @app.route("/rule")
     def rule():
         return render_template('rule.html'), 200
 
-
     return app
+
+
 app = create_app()
 
 if __name__ == '__main__':
