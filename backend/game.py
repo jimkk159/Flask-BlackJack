@@ -1,15 +1,12 @@
 from math import floor
-from flask import Blueprint
-
-# self module
-from backend.card import Deck
-from backend.player import Hand, Players
+from player import Hand, Players
+from card import Deck
 
 
 class Blackjack:
 
-    def __init__(self, id_):
-        self.id_ = id_
+    def __init__(self):
+
         self.game_end = False
 
         # Setting Rule
@@ -33,12 +30,6 @@ class Blackjack:
 
         # Leave game player
         self.leave_man = 0
-
-    def start(self):
-
-        if self.is_insurance:
-            self.ask_insurance()
-        self.check_blackjack()
 
     # GET
     def get_deck_num(self):
@@ -116,6 +107,9 @@ class Blackjack:
             return True
         return False
 
+    def get_player_insurance(self, player):
+        return player.get_insurance()
+
     # Check Sum
     def get_hand_sum(self, cards_in_hand):
 
@@ -174,29 +168,51 @@ class Blackjack:
     def set_blackjack_ratio(self, blackjack_ratio):
         self.blackjack_ratio = blackjack_ratio
 
+    def set_player_insurance(self, player, insurance: bool):
+
+        player.set_insurance(insurance)
+
+    def player_has_insurance(self, player):
+
+        player.set_insurance(True)
+
+    def reset_player_insurance(self, player):
+
+        player.set_insurance(False)
+
     def check_blackjack(self):
 
+        return all(map(self.check_player_blackjack, self.get_players_in()))
+
+    def check_player_blackjack(self, player):
+
+        hand = player.get_hands()[0]
+        banker_blackjack = self.get_is_banker_blackjack()
+        player_blackjack = self.get_is_player_blackjack(player)
+
+        if banker_blackjack and player_blackjack:
+            hand.set_result("push")
+            return True
+
+        if banker_blackjack:
+            hand.set_result("lose")
+            return True
+
+        if player_blackjack:
+            hand.set_result("blackjack")
+            return True
+        return False
+
+    def get_is_banker_blackjack(self):
         if self.get_is_blackjack(self.banker):
+            return True
+        return False
 
-            for player in self.players.in_:
-
-                if self.get_is_blackjack(player.hands[0].cards):
-                    player.hands[0].result = "push"
-                else:
-                    player.hands[0].result = "lose"
-
-            return True  # Mean Game End
-
-        for player in self.players.in_:
-
-            if self.get_is_blackjack(player.hands[0].cards):
-                player.hands[0].result = "blackjack"
-
-        # TODO only thing about the player 1 game end situation
-        if self.get_is_blackjack(self.players.in_[0].hands[0].cards):
-            return True  # Mean Game End
-        else:
-            return False  # Mean Game Continue
+    def get_is_player_blackjack(self, player):
+        hand = player.get_hands()[0]
+        if self.get_is_blackjack(hand.get_cards()):
+            return True
+        return False
 
     # Game Setting
     def reset(self):
@@ -231,98 +247,33 @@ class Blackjack:
             self.deal(player.get_hands()[0].get_cards())
 
         # To banker
-        self.deal(self.banker, faced=False)
-
-        # To each player
-        for player in self.players.in_:
-            self.deal(player.get_hands()[0].get_cards())
-
-        # To banker
         self.deal(self.banker)
 
-    # Asl Insurance
+
+    def deal_initial(self):
+
+        self.deal_to_all()
+        self.hole_banker_card()
+        self.deal_to_all()
+
+    # Ask Insurance
     def ask_insurance(self, choice):
 
+        # ToDo only for player 1
         # for num in range(self.player_num):
         self.ask_player_insurance(self.players.get_players_in()[0], choice)
 
     def ask_player_insurance(self, player, choice):
 
         player.set_insurance(False)
-        if player.get_money() >= floor(player.get_basic_stake() / 2):
-            if choice:
-                player.add_money(-floor(player.get_basic_stake() / 2))
-                player.set_insurance(True)
-
-    # It's Player Round
-    def choice(self):
-
-        for player in self.players.get_players_in():
-            choice = input("Fold?")
-            if choice == 'y':
-                self.fold(player)
-
-        for player in self.players.get_players_in():
-            self.player_choice(player)
-        self.players.eliminate()
-        self.give_money_all()
+        if choice and player.get_money() >= floor(player.get_basic_stake() / 2):
+            player.add_money(-floor(player.get_basic_stake() / 2))
+            player.set_insurance(True)
 
     def fold(self, player):
 
         player.set_fold(True)
         player.get_hands()[0].set_result("fold")
-
-    def player_choice(self, player):
-
-        if not player.fold:
-            print()
-            choice = input(f"Player {player.id} choice?")
-            if choice == "double" and self.get_player_can_double(player):
-                self.double_down_process(player)
-
-            else:
-
-                hand_count = 0
-                while True:
-
-                    if hand_count >= len(player.get_hands()):
-                        print("break")
-                        break
-
-                    while True:
-
-                        if choice == "split" and self.get_hand_can_split(player, player.get_hands()[hand_count]):
-                            player.add_money(-player.get_basic_stake())
-                            player.add_total_stake(player.get_basic_stake())
-                            split_hand_id_ = len(player.get_hands())
-                            split_hand = Hand(split_hand_id_)
-                            split_hand.get_cards().append(player.get_hands()[hand_count].get_cards().pop())
-
-                            player.get_hands()[hand_count].set_is_ace_split(True)
-                            split_hand.set_is_ace_split(True)
-                            player.get_hands().append(split_hand)
-
-                        if choice == "stand":
-                            choice = ""
-                            break
-
-                        if choice == "hit":
-                            self.hit(player.get_hands()[hand_count])
-                            if player.get_hands()[hand_count].get_is_ace_split():
-                                choice = ""
-                                break
-
-                        print()
-                        self.players.print_all_status()
-                        print("Bust?", hand_count, self.get_is_hand_bust(player.get_hands()[hand_count].get_cards()))
-                        if self.get_is_hand_bust(player.get_hands()[hand_count].get_cards()):
-                            print("This hand is bust")
-                            choice = ""
-                            player.get_hands()[hand_count].get_result = "lose"
-                            break
-                        choice = input(f"Player {player.get_id()} Hand {hand_count} choice?")
-
-                    hand_count += 1
 
     # Double Down
     def double_down(self, player):
@@ -356,8 +307,7 @@ class Blackjack:
         hand.set_is_ace_split(True)
 
         # Create New Hand
-        split_hand_id_ = len(hands)
-        split_hand = Hand(split_hand_id_)
+        split_hand = Hand()
         split_hand.get_cards().append(split_card)
         split_hand.set_is_ace_split(True)
 
@@ -373,6 +323,9 @@ class Blackjack:
     # It's banker time
     def reveal_banker_card(self):
         self.banker[0].set_faced(True)
+
+    def hole_banker_card(self):
+        self.banker[0].set_faced(False)
 
     def deal_to_banker(self):
 
@@ -454,12 +407,3 @@ class Blackjack:
         while self.leave_man != leaving_player:
             self.give_money(self.players.get_players_out()[self.leave_man])
             self.leave_man += 1
-
-    def print_banker(self):
-
-        print("Banker has: ")
-        print("cards: ", end="")
-        for card_ in self.banker:
-            print(f"{card_.get_symbol()} {card_.get_suit()} ", end="")
-        print(f"{self.get_hand_sum_switch_ace(self.banker)} ")
-        print()
