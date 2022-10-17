@@ -24,7 +24,7 @@ def create_app():
     Bootstrap(app)
 
     # Initial the blackjack game
-    game = Blackjack()
+    game = Blackjack(0)
     game.reset_player()
     game.reset()
     game.deal_to_all()

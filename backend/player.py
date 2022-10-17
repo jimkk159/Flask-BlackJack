@@ -4,8 +4,8 @@ player_blueprint = Blueprint('player', __name__)
 
 class Hand:
 
-    def __init__(self):
-        # self.id = id_
+    def __init__(self, id_):
+        self.id = id_
         self.cards = []
         self.is_ace_split = False
         self._5_card_charlie = False
@@ -230,7 +230,7 @@ class Players:
 
         # Reset Player
         for player in self.in_:
-            player.hands = [Hand()]
+            player.hands = [Hand(0)]
 
     # People who win or lose
     def eliminate(self):

@@ -4,20 +4,20 @@
 <h1>Banker</h1>
 
 {% for card in banker %}
-    <h2>{{ card.symbol }} {{ card.suit }}</h2>
+<h2>{{ card.symbol }} {{ card.suit }}</h2>
 {% endfor %}
 
 {% for player in players %}
-    <h1>Player {{player.id}}</h1>
-    {% for hand in player.hands %}
-        {% for card in hand.cards %}
-            <h2>{{ card.symbol }} {{ card.suit }}</h2>
-        {% endfor %}
-            <button>Double</button>
-            <button>Split</button>
-            <button>Hit</button>
-            <button>Stand</button>
-    {% endfor %}
+<h1>Player {{player.id}}</h1>
+{% for hand in player.hands %}
+{% for card in hand.cards %}
+<h2>{{ card.symbol }} {{ card.suit }}</h2>
+{% endfor %}
+<a href="{{ url_for('table.double',player_id=player.id) }}"><h2>Double</h2></a>
+<a href="{{ url_for('table.split',hand_id=hand.id) }}"><h2>Split</h2></a>
+<a href="{{ url_for('table.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
+<a href="{{ url_for('table.stand',hand_id=hand.id) }}"><h2>Stand</h2></a>
+{% endfor %}
 {% endfor %}
 <a href="{{ url_for('home') }}">
     <button>Leave</button>

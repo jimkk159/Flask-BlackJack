@@ -1,15 +1,15 @@
 from math import floor
 from flask import Blueprint
 
-#self module
+# self module
 from backend.card import Deck
 from backend.player import Hand, Players
 
 
 class Blackjack:
 
-    def __init__(self):
-
+    def __init__(self, id_):
+        self.id_ = id_
         self.game_end = False
 
         # Setting Rule
@@ -174,7 +174,6 @@ class Blackjack:
     def set_blackjack_ratio(self, blackjack_ratio):
         self.blackjack_ratio = blackjack_ratio
 
-
     def check_blackjack(self):
 
         if self.get_is_blackjack(self.banker):
@@ -295,7 +294,8 @@ class Blackjack:
                         if choice == "split" and self.get_hand_can_split(player, player.get_hands()[hand_count]):
                             player.add_money(-player.get_basic_stake())
                             player.add_total_stake(player.get_basic_stake())
-                            split_hand = Hand()
+                            split_hand_id_ = len(player.get_hands())
+                            split_hand = Hand(split_hand_id_)
                             split_hand.get_cards().append(player.get_hands()[hand_count].get_cards().pop())
 
                             player.get_hands()[hand_count].set_is_ace_split(True)
@@ -356,7 +356,8 @@ class Blackjack:
         hand.set_is_ace_split(True)
 
         # Create New Hand
-        split_hand = Hand()
+        split_hand_id_ = len(hands)
+        split_hand = Hand(split_hand_id_)
         split_hand.get_cards().append(split_card)
         split_hand.set_is_ace_split(True)
 
@@ -368,7 +369,6 @@ class Blackjack:
         player.add_money(-player.get_basic_stake())
         player.add_total_stake(player.get_basic_stake())
         self.split(player.get_hands(), hand)
-
 
     # It's banker time
     def reveal_banker_card(self):
