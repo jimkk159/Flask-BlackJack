@@ -1,12 +1,13 @@
 from math import floor
-from player import Hand, Players
-from card import Deck
+from backend.player import Hand, Players
+from backend.card import Deck
 
 
 class Blackjack:
 
-    def __init__(self):
+    def __init__(self, id_):
 
+        self.id = id_
         self.game_end = False
 
         # Setting Rule
@@ -247,7 +248,7 @@ class Blackjack:
 
         return result
 
-    def reset_player(self):
+    def recreate_player(self):
         self.players = Players(self.player_num)
 
     # Deal Card

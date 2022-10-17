@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, current_app, redirect, url_for
-
+from backend.card import Card
 # self import
 from backend.forms import SettingForm
 
@@ -13,58 +13,65 @@ def check_blackjack(game, player):
     return game.check_player_blackjack(player)
 
 
-@table_blueprint.route("/table/<int:show_insurance>")
-def table(show_insurance):
+@table_blueprint.route("/table")
+def table():
     game = current_app.config["blackjack_game"]
-    banker = game.banker
-    players = game.players.in_
+    show_insurance = current_app.config["show_insurance"]
+
+    banker = game.get_banker_cards()
+    players = game.get_players_in()
+    # game.banker = [Card(symbol='K', suit='spade', faced=False),
+    #                Card(symbol='A', suit='heart')]
+
     ask_insurance = show_insurance and game.get_is_insurance() and game.get_judge_insurance()
-    return render_template('table.html', banker=banker, players=players, ask_insurance=ask_insurance), 200
+    return render_template('table.html', banker=banker, players=players, ask_insurance=ask_insurance,
+                           game_end=current_app.config["game_end"]), 200
 
 
 @table_blueprint.route("/table/insurance/<int:player_id>/<int:answer>")
 def insurance(player_id, answer):
     print('I got insurance')
     game = current_app.config["blackjack_game"]
-    game_end = False
+    current_app.config["show_insurance"] = False
     for player in game.players.in_:
         if player.id == player_id:
             if answer == 1:
                 game.player_has_insurance(player)
-            game_end = check_blackjack(game, player)
+            if check_blackjack(game, player):
+                return redirect(url_for('table.end'))
 
-    return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
+    return redirect(url_for('table.table'))
 
 
 @table_blueprint.route("/table/double/<int:player_id>")
 def double(player_id):
     print('I got double')
     game = current_app.config["blackjack_game"]
-    game_end = False
     for player in game.players.in_:
         if player.id == player_id:
-            game_end = game.double_down_process(player)
-    return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
+            if game.double_down_process(player):
+                return redirect(url_for('table.end'))
+    return redirect(url_for('table.table'))
 
 
 @table_blueprint.route("/table/split")
 def split():
     print('I got split')
-    return redirect(url_for('table.table', show_insurance=0, game_end=False))
+    return redirect(url_for('table.table'))
 
 
 @table_blueprint.route("/table/hit/<int:player_id>/<int:hand_id>")
 def hit(player_id, hand_id):
     print('I got hit')
     game = current_app.config["blackjack_game"]
-    game_end = False
     for player in game.get_players_in():
         if player.id == player_id:
             for hand in player.get_hands():
                 if hand.id == hand_id:
                     game.hit_process(hand)
-            game_end = game.get_is_player_end(player)
-    return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
+            if game.get_is_player_end(player):
+                return redirect(url_for('table.end'))
+    return redirect(url_for('table.table'))
 
 
 @table_blueprint.route("/table/stand/<int:player_id>/<int:hand_id>")
@@ -78,12 +85,12 @@ def stand(player_id, hand_id):
                     game.set_hand_stand(hand)
             game_end = game.get_is_player_end(player)
             if game_end:
-                return redirect(url_for('table.banker', player_id=player_id))
-    return redirect(url_for('table.table', show_insurance=0, game_end=False))
+                return redirect(url_for('table.banker'))
+    return redirect(url_for('table.table'))
 
 
-@table_blueprint.route("/table/banker/<int:player_id>")
-def banker(player_id):
+@table_blueprint.route("/table/banker")
+def banker():
     print("I got banker")
     game = current_app.config["blackjack_game"]
     game.reveal_banker_card()
@@ -92,12 +99,24 @@ def banker(player_id):
         game.banker_bust_process()
     else:
         game.compare_cards()
-    return redirect(url_for('table.end', player_id=player_id))
+    return redirect(url_for('table.end'))
 
 
-@table_blueprint.route("/table/end/<int:player_id>")
+@table_blueprint.route("/table/end")
 def end():
     print("I got end")
     game = current_app.config["blackjack_game"]
-    game.set_players_eliminate()
     game.give_money_all()
+    current_app.config["game_end"] = True
+    return redirect(url_for('table.table'))
+
+
+@table_blueprint.route("/table/reset")
+def reset():
+    print("I got reset")
+    game = current_app.config["blackjack_game"]
+    current_app.config["game_end"] = False
+    current_app.config["show_insurance"] = True
+    game.reset()
+    game.deal_initial()
+    return redirect(url_for('table.table'))

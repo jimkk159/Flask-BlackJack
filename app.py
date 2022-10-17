@@ -25,9 +25,7 @@ def create_app():
 
     # Initial the blackjack game
     game = Blackjack(0)
-    game.reset_player()
-    game.reset()
-    game.deal_to_all()
+    game.recreate_player()
     app.config["blackjack_game"] = game
 
     @app.route("/")

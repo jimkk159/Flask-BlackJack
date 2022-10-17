@@ -25,6 +25,9 @@
 {% endif %}
 {% endfor %}
 {% endfor %}
+{% if game_end %}
+<h1>Game is End</h1>
+{% endif %}
 <a href="{{ url_for('home') }}">
     <button>Leave</button>
 </a>
