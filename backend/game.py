@@ -214,6 +214,14 @@ class Blackjack:
             return True
         return False
 
+    # Check Player End
+    def get_is_player_end(self, player):
+
+        hands = player.get_hands()
+        if hands:
+            return all([(True if hand.get_result() != "" else False) for hand in hands])
+        return False
+
     # Game Setting
     def reset(self):
 
@@ -287,6 +295,8 @@ class Blackjack:
         self.double_down(player)
         if self.get_is_hand_bust(player.get_hands()[0].get_cards()):
             player.get_hands()[0].set_result("lose")
+            return True
+        return False
 
     # Hit
     def hit(self, hand):

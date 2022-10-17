@@ -3,7 +3,7 @@
 <!-- Page Header -->
 <h1>BlackJack ♠️</h1>
 
-<h1><a href="{{ url_for('table.table',show_insurance=0) }}">Start</a></h1>
+<h1><a href="{{ url_for('table.table',show_insurance=0, game_end=False) }}">Start</a></h1>
 <h1><a href="{{ url_for('rule') }}">Rule</a></h1>
 <h1><a href="{{ url_for('setting.setting') }}">Setting</a></h1>
 {% include "footer.html" %}

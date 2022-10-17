@@ -31,9 +31,8 @@ def insurance(player_id, answer):
         if player.id == player_id:
             if answer == 1:
                 game.player_has_insurance(player)
-            if check_blackjack(game, player):
-                game_end = True
-            break
+            game_end = check_blackjack(game, player)
+
     return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
 
 
@@ -41,31 +40,34 @@ def insurance(player_id, answer):
 def double(player_id):
     print('I got double')
     game = current_app.config["blackjack_game"]
+    game_end = False
     for player in game.players.in_:
         if player.id == player_id:
-            game.double_down_process(player)
-    return redirect(url_for('table.table', show_insurance=0))
+            game_end = game.double_down_process(player)
+    return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
 
 
 @table_blueprint.route("/table/split")
 def split():
     print('I got split')
-    return redirect(url_for('table.table', show_insurance=0))
+    return redirect(url_for('table.table', show_insurance=0, game_end=False))
 
 
 @table_blueprint.route("/table/hit/<int:player_id>/<int:hand_id>")
 def hit(player_id, hand_id):
     print('I got hit')
     game = current_app.config["blackjack_game"]
+    game_end = False
     for player in game.get_players_in():
         if player.id == player_id:
             for hand in player.get_hands():
                 if hand.id == hand_id:
                     game.hit_process(hand)
-    return redirect(url_for('table.table', show_insurance=0))
+            game_end = game.get_is_player_end(player)
+    return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
 
 
 @table_blueprint.route("/table/stand")
 def stand():
     print('I got stand')
-    return redirect(url_for('table.table', show_insurance=0))
+    return redirect(url_for('table.table', show_insurance=0, game_end=False))
