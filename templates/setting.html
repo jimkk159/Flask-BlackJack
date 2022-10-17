@@ -4,7 +4,7 @@
 
 <h1>Setting</h1>
 {{ wtf.quick_form(setting_form, novalidate=True, button_map={"submit": "primary"}) }}
-<button>Leave</button>
+<a href="{{ url_for('home') }}"><button>Leave</button></a>
 
 {% include "footer.html" %}
 {% endblock %}

@@ -5,7 +5,6 @@ from flask import Blueprint
 from backend.card import Deck
 from backend.player import Hand, Players
 
-game_blueprint = Blueprint('game', __name__)
 
 class Blackjack:
 
