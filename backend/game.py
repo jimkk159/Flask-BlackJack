@@ -172,6 +172,14 @@ class Blackjack:
 
         player.set_insurance(insurance)
 
+    # Set Hand Stand
+    def set_hand_stand(self, hand):
+        hand.set_result("stand")
+
+    # Eliminate players
+    def set_players_eliminate(self):
+        self.get_players().eliminate()
+
     def player_has_insurance(self, player):
 
         player.set_insurance(True)

@@ -250,6 +250,19 @@ class Players:
             out_game_player = self.in_.pop(pick_id)
             self.out.append(out_game_player)
 
+    # Player win or lose
+    def eliminate_player(self, player):
+
+        if not any(map(lambda x: x.result == "", player.get_hands())):
+
+            pick_id = 0
+            for num in range(len(self.in_)):
+                if self.in_[num].id == player.id:
+                    pick_id = num
+                    break
+            out_game_player = self.in_.pop(pick_id)
+            self.out.append(out_game_player)
+
     # Print Players Cards
     def print_all_cards(self):
 

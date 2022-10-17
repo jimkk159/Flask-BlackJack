@@ -67,7 +67,37 @@ def hit(player_id, hand_id):
     return redirect(url_for('table.table', show_insurance=0, game_end=game_end))
 
 
-@table_blueprint.route("/table/stand")
-def stand():
+@table_blueprint.route("/table/stand/<int:player_id>/<int:hand_id>")
+def stand(player_id, hand_id):
     print('I got stand')
+    game = current_app.config["blackjack_game"]
+    for player in game.get_players_in():
+        if player.id == player_id:
+            for hand in player.get_hands():
+                if hand.id == hand_id:
+                    game.set_hand_stand(hand)
+            game_end = game.get_is_player_end(player)
+            if game_end:
+                return redirect(url_for('table.banker', player_id=player_id))
     return redirect(url_for('table.table', show_insurance=0, game_end=False))
+
+
+@table_blueprint.route("/table/banker/<int:player_id>")
+def banker(player_id):
+    print("I got banker")
+    game = current_app.config["blackjack_game"]
+    game.reveal_banker_card()
+    game.deal_to_banker()
+    if game.get_is_banker_bust():
+        game.banker_bust_process()
+    else:
+        game.compare_cards()
+    return redirect(url_for('table.end', player_id=player_id))
+
+
+@table_blueprint.route("/table/end/<int:player_id>")
+def end():
+    print("I got end")
+    game = current_app.config["blackjack_game"]
+    game.set_players_eliminate()
+    game.give_money_all()

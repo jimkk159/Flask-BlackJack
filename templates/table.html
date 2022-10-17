@@ -21,7 +21,7 @@
 <a href="{{ url_for('table.double',player_id=player.id) }}"><h2>Double</h2></a>
 <a href="{{ url_for('table.split',hand_id=hand.id) }}"><h2>Split</h2></a>
 <a href="{{ url_for('table.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
-<a href="{{ url_for('table.stand',hand_id=hand.id) }}"><h2>Stand</h2></a>
+<a href="{{ url_for('table.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
 {% endif %}
 {% endfor %}
 {% endfor %}
