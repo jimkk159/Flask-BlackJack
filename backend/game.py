@@ -20,7 +20,7 @@ class Blackjack:
         self.deck_num = 4
         self.deck = Deck(self.deck_num)
         self.deck.shuffle()
-        self.set_blackjack_value(Deck(self.deck_num))
+        self.set_blackjack_value(self.deck)
 
         # Setting Player
         self.player_num = 2
@@ -143,7 +143,6 @@ class Blackjack:
         return self.get_hand_sum(cards_in_hand)
 
     def get_is_blackjack(self, cards_in_hand):
-
         if len(cards_in_hand) == 2 and self.get_hand_sum(cards_in_hand) == 21:
             return True
         return False
@@ -255,7 +254,7 @@ class Blackjack:
             self.deck.reset_deck()
 
         # Reset Player
-        result = self.players.reset_all()
+        self.players.reset_players()
 
         # Reset Banker Cards
         self.banker = []
@@ -263,7 +262,8 @@ class Blackjack:
         # Nobody leave
         self.leave_man = 0
 
-        return result
+    def pay_player_stake(self, player):
+        return player.pay_stake()
 
     def set_players(self):
         self.players = Players()

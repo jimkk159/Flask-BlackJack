@@ -12,11 +12,11 @@ card_blueprint = Blueprint('card', __name__)
 
 class Card:
 
-    def __init__(self, symbol, suit, faced=True):
+    def __init__(self, symbol, suit, value=None, faced=True):
         # self.id = id_
         self.symbol = symbol
         self.suit = suit
-        self.value = poker_value_dict[symbol]
+        self.value = value if value else poker_value_dict[symbol]
         self.faced = faced
 
     # GET

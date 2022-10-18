@@ -35,7 +35,7 @@ class Hand:
         self._5_card_charlie = charlie
 
 
-class Player():
+class Player:
 
     def __init__(self, id_, money=100, init_stake=5):
         self.id = id_
@@ -75,34 +75,6 @@ class Player():
     def get_insurance(self):
         return self.insurance
 
-    def get_print_cards(self):
-        print(f"Player {self.id}:")
-        for hand in self.hands:
-            for card in hand.cards:
-                print(f"{card.get_symbol()} {card.get_suit()} ", end="")
-            print(" | ", end="")
-        print()
-
-    def get_print_money(self):
-        print(f"Player {self.id} has {self.money}")
-
-    def get_print_result(self):
-        print(f"Player {self.id} result is", end="")
-        for hand in self.hands:
-            print(f" {hand.get_result()}", end="")
-        print()
-
-    def get_print_status(self):
-        print(f"Player {self.id} has:")
-        print(f"money: {self.money} ")
-        print(f"stake: {self.basic_stake} ")
-        print(f"cards: ", end="")
-        for hand in self.hands:
-            for card in hand.cards:
-                print(f"{card.get_symbol()} {card.get_suit()} ", end="")
-            print(" | ", end="")
-        print()
-
     # GET
     def set_money(self, money: int):
         self.money = money
@@ -128,6 +100,19 @@ class Player():
     def set_insurance(self, insurance: bool):
         self.insurance = insurance
 
+    def get_is_pay(self):
+
+        if self.money > self.basic_stake:
+            return True
+        else:
+            return False
+
+    def pay_stake(self):
+
+        if self.get_is_pay():
+            self.add_money(-self.basic_stake)
+            return True
+        return False
 
 class Players:
 
@@ -171,25 +156,13 @@ class Players:
             self.in_.append(player)
 
     # Reset All Player
-    def reset_all(self):
-
-        self.set_stake()
-        result = self.pay_stake()
-        self.reset_double()
-        self.reset_fold()
-        self.reset_insurance()
-        self.reset_hands()
-        return result
-
-    # Reset Player
-    def reset_player(self, player):
+    def reset_players(self):
 
         self.set_stake()
         self.reset_double()
         self.reset_fold()
         self.reset_insurance()
         self.reset_hands()
-        return self.pay_player_stake(player)
 
     # Pay Stake
     def pay_stake(self):
@@ -202,14 +175,6 @@ class Players:
                 self.in_[num].add_money(-basic_stake)
         return result  # Have paid
 
-    def pay_player_stake(self, player):
-
-        result = self.is_player_pay_stake(player)
-        if result:
-            basic_stake = player.get_basic_stake()
-            player.add_money(-basic_stake)
-        return result  # Have paid
-
     # Able to Pay Stake
     def is_pay_stake(self):
 
@@ -220,13 +185,6 @@ class Players:
             else:
                 result.append(False)
         return result
-
-    def is_player_pay_stake(self, player):
-
-        if player.money > player.basic_stake:
-            return True
-        else:
-            return False
 
     # Reset Double
     def reset_double(self):

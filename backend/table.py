@@ -22,14 +22,14 @@ def find_player(game, id_):
 
 @table_blueprint.route("/table")
 def table():
-    game_end = current_app.config["game_end"]
-    game = current_app.config["blackjack_game"]
+    print('I got table')
+    game_end = current_app.config["END"]
+    game = current_app.config["GAME"]
     show_insurance = current_app.config["show_insurance"]
     is_check_blackjack = current_app.config["check_blackjack"]
-    current_player_id = current_app.config["current_player"]
+    current_player_id = current_app.config["CURRENT"]
     banker = game.get_banker_cards()
     players = game.get_players_in()
-
     if show_insurance:
         ask_insurance = show_insurance and game.get_is_insurance() and game.get_judge_insurance()
         return render_template('table.html', banker=banker, players=players, ask_insurance=ask_insurance,
@@ -47,10 +47,10 @@ def table():
 @table_blueprint.route("/table/insurance/<int:answer>")
 def insurance(answer):
     print('I got insurance')
-    game = current_app.config["blackjack_game"]
+    game = current_app.config["GAME"]
     current_app.config["show_insurance"] = False
     current_app.config["check_blackjack"] = False
-    current_player_id = current_app.config["current_player"]
+    current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
     if answer == 1:
         game.player_has_insurance(player)
@@ -62,20 +62,20 @@ def insurance(answer):
 @table_blueprint.route("/table/double")
 def double():
     print('I got double')
-    game = current_app.config["blackjack_game"]
-    current_player_id = current_app.config["current_player"]
+    game = current_app.config["GAME"]
+    current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
-    game.double_down_process(player)
-
+    if game.double_down_process(player):
+        return redirect(url_for('table.end'))
     # ToDo after double need to wait for other player finish
-    return redirect(url_for('table.end'))
+    return redirect(url_for('table.banker'))
 
 
 @table_blueprint.route("/table/split/<int:hand_id>")
 def split(hand_id):
     print('I got split')
-    game = current_app.config["blackjack_game"]
-    current_player_id = current_app.config["current_player"]
+    game = current_app.config["GAME"]
+    current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
     for hand in player.get_hands():
         if hand.id == hand_id:
@@ -86,8 +86,8 @@ def split(hand_id):
 @table_blueprint.route("/table/hit/<int:hand_id>")
 def hit(hand_id):
     print('I got hit')
-    game = current_app.config["blackjack_game"]
-    current_player_id = current_app.config["current_player"]
+    game = current_app.config["GAME"]
+    current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
     for hand in player.get_hands():
         if hand.id == hand_id:
@@ -100,14 +100,13 @@ def hit(hand_id):
 @table_blueprint.route("/table/stand/<int:hand_id>")
 def stand(hand_id):
     print('I got stand')
-    game = current_app.config["blackjack_game"]
-    current_player_id = current_app.config["current_player"]
+    game = current_app.config["GAME"]
+    current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
     for hand in player.get_hands():
         if hand.id == hand_id:
             game.set_hand_stand(hand)
-    game_end = game.get_is_player_end(player)
-    if game_end:
+    if game.get_is_player_end(player):
         return redirect(url_for('table.banker'))
     return redirect(url_for('table.table'))
 
@@ -115,7 +114,7 @@ def stand(hand_id):
 @table_blueprint.route("/table/banker")
 def banker():
     print("I got banker")
-    game = current_app.config["blackjack_game"]
+    game = current_app.config["GAME"]
     game.reveal_banker_card()
     game.deal_to_banker()
     if game.get_is_banker_bust():
@@ -128,26 +127,29 @@ def banker():
 @table_blueprint.route("/table/end")
 def end():
     print("I got end")
-    game = current_app.config["blackjack_game"]
-    current_player_id = current_app.config["current_player"]
+    game = current_app.config["GAME"]
+    current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
     # ToDo need to wait for other player finish
     game.give_money(player)
-    current_app.config["game_end"] = True
+    current_app.config["END"] = True
     return redirect(url_for('table.table'))
 
 
 @table_blueprint.route("/table/reset")
 def reset():
     print("I got reset")
-    game = current_app.config["blackjack_game"]
-    current_app.config["game_end"] = False
+    game = current_app.config["GAME"]
+    current_app.config["END"] = False
     current_app.config["show_insurance"] = True
     current_app.config["check_blackjack"] = True
+    current_player_id = current_app.config["CURRENT"]
+    player = find_player(game, current_player_id)
     game.reset()
+    game.pay_player_stake(player)
     game.deal_initial()
-    # game.banker = [Card(symbol='K', suit='spade', faced=False),
-    #                Card(symbol='A', suit='heart')]
-    # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', suit='spade'),
-    #                                                  Card(symbol='A', suit='heart')]
+    # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+    #                Card(symbol='A', suit='heart', value=11)]
+    game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+                                                     Card(symbol='A', value=11, suit='heart')]
     return redirect(url_for('table.table'))

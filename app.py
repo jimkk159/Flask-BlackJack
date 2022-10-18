@@ -12,6 +12,7 @@ from backend.setting import setting_blueprint
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_object('config')
 
     # BluePrint
     app.register_blueprint(card_blueprint)
@@ -20,15 +21,13 @@ def create_app():
     app.register_blueprint(setting_blueprint)
 
     # WTF Form
-    app.config['SECRET_KEY'] = "Jim's Secret key"
+    # app.config['SECRET_KEY'] = "Jim's Secret key"
     Bootstrap(app)
 
     # Initial the blackjack game
     game = Blackjack(0)
-    app.config["blackjack_game"] = game
-    app.config["player_ids"] = [0, 1]
-    game.set_players_by_id([0, 1])
-    app.config["current_player"] = 0
+    app.config["GAME"] = game
+    game.set_players_by_id(app.config["IDS"])
 
     @app.route("/")
     def home():

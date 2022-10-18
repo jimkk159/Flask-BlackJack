@@ -17,7 +17,7 @@
 <h2>{{ card.symbol }} {{ card.suit }}</h2>
 {% endfor %}
 <h2>-------------------------</h2>
-{% if player.id == config["current_player"]%}
+{% if player.id == config["CURRENT"] and not game_end %}
 {% if ask_insurance %}
 <h2>Want to buy an insurance?</h2>
 <a href="{{ url_for('table.insurance',player_id=player.id, answer=1) }}"><h2>Yes</h2></a>
@@ -31,9 +31,18 @@
 {% endif %}
 {% endfor %}
 {% endfor %}
-{% if game_end %}
+{% for player in players %}
+{% if player.id == config["CURRENT"] and game_end %}
 <h1>Game is End</h1>
+{% for hand in player.hands %}
+<h2>{{ hand.result }}</h2>
+{% endfor %}
+<a href="{{ url_for('table.reset') }}">
+    <button>Continue</button>
+</a>
 {% endif %}
+{% endfor %}
+
 <a href="{{ url_for('home') }}">
     <button>Leave</button>
 </a>
