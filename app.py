@@ -25,8 +25,10 @@ def create_app():
 
     # Initial the blackjack game
     game = Blackjack(0)
-    game.recreate_player()
     app.config["blackjack_game"] = game
+    app.config["player_ids"] = [0, 1]
+    game.set_players_by_id([0, 1])
+    app.config["current_player"] = 0
 
     @app.route("/")
     def home():

@@ -1,6 +1,8 @@
 from flask import Blueprint
+from flask_login import UserMixin
 
 player_blueprint = Blueprint('player', __name__)
+
 
 class Hand:
 
@@ -32,7 +34,8 @@ class Hand:
     def set_charlie(self, charlie):
         self._5_card_charlie = charlie
 
-class Player:
+
+class Player():
 
     def __init__(self, id_, money=100, init_stake=5):
         self.id = id_
@@ -128,10 +131,9 @@ class Player:
 
 class Players:
 
-    def __init__(self, player_num):
-        self.player_num = player_num
-        self.in_ = self.create(self.player_num)
-        self.out = []
+    def __init__(self):
+        self.player_num = None
+        self.in_ = None
 
     # GET
     # Get All Players Hands
@@ -146,30 +148,31 @@ class Players:
     def get_players_in(self):
         return self.in_
 
-    # Get All Players outside table
-    def get_players_out(self):
-        return self.out
-
     # SET
     # Set stake
     def set_stake(self):
-
         for player in self.in_:
             basic_stake = player.get_basic_stake()
             player.set_total_stake(basic_stake)
 
-    # Create Player
+    # Create Players
     def create(self, player_num):
-        in_game = []
+        self.in_ = []
+        self.player_num = player_num
         for id_ in range(player_num):
             player = Player(id_=id_)
-            in_game.append(player)
-        return in_game
+            self.in_.append(player)
+
+    def create_by_id(self, ids: list):
+        self.in_ = []
+        self.player_num = len(ids)
+        for id_ in ids:
+            player = Player(id_=id_)
+            self.in_.append(player)
 
     # Reset All Player
     def reset_all(self):
 
-        self.enter()
         self.set_stake()
         result = self.pay_stake()
         self.reset_double()
@@ -181,20 +184,12 @@ class Players:
     # Reset Player
     def reset_player(self, player):
 
-        self.enter()
         self.set_stake()
         self.reset_double()
         self.reset_fold()
         self.reset_insurance()
         self.reset_hands()
         return self.pay_player_stake(player)
-
-    # Enter table
-    def enter(self):
-
-        while self.out:
-            self.in_.append(self.out.pop())
-        self.in_.sort(key=lambda x: x.id)
 
     # Pay Stake
     def pay_stake(self):
@@ -257,59 +252,3 @@ class Players:
         # Reset Player
         for player in self.in_:
             player.hands = [Hand(0)]
-
-    # People who win or lose
-    def eliminate(self):
-
-        out_game = []
-        for player in self.in_:
-            if not any(map(lambda x: x.result == "", player.get_hands())):
-                out_game.append(player.id)
-
-        while out_game:
-            out_player_id = out_game.pop()
-            pick_id = 0
-            for num in range(len(self.in_)):
-                if self.in_[num].id == out_player_id:
-                    pick_id = num
-                    break
-            out_game_player = self.in_.pop(pick_id)
-            self.out.append(out_game_player)
-
-    # Player win or lose
-    def eliminate_player(self, player):
-
-        if not any(map(lambda x: x.result == "", player.get_hands())):
-
-            pick_id = 0
-            for num in range(len(self.in_)):
-                if self.in_[num].id == player.id:
-                    pick_id = num
-                    break
-            out_game_player = self.in_.pop(pick_id)
-            self.out.append(out_game_player)
-
-    # Print Players Cards
-    def print_all_cards(self):
-
-        for player in self.in_:
-            player.get_print_cards()
-
-    # Print Players Moneys
-    def print_all_money(self):
-
-        for player in self.in_:
-            player.get_print_money()
-
-    # Print Players Status
-    def print_all_status(self, choice="in"):
-
-        array = self.in_ if choice == "in" else self.out
-        for player in array:
-            player.get_print_status()
-
-    # Print Players Result
-    def print_all_result(self):
-
-        for player in self.out:
-            player.get_print_result()

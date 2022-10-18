@@ -17,6 +17,7 @@
 <h2>{{ card.symbol }} {{ card.suit }}</h2>
 {% endfor %}
 <h2>-------------------------</h2>
+{% if player.id == config["current_player"]%}
 {% if ask_insurance %}
 <h2>Want to buy an insurance?</h2>
 <a href="{{ url_for('table.insurance',player_id=player.id, answer=1) }}"><h2>Yes</h2></a>
@@ -26,6 +27,7 @@
 <a href="{{ url_for('table.split',player_id=player.id,hand_id=hand.id) }}"><h2>Split</h2></a>
 <a href="{{ url_for('table.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
 <a href="{{ url_for('table.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endfor %}

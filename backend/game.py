@@ -184,10 +184,6 @@ class Blackjack:
     def set_hand_stand(self, hand):
         hand.set_result("stand")
 
-    # Eliminate players
-    def set_players_eliminate(self):
-        self.get_players().eliminate()
-
     # Set card value
     def set_blackjack_value(self, deck):
         poker_value_dict = {"K": 10, "Q": 10, "J": 10, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
@@ -269,9 +265,13 @@ class Blackjack:
 
         return result
 
-    def recreate_player(self):
-        self.players = Players(self.player_num)
+    def set_players(self):
+        self.players = Players()
+        self.players.create(self.player_num)
 
+    def set_players_by_id(self, ids: list[int]):
+        self.players = Players()
+        self.players.create_by_id(ids)
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):
@@ -287,7 +287,6 @@ class Blackjack:
 
         # To banker
         self.deal(self.banker)
-
 
     def deal_initial(self):
 
