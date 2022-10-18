@@ -78,6 +78,12 @@ class Blackjack:
     def get_is_double(self):
         return self.is_double
 
+    def get_able_double(self, player):
+        return player.get_able_double()
+
+    def get_able_split(self, hand):
+        return hand.get_able_split()
+
     def get_blackjack_ratio(self):
         return self.blackjack_ratio
 
@@ -342,15 +348,18 @@ class Blackjack:
     # Split
     def split(self, hands, hand):
 
+        is_ace_pair = hand.get_is_ace_pair()
+
         # Separate the card
         split_card = hand.get_cards().pop()
-        hand.set_is_ace_split(True)
 
         # Create New Hand
         split_hand_id = len(hands)
         split_hand = Hand(split_hand_id)
         split_hand.get_cards().append(split_card)
-        split_hand.set_is_ace_split(True)
+        if is_ace_pair:
+            hand.set_is_ace_split(True)
+            split_hand.set_is_ace_split(True)
 
         # Assign the hand to player
         hands.append(split_hand)

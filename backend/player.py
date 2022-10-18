@@ -19,11 +19,19 @@ class Hand:
     def get_is_ace_split(self):
         return self.is_ace_split
 
+    def get_is_ace_pair(self):
+        if len(self.cards) == 2 and self.cards[0].get_symbol() == 'A' and self.cards[1].get_symbol() == 'A':
+            return True
+        return False
+
     def get_is_charlie(self):
         return self._5_card_charlie
 
     def get_result(self):
         return self.result
+
+    def get_able_split(self):
+        return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
 
     def set_is_ace_split(self, is_ace_split: bool):
         self.is_ace_split = is_ace_split
@@ -75,7 +83,10 @@ class Player:
     def get_insurance(self):
         return self.insurance
 
-    # GET
+    def get_able_double(self):
+        return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2
+
+    # SET
     def set_money(self, money: int):
         self.money = money
 

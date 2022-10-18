@@ -150,6 +150,6 @@ def reset():
     game.deal_initial()
     # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                Card(symbol='A', suit='heart', value=11)]
-    game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                     Card(symbol='A', value=11, suit='heart')]
+    # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                                  Card(symbol='A', value=11, suit='heart')]
     return redirect(url_for('table.table'))

@@ -23,8 +23,12 @@
 <a href="{{ url_for('table.insurance',player_id=player.id, answer=1) }}"><h2>Yes</h2></a>
 <a href="{{ url_for('table.insurance',player_id=player.id, answer=0) }}"><h2>No</h2></a>
 {% else %}
+{% if player.get_able_double() %}
 <a href="{{ url_for('table.double',player_id=player.id) }}"><h2>Double</h2></a>
+{% endif %}
+{% if hand.get_able_split() %}
 <a href="{{ url_for('table.split',player_id=player.id,hand_id=hand.id) }}"><h2>Split</h2></a>
+{% endif %}
 <a href="{{ url_for('table.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
 <a href="{{ url_for('table.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
 {% endif %}
