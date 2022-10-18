@@ -4,8 +4,8 @@ from flask import Blueprint
 
 suits = ["spade", "heart", "diamond", "club"]
 poker_symbol = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
-poker_value_dict = {"K": 10, "Q": 10, "J": 10, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
-                    "4": 4, "3": 3, "2": 2, "A": 11}
+poker_value_dict = {"K": 13, "Q": 12, "J": 11, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
+                    "4": 4, "3": 3, "2": 2, "A": 1}
 
 card_blueprint = Blueprint('card', __name__)
 
@@ -55,12 +55,6 @@ class Deck:
 
     def get_deck(self):
         return self.deck
-
-    def get_cards_enough(self):
-
-        if len(self.deck) <= self.deck_num * 52 / 2:
-            return True
-        return False
 
     def get_new_deck(self):
         return [Card(symbol, suit) for symbol in poker_symbol for suit in suits]

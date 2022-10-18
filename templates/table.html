@@ -18,7 +18,7 @@
 {% endfor %}
 <h2>-------------------------</h2>
 {% if ask_insurance %}
-<h2>Want to buy a insurance?</h2>
+<h2>Want to buy an insurance?</h2>
 <a href="{{ url_for('table.insurance',player_id=player.id, answer=1) }}"><h2>Yes</h2></a>
 <a href="{{ url_for('table.insurance',player_id=player.id, answer=0) }}"><h2>No</h2></a>
 {% else %}

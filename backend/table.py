@@ -16,15 +16,24 @@ def check_blackjack(game, player):
 
 @table_blueprint.route("/table")
 def table():
+    game_end = current_app.config["game_end"]
     game = current_app.config["blackjack_game"]
     show_insurance = current_app.config["show_insurance"]
-
+    is_check_blackjack = current_app.config["check_blackjack"]
     banker = game.get_banker_cards()
     players = game.get_players_in()
 
-    ask_insurance = show_insurance and game.get_is_insurance() and game.get_judge_insurance()
-    return render_template('table.html', banker=banker, players=players, ask_insurance=ask_insurance,
-                           game_end=current_app.config["game_end"]), 200
+    if show_insurance:
+        ask_insurance = show_insurance and game.get_is_insurance() and game.get_judge_insurance()
+        return render_template('table.html', banker=banker, players=players, ask_insurance=ask_insurance,
+                               game_end=game_end), 200
+    else:
+        if is_check_blackjack:
+            current_app.config["check_blackjack"] = False
+            if check_blackjack(game, player):
+                return redirect(url_for('table.end'))
+        return render_template('table.html', banker=banker, players=players, ask_insurance=False,
+                               game_end=game_end), 200
 
 
 @table_blueprint.route("/table/insurance/<int:player_id>/<int:answer>")
@@ -32,14 +41,13 @@ def insurance(player_id, answer):
     print('I got insurance')
     game = current_app.config["blackjack_game"]
     current_app.config["show_insurance"] = False
+    current_app.config["check_blackjack"] = False
     for player in game.players.in_:
         if player.id == player_id:
             if answer == 1:
                 game.player_has_insurance(player)
-            # ToDo Not insurance still need to check blackjack
             if check_blackjack(game, player):
                 return redirect(url_for('table.end'))
-
     return redirect(url_for('table.table'))
 
 
@@ -113,7 +121,8 @@ def banker():
 def end():
     print("I got end")
     game = current_app.config["blackjack_game"]
-    game.give_money_all()
+    # ToDo need to wait for other player finish
+    game.give_money(player)
     current_app.config["game_end"] = True
     return redirect(url_for('table.table'))
 
@@ -124,10 +133,11 @@ def reset():
     game = current_app.config["blackjack_game"]
     current_app.config["game_end"] = False
     current_app.config["show_insurance"] = True
+    current_app.config["check_blackjack"] = True
     game.reset()
     game.deal_initial()
     # game.banker = [Card(symbol='K', suit='spade', faced=False),
     #                Card(symbol='A', suit='heart')]
-    game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', suit='spade'),
-                                                     Card(symbol='A', suit='heart')]
+    # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', suit='spade'),
+    #                                                  Card(symbol='A', suit='heart')]
     return redirect(url_for('table.table'))

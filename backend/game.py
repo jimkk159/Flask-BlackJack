@@ -20,6 +20,7 @@ class Blackjack:
         self.deck_num = 4
         self.deck = Deck(self.deck_num)
         self.deck.shuffle()
+        self.set_blackjack_value(Deck(self.deck_num))
 
         # Setting Player
         self.player_num = 2
@@ -33,8 +34,14 @@ class Blackjack:
         self.leave_man = 0
 
     # GET
+    def get_deck(self):
+        return self.deck
+
     def get_deck_num(self):
         return self.deck_num
+
+    def get_deck_cards(self):
+        return self.get_deck().deck
 
     def get_player_num(self):
         return self.player_num
@@ -181,6 +188,15 @@ class Blackjack:
     def set_players_eliminate(self):
         self.get_players().eliminate()
 
+    # Set card value
+    def set_blackjack_value(self, deck):
+        poker_value_dict = {"K": 10, "Q": 10, "J": 10, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
+                            "4": 4, "3": 3, "2": 2, "A": 11}
+
+        for card in deck.get_deck():
+            symbol = card.get_symbol()
+            card.set_value(poker_value_dict[symbol])
+
     def player_has_insurance(self, player):
 
         player.set_insurance(True)
@@ -230,10 +246,16 @@ class Blackjack:
             return all([(True if hand.get_result() != "" else False) for hand in hands])
         return False
 
+    def get_cards_enough(self):
+
+        if len(self.get_deck_cards()) <= self.deck_num * 52 / 2:
+            return True
+        return False
+
     # Game Setting
     def reset(self):
 
-        if self.deck.get_cards_enough():
+        if self.get_cards_enough():
             self.deck.reset_deck()
 
         # Reset Player
@@ -250,9 +272,10 @@ class Blackjack:
     def recreate_player(self):
         self.players = Players(self.player_num)
 
+
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):
-        card_ = self.deck.get_deck().pop()
+        card_ = self.get_deck_cards().pop()
         card_.faced = faced
         cards_in_hand.append(card_)
 
@@ -417,7 +440,7 @@ class Blackjack:
         if player.get_fold():
             player.add_money(floor(player.get_basic_stake() / 2))
 
-        if self.get_hand_sum_switch_ace(self.banker) == 21 and player.get_insurance():
+        if self.get_is_banker_blackjack() and self.get_player_insurance(player):
             player.add_money(2 * floor(player.get_basic_stake() / 2))
 
     def give_money_all(self):
