@@ -19,6 +19,11 @@ def find_player(game, id_):
         if player.id == id_:
             return player
 
+# find hand
+def find_hand(player, id_):
+    for hand in player.get_hands():
+        if str(hand.id) == id_:
+            return hand
 
 @table_blueprint.route("/table")
 def table():
@@ -69,28 +74,25 @@ def double():
     return redirect(url_for('table.banker'))
 
 
-@table_blueprint.route("/table/split/<int:hand_id>")
+@table_blueprint.route("/table/split/<string:hand_id>")
 def split(hand_id):
     print('I got split')
     game = current_app.config["GAME"]
     current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
-    for hand in player.get_hands():
-        if hand.id == hand_id:
-            game.split_process(player, hand)
+    hand = find_hand(player, hand_id)
+    game.split_process(player, hand)
     return redirect(url_for('table.table'))
 
 
-@table_blueprint.route("/table/hit/<int:hand_id>")
+@table_blueprint.route("/table/hit/<string:hand_id>")
 def hit(hand_id):
     print('I got hit')
     game = current_app.config["GAME"]
     current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
-    for hand in player.get_hands():
-        if hand.id == hand_id:
-            game.hit_process(hand)
-
+    hand = find_hand(player, hand_id)
+    game.hit_process(hand)
     if game.get_is_player_end(player):
         return redirect(url_for('table.end'))
 
@@ -100,15 +102,14 @@ def hit(hand_id):
     return redirect(url_for('table.table'))
 
 
-@table_blueprint.route("/table/stand/<int:hand_id>")
+@table_blueprint.route("/table/stand/<string:hand_id>")
 def stand(hand_id):
     print('I got stand')
     game = current_app.config["GAME"]
     current_player_id = current_app.config["CURRENT"]
     player = find_player(game, current_player_id)
-    for hand in player.get_hands():
-        if hand.id == hand_id:
-            game.stand_process(hand)
+    hand = find_hand(player, hand_id)
+    game.stand_process(hand)
     if game.get_is_player_finish(player):
         return redirect(url_for('table.banker'))
     return redirect(url_for('table.table'))

@@ -1,3 +1,4 @@
+import uuid
 from math import floor
 from backend.player import Hand, Players
 from backend.card import Deck
@@ -5,9 +6,9 @@ from backend.card import Deck
 
 class Blackjack:
 
-    def __init__(self, id_):
+    def __init__(self, id_=None):
 
-        self.id = id_
+        self.id = id_ if id_ else uuid.uuid1()
         self.game_end = False
 
         # Setting Rule
@@ -366,14 +367,12 @@ class Blackjack:
     def split(self, hands, hand):
 
         is_ace_pair = hand.get_is_ace_pair()
-
         # Separate the card
         split_card = hand.get_cards().pop()
         hand.set_is_hit(True)
 
         # Create New Hand
-        split_hand_id = len(hands)
-        split_hand = Hand(split_hand_id)
+        split_hand = Hand()
         split_hand.get_cards().append(split_card)
         if is_ace_pair:
             hand.set_is_ace_split(True)

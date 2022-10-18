@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint
 from flask_login import UserMixin
 
@@ -6,8 +7,8 @@ player_blueprint = Blueprint('player', __name__)
 
 class Hand:
 
-    def __init__(self, id_):
-        self.id = id_
+    def __init__(self):
+        self.id = uuid.uuid1()
         self.cards = []
         self.is_hit = True
         self.is_ace_split = False
@@ -62,8 +63,8 @@ class Hand:
 
 class Player:
 
-    def __init__(self, id_, money=100, init_stake=5):
-        self.id = id_
+    def __init__(self, id_=None, money=100, init_stake=5):
+        self.id = id_ if id_ else uuid.uuid1()
         self.money = money
         self.basic_stake = init_stake
         self.total_stake = init_stake
@@ -142,9 +143,11 @@ class Player:
             return True
         return False
 
+
 class Players:
 
     def __init__(self):
+        self.id = uuid.uuid1()
         self.player_num = None
         self.in_ = None
 
@@ -172,15 +175,15 @@ class Players:
     def create(self, player_num):
         self.in_ = []
         self.player_num = player_num
-        for id_ in range(player_num):
-            player = Player(id_=id_)
+        for _ in range(player_num):
+            player = Player()
             self.in_.append(player)
 
     def create_by_id(self, ids: list):
         self.in_ = []
         self.player_num = len(ids)
         for id_ in ids:
-            player = Player(id_=id_)
+            player = Player(id_)
             self.in_.append(player)
 
     # Reset All Player
@@ -237,4 +240,4 @@ class Players:
 
         # Reset Player
         for player in self.in_:
-            player.hands = [Hand(0)]
+            player.hands = [Hand()]

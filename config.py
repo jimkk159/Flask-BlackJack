@@ -1,5 +1,5 @@
 GAME = None
 SECRET_KEY = "Jim's Secret key"
-IDS = [0, 1]
-CURRENT = 0
+IDS = [1, 2]
+CURRENT = 1
 END = False

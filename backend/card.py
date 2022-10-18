@@ -13,7 +13,7 @@ card_blueprint = Blueprint('card', __name__)
 class Card:
 
     def __init__(self, symbol, suit, value=None, faced=True):
-        # self.id = id_
+        self.id = uuid.uuid1()
         self.symbol = symbol
         self.suit = suit
         self.value = value if value else poker_value_dict[symbol]
@@ -43,6 +43,7 @@ class Card:
 class Deck:
 
     def __init__(self, deck_num):
+        self.id = uuid.uuid1()
         self.deck_num = deck_num
         self.deck = self.get_multi_new_deck(self.deck_num)
 
