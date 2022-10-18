@@ -10,7 +10,7 @@ setting_blueprint = Blueprint('setting', __name__)
 @setting_blueprint.route('/setting', methods=['GET', 'POST'])
 def setting():
     setting_form = SettingForm()
-    game = current_app.config["blackjack_game"]
+    game = current_app.config["GAME"]
 
     if setting_form.validate_on_submit():
 

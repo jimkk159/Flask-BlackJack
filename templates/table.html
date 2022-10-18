@@ -26,11 +26,15 @@
 {% if player.get_able_double() %}
 <a href="{{ url_for('table.double',player_id=player.id) }}"><h2>Double</h2></a>
 {% endif %}
-{% if hand.get_able_split() %}
+{% if hand.get_able_split() and not hand.get_is_finish()%}
 <a href="{{ url_for('table.split',player_id=player.id,hand_id=hand.id) }}"><h2>Split</h2></a>
 {% endif %}
+{% if hand.get_is_hit() %}
 <a href="{{ url_for('table.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
+{% endif %}
+{% if not hand.get_is_finish() %}
 <a href="{{ url_for('table.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endfor %}

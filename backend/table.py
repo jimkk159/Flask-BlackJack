@@ -30,18 +30,16 @@ def table():
     current_player_id = current_app.config["CURRENT"]
     banker = game.get_banker_cards()
     players = game.get_players_in()
-    if show_insurance:
-        ask_insurance = show_insurance and game.get_is_insurance() and game.get_judge_insurance()
-        return render_template('table.html', banker=banker, players=players, ask_insurance=ask_insurance,
+    if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
+        return render_template('table.html', banker=banker, players=players, ask_insurance=True,
                                game_end=game_end), 200
-    else:
-        if is_check_blackjack:
-            current_app.config["check_blackjack"] = False
-            player = find_player(game, current_player_id)
-            if check_blackjack(game, player):
-                return redirect(url_for('table.end'))
-        return render_template('table.html', banker=banker, players=players, ask_insurance=False,
-                               game_end=game_end), 200
+    if is_check_blackjack:
+        current_app.config["check_blackjack"] = False
+        player = find_player(game, current_player_id)
+        if check_blackjack(game, player):
+            return redirect(url_for('table.end'))
+    return render_template('table.html', banker=banker, players=players, ask_insurance=False,
+                           game_end=game_end), 200
 
 
 @table_blueprint.route("/table/insurance/<int:answer>")
@@ -92,8 +90,13 @@ def hit(hand_id):
     for hand in player.get_hands():
         if hand.id == hand_id:
             game.hit_process(hand)
+
     if game.get_is_player_end(player):
         return redirect(url_for('table.end'))
+
+    if game.get_is_player_finish(player):
+        return redirect(url_for('table.banker'))
+
     return redirect(url_for('table.table'))
 
 
@@ -105,8 +108,8 @@ def stand(hand_id):
     player = find_player(game, current_player_id)
     for hand in player.get_hands():
         if hand.id == hand_id:
-            game.set_hand_stand(hand)
-    if game.get_is_player_end(player):
+            game.stand_process(hand)
+    if game.get_is_player_finish(player):
         return redirect(url_for('table.banker'))
     return redirect(url_for('table.table'))
 
@@ -150,6 +153,6 @@ def reset():
     game.deal_initial()
     # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                Card(symbol='A', suit='heart', value=11)]
-    # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                                  Card(symbol='A', value=11, suit='heart')]
+    game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+                                                     Card(symbol='A', value=11, suit='heart')]
     return redirect(url_for('table.table'))

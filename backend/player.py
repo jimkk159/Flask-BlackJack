@@ -9,15 +9,26 @@ class Hand:
     def __init__(self, id_):
         self.id = id_
         self.cards = []
+        self.is_hit = True
         self.is_ace_split = False
+        self.is_finish = False
         self._5_card_charlie = False
         self.result = ""
 
     def get_cards(self):
         return self.cards
 
+    def get_cards_num(self):
+        return len(self.cards)
+
+    def get_is_hit(self):
+        return self.is_hit
+
     def get_is_ace_split(self):
         return self.is_ace_split
+
+    def get_is_finish(self):
+        return self.is_finish
 
     def get_is_ace_pair(self):
         if len(self.cards) == 2 and self.cards[0].get_symbol() == 'A' and self.cards[1].get_symbol() == 'A':
@@ -33,8 +44,14 @@ class Hand:
     def get_able_split(self):
         return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
 
+    def set_is_hit(self, is_hit: bool):
+        self.is_hit = is_hit
+
     def set_is_ace_split(self, is_ace_split: bool):
         self.is_ace_split = is_ace_split
+
+    def set_is_finish(self, is_finish: bool):
+        self.is_finish = is_finish
 
     def set_result(self, result):
         self.result = result
