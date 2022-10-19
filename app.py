@@ -2,6 +2,7 @@ import random
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask import Flask, render_template
+from flask_socketio import SocketIO
 
 # self module
 from backend.extension import db
@@ -12,6 +13,7 @@ from backend.player import player_blueprint
 from backend.setting import setting_blueprint
 from backend.user import user_blueprint
 from SQL.SQL_management import setup_db, db_drop_and_create, User
+
 
 
 def create_app():
@@ -56,7 +58,15 @@ def create_app():
     return app
 
 
+def create_socket(app):
+    # Internet Socket
+    socketio = SocketIO(app)
+    return socketio
+
+
 app = create_app()
+socketio = create_socket(app)
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
