@@ -1,4 +1,5 @@
 import random
+from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask import Flask, render_template
 
@@ -32,10 +33,18 @@ def create_app():
     with app.app_context():
         db_drop_and_create()
 
+    # Login
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
     # Initial the blackjack game
     game = Blackjack(0)
     app.config["GAME"] = game
     game.set_players_by_id(app.config["IDS"])
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
 
     @app.route("/")
     def home():
