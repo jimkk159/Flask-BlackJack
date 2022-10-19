@@ -35,6 +35,9 @@
 {% if not hand.get_is_finish() %}
 <a href="{{ url_for('table.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
 {% endif %}
+{% if player.get_able_fold() %}
+<a href="{{ url_for('table.fold',player_id=player.id) }}"><h2>Fold</h2></a>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endfor %}

@@ -104,6 +104,9 @@ class Player:
     def get_able_double(self):
         return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2
 
+    def get_able_fold(self):
+        return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2
+
     # find hand
     def get_hand_by_id(self, id_):
         for hand in self.get_hands():

@@ -82,6 +82,9 @@ class Blackjack:
     def get_able_split(self, hand):
         return hand.get_able_split()
 
+    def get_able_fold(self, player):
+        return player.get_able_fold()
+
     def get_blackjack_ratio(self):
         return self.blackjack_ratio
 
@@ -191,6 +194,19 @@ class Blackjack:
         hand.set_is_hit(False)
         hand.set_is_finish(True)
         self.set_hand_stand(hand)
+
+    # Set Player Fold
+    def set_hand_fold(self, hand):
+        hand.set_result("fold")
+
+    def fold_process(self, player):
+        if player.get_able_fold():
+            player.set_fold(True)
+            hand = player.get_hands()[0]
+            hand.set_is_finish(True)
+            self.set_hand_fold(hand)
+            return True
+        return False
 
     # Set card value
     def set_blackjack_value(self, deck):
@@ -328,10 +344,7 @@ class Blackjack:
             player.add_money(-floor(player.get_basic_stake() / 2))
             player.set_insurance(True)
 
-    def fold(self, player):
 
-        player.set_fold(True)
-        player.get_hands()[0].set_result("fold")
 
     # Double Down
     def double_down(self, player):

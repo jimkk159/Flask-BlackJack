@@ -97,6 +97,13 @@ def stand(hand_id):
         return redirect(url_for('table.banker'))
     return redirect(url_for('table.table'))
 
+@table_blueprint.route("/table/fold")
+def fold():
+    print('I got fold')
+    game = current_app.config["GAME"]
+    player = game.get_player_by_id(current_user.id)
+    game.fold_process(player)
+    return redirect(url_for('table.end'))
 
 @table_blueprint.route("/table/banker")
 def banker():
