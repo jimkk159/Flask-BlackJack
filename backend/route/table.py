@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, current_app, redirect, url_for
 from flask_login import current_user
 
 # self import
-from backend.card import Card
 
 table_blueprint = Blueprint('table', __name__)
 

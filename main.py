@@ -1,5 +1,5 @@
 from app import app
-from backend.socket import *
+from backend.socket.socket import *
 
 if __name__ == '__main__':
     app.debug = True

@@ -1,16 +1,14 @@
-import random
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 
 # self module
-from backend.extension import db
-from backend.game import Blackjack
-from backend.table import table_blueprint
-from backend.card import card_blueprint
-from backend.player import player_blueprint
-from backend.setting import setting_blueprint
+from backend.game_component.game import Blackjack
+from backend.route.table import table_blueprint
+from backend.game_component.card import card_blueprint
+from backend.game_component.player import player_blueprint
+from backend.route.setting import setting_blueprint
 from backend.user import user_blueprint
 from SQL.SQL_management import setup_db, db_drop_and_create, User
 

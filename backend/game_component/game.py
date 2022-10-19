@@ -1,7 +1,7 @@
 import uuid
 from math import floor
-from backend.player import Hand, Table
-from backend.card import Deck
+from backend.game_component.player import Hand, Table
+from backend.game_component.card import Deck
 
 
 class Blackjack:
