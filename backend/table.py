@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, current_app, redirect, url_for
+from flask_login import current_user
 
 # self import
 from backend.card import Card
@@ -13,20 +14,6 @@ def check_blackjack(game, player):
     return game.check_player_blackjack(player)
 
 
-# find player
-def find_player(game, id_):
-    for player in game.players.in_:
-        if player.id == id_:
-            return player
-
-
-# find hand
-def find_hand(player, id_):
-    for hand in player.get_hands():
-        if str(hand.id) == id_:
-            return hand
-
-
 @table_blueprint.route("/table")
 def table():
     print('I got table')
@@ -34,7 +21,6 @@ def table():
     game = current_app.config["GAME"]
     show_insurance = current_app.config["show_insurance"]
     is_check_blackjack = current_app.config["check_blackjack"]
-    current_player_id = current_app.config["CURRENT"]
     banker = game.get_banker_cards()
     players = game.get_players_in()
     if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
@@ -42,7 +28,7 @@ def table():
                                game_end=game_end), 200
     if is_check_blackjack:
         current_app.config["check_blackjack"] = False
-        player = find_player(game, current_player_id)
+        player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
             return redirect(url_for('table.end'))
     return render_template('table.html', banker=banker, players=players, ask_insurance=False,
@@ -55,8 +41,7 @@ def insurance(answer):
     game = current_app.config["GAME"]
     current_app.config["show_insurance"] = False
     current_app.config["check_blackjack"] = False
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
+    player = game.get_player_by_id(current_user.id)
     if answer == 1:
         game.player_has_insurance(player)
     if check_blackjack(game, player):
@@ -68,8 +53,7 @@ def insurance(answer):
 def double():
     print('I got double')
     game = current_app.config["GAME"]
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
+    player = game.get_player_by_id(current_user.id)
     if game.double_down_process(player):
         return redirect(url_for('table.end'))
     # ToDo after double need to wait for other player finish
@@ -80,9 +64,8 @@ def double():
 def split(hand_id):
     print('I got split')
     game = current_app.config["GAME"]
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
-    hand = find_hand(player, hand_id)
+    player = game.get_player_by_id(current_user.id)
+    hand = player.get_hand_by_id(hand_id)
     game.split_process(player, hand)
     return redirect(url_for('table.table'))
 
@@ -91,9 +74,8 @@ def split(hand_id):
 def hit(hand_id):
     print('I got hit')
     game = current_app.config["GAME"]
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
-    hand = find_hand(player, hand_id)
+    player = game.get_player_by_id(current_user.id)
+    hand = player.get_hand_by_id(hand_id)
     game.hit_process(hand)
     if game.get_is_player_end(player):
         return redirect(url_for('table.end'))
@@ -108,9 +90,8 @@ def hit(hand_id):
 def stand(hand_id):
     print('I got stand')
     game = current_app.config["GAME"]
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
-    hand = find_hand(player, hand_id)
+    player = game.get_player_by_id(current_user.id)
+    hand = player.get_hand_by_id(hand_id)
     game.stand_process(hand)
     if game.get_is_player_finish(player):
         return redirect(url_for('table.banker'))
@@ -134,8 +115,7 @@ def banker():
 def end():
     print("I got end")
     game = current_app.config["GAME"]
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
+    player = game.get_player_by_id(current_user.id)
     # ToDo need to wait for other player finish
     game.give_money(player)
     current_app.config["END"] = True
@@ -149,13 +129,13 @@ def reset():
     current_app.config["END"] = False
     current_app.config["show_insurance"] = True
     current_app.config["check_blackjack"] = True
-    current_player_id = current_app.config["CURRENT"]
-    player = find_player(game, current_player_id)
+    game.enter_table(current_user.id)
+    player = game.get_player_by_id(current_user.id)
     game.reset()
     game.pay_player_stake(player)
     game.deal_initial()
     # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                Card(symbol='A', suit='heart', value=11)]
-    game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                     Card(symbol='A', value=11, suit='heart')]
+    # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                                  Card(symbol='A', value=11, suit='heart')]
     return redirect(url_for('table.table'))

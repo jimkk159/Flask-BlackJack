@@ -104,6 +104,12 @@ class Player:
     def get_able_double(self):
         return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2
 
+    # find hand
+    def get_hand_by_id(self, id_):
+        for hand in self.get_hands():
+            if str(hand.id) == id_:
+                return hand
+
     # SET
     def set_money(self, money: int):
         self.money = money
@@ -144,12 +150,12 @@ class Player:
         return False
 
 
-class Players:
+class Table:
 
     def __init__(self):
         self.id = uuid.uuid1()
-        self.player_num = None
-        self.in_ = None
+        self.player_num = 0
+        self.in_ = []
 
     # GET
     # Get All Players Hands
@@ -164,12 +170,34 @@ class Players:
     def get_players_in(self):
         return self.in_
 
+    def get_is_player_id(self, id_):
+        for player in self.in_:
+            if player.id == id_:
+                return True
+        return False
+
+    def get_player_by_id(self, id_):
+        for player in self.in_:
+            if player.id == id_:
+                return player
+
     # SET
     # Set stake
     def set_stake(self):
         for player in self.in_:
             basic_stake = player.get_basic_stake()
             player.set_total_stake(basic_stake)
+
+    # Refresh
+    def refresh(self):
+        self.in_ = []
+        self.player_num = 0
+
+    # Append
+    def append_by_id(self, id_):
+        player = Player(id_)
+        self.in_.append(player)
+        self.player_num = len(self.in_)
 
     # Create Players
     def create(self, player_num):

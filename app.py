@@ -40,7 +40,6 @@ def create_app():
     # Initial the blackjack game
     game = Blackjack(0)
     app.config["GAME"] = game
-    game.set_players_by_id(app.config["IDS"])
 
     @login_manager.user_loader
     def load_user(user_id):

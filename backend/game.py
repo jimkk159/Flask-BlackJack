@@ -1,6 +1,6 @@
 import uuid
 from math import floor
-from backend.player import Hand, Players
+from backend.player import Hand, Table
 from backend.card import Deck
 
 
@@ -25,14 +25,11 @@ class Blackjack:
 
         # Setting Player
         self.player_num = 2
-        self.players = None
+        self.players = Table()
 
         # Setting Banker
         self.banker = []
         self.min_bet = 5
-
-        # Leave game player
-        self.leave_man = 0
 
     # GET
     def get_deck(self):
@@ -266,6 +263,11 @@ class Blackjack:
             return True
         return False
 
+    def get_player_by_id(self, id_):
+        for player in self.get_players_in():
+            if player.get_id() == id_:
+                return player
+
     # Game Setting
     def reset(self):
 
@@ -278,19 +280,18 @@ class Blackjack:
         # Reset Banker Cards
         self.banker = []
 
-        # Nobody leave
-        self.leave_man = 0
-
     def pay_player_stake(self, player):
         return player.pay_stake()
 
     def set_players(self):
-        self.players = Players()
         self.players.create(self.player_num)
 
-    def set_players_by_id(self, ids: list[int]):
-        self.players = Players()
+    def set_players_by_ids(self, ids: list[int]):
         self.players.create_by_id(ids)
+
+    def enter_table(self, id_):
+        if not self.players.get_is_player_id(id_):
+            self.players.append_by_id(id_)
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):
@@ -467,10 +468,3 @@ class Blackjack:
 
         if self.get_is_banker_blackjack() and self.get_player_insurance(player):
             player.add_money(2 * floor(player.get_basic_stake() / 2))
-
-    def give_money_all(self):
-
-        leaving_player = len(self.players.get_players_out())
-        while self.leave_man != leaving_player:
-            self.give_money(self.players.get_players_out()[self.leave_man])
-            self.leave_man += 1
