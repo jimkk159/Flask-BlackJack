@@ -1,3 +1,4 @@
+import uuid
 from flask_login import UserMixin
 
 # self import
@@ -16,5 +17,6 @@ def db_drop_and_create():
 
 class User(UserMixin, db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Text, primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(50), nullable=False)
+    money = db.Column(db.Integer, nullable=False)

@@ -289,9 +289,9 @@ class Blackjack:
     def set_players_by_ids(self, ids: list[int]):
         self.players.create_by_id(ids)
 
-    def enter_table(self, id_):
+    def enter_table(self, id_=None, money=0):
         if not self.players.get_is_player_id(id_):
-            self.players.append_by_id(id_)
+            self.players.append_by_id(id_=id_, money=money)
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):

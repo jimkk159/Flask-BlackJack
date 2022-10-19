@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 
@@ -20,7 +21,7 @@ def login():
         if query_user:
             login_user(query_user)
         else:
-            new_user = User(name=register_form.name.data)
+            new_user = User(id=str(uuid.uuid1()), name=register_form.name.data, money=100)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)

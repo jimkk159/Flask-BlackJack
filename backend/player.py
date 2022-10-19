@@ -194,8 +194,8 @@ class Table:
         self.player_num = 0
 
     # Append
-    def append_by_id(self, id_):
-        player = Player(id_)
+    def append_by_id(self, id_=None, money=0):
+        player = Player(id_=id_, money=money)
         self.in_.append(player)
         self.player_num = len(self.in_)
 
