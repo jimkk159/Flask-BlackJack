@@ -63,8 +63,9 @@ class Hand:
 
 class Player:
 
-    def __init__(self, id_=None, money=100, init_stake=5):
+    def __init__(self, id_=None, name="Unknown", money=100, init_stake=5):
         self.id = id_ if id_ else uuid.uuid1()
+        self.name = name
         self.money = money
         self.basic_stake = init_stake
         self.total_stake = init_stake
@@ -76,6 +77,9 @@ class Player:
     # GET
     def get_id(self):
         return self.id
+
+    def get_name(self):
+        return self.name
 
     def get_money(self):
         return self.money
@@ -197,8 +201,8 @@ class Table:
         self.player_num = 0
 
     # Append
-    def append_by_id(self, id_=None, money=0):
-        player = Player(id_=id_, money=money)
+    def append_by_id(self, id_=None, name="Unknown", money=0):
+        player = Player(id_=id_, name=name, money=money)
         self.in_.append(player)
         self.player_num = len(self.in_)
 

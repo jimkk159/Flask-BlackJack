@@ -305,9 +305,9 @@ class Blackjack:
     def set_players_by_ids(self, ids: list[int]):
         self.players.create_by_id(ids)
 
-    def enter_table(self, id_=None, money=0):
+    def enter_table(self, id_=None, name="Unknown", money=0):
         if not self.players.get_is_player_id(id_):
-            self.players.append_by_id(id_=id_, money=money)
+            self.players.append_by_id(id_=id_, name=name, money=money)
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):
@@ -343,8 +343,6 @@ class Blackjack:
         if choice and player.get_money() >= floor(player.get_basic_stake() / 2):
             player.add_money(-floor(player.get_basic_stake() / 2))
             player.set_insurance(True)
-
-
 
     # Double Down
     def double_down(self, player):

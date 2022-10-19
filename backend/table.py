@@ -136,7 +136,7 @@ def reset():
     current_app.config["END"] = False
     current_app.config["show_insurance"] = True
     current_app.config["check_blackjack"] = True
-    game.enter_table(id_=current_user.id, money=current_user.money)
+    game.enter_table(id_=current_user.id, name=current_user.name, money=current_user.money)
     player = game.get_player_by_id(current_user.id)
     game.reset()
     game.pay_player_stake(player)
