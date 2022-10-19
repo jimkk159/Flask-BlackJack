@@ -19,11 +19,13 @@ def find_player(game, id_):
         if player.id == id_:
             return player
 
+
 # find hand
 def find_hand(player, id_):
     for hand in player.get_hands():
         if str(hand.id) == id_:
             return hand
+
 
 @table_blueprint.route("/table")
 def table():

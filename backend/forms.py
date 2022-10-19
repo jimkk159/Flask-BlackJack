@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 
 
@@ -17,4 +17,9 @@ class SettingForm(FlaskForm):
                             choices=[("open", "Open"), ("close", "Close")], default="open")
     bj_ratio = SelectField('Blackjack Odds',
                            choices=[("1.2", "1.2"), ("1.3", "1.3"), ("1.4", "1.4"), ("1.5", "1.5")], default="1.5")
+    submit = SubmitField('Submit')
+
+
+class RegisterForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
     submit = SubmitField('Submit')

@@ -6,7 +6,7 @@ from backend.forms import SettingForm
 setting_blueprint = Blueprint('setting', __name__)
 
 
-# Register
+# Setting
 @setting_blueprint.route('/setting', methods=['GET', 'POST'])
 def setting():
     setting_form = SettingForm()
