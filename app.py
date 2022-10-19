@@ -1,15 +1,18 @@
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
-from flask import Flask, render_template
+from flask import Flask
 from flask_socketio import SocketIO
 
 # self module
 from backend.game_component.game import Blackjack
+from backend.route.home import home_blueprint
+from backend.route.rule import rule_blueprint
+from backend.route.user import user_blueprint
 from backend.route.table import table_blueprint
+from backend.route.setting import setting_blueprint
 from backend.game_component.card import card_blueprint
 from backend.game_component.player import player_blueprint
-from backend.route.setting import setting_blueprint
-from backend.user import user_blueprint
+
 from SQL.SQL_management import setup_db, db_drop_and_create, User
 
 
@@ -19,6 +22,8 @@ def create_app():
     app.config.from_object('config')
 
     # BluePrint
+    app.register_blueprint(home_blueprint)
+    app.register_blueprint(rule_blueprint)
     app.register_blueprint(card_blueprint)
     app.register_blueprint(table_blueprint)
     app.register_blueprint(player_blueprint)
@@ -44,14 +49,6 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
-
-    @app.route("/")
-    def home():
-        return render_template('index.html'), 200
-
-    @app.route("/rule")
-    def rule():
-        return render_template('rule.html'), 200
 
     return app
 
