@@ -1,4 +1,4 @@
-from flask import render_template, current_app, redirect, url_for
+from flask import render_template, current_app, redirect, url_for, session
 from flask_login import current_user
 
 # self import
@@ -15,22 +15,29 @@ def check_blackjack(game, player):
 @game_route.route("/table")
 def table():
     print('I got table')
+
+    # Config
     game_end = current_app.config["END"]
     game = current_app.config["GAME"]
     show_insurance = current_app.config["show_insurance"]
     is_check_blackjack = current_app.config["check_blackjack"]
+
+    # Session
+    name = session.get('name', '')
+    room = session.get('room', '')
+    print("table", name, room)
     banker = game.get_banker_cards()
     players = game.get_players_in()
     if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
         return render_template('table.html', banker=banker, players=players, ask_insurance=True,
-                               game_end=game_end), 200
+                               game_end=game_end, name=name, room=room), 200
     if is_check_blackjack:
         current_app.config["check_blackjack"] = False
         player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
             return redirect(url_for('game_route.end'))
     return render_template('table.html', banker=banker, players=players, ask_insurance=False,
-                           game_end=game_end), 200
+                           game_end=game_end, name=name, room=room), 200
 
 
 @game_route.route("/table/insurance/<int:answer>")
@@ -145,5 +152,8 @@ def reset():
     #                Card(symbol='A', suit='heart', value=11)]
     # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                                  Card(symbol='A', value=11, suit='heart')]
-    socketio.emit('my event2', 'I got reset')
-    return redirect(url_for('game_route.table'))
+    name = session.get('name', '')
+    room = session.get('room', '')
+    if name == '' or room == '':
+        return redirect(url_for('game_route.login'))
+    return redirect(url_for('game_route.table', name=name, room=room))

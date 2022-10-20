@@ -4,6 +4,6 @@ from flask import render_template
 from . import game_route
 
 
-# @game_route.route("/")
-# def home():
-#     return render_template('index.html'), 200
+@game_route.route("/")
+def home():
+    return render_template('index.html'), 200

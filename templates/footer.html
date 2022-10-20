@@ -21,27 +21,34 @@
         var socket = io.connect()
 
         socket.on('connect', function() {
-        console.log('connect');
-            socket.emit('my event', 'I\'m connected!');
+            console.log('connect');
+            socket.emit('joined', {});
         });
 
+        socket.on('status', function(data) {
+            $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
+            $('#chat').scrollTop($('#chat')[0].scrollHeight);
+        });
+        socket.on('message', function(data) {
+            $('#chat').val($('#chat').val() + data.msg + '\n');
+            $('#chat').scrollTop($('#chat')[0].scrollHeight);
+        });
         socket.on('disconnect', function() {
             console.log('disconnect');
-            socket.emit('my event', 'I\'m disconnected!');
         });
 
-        socket.on('my event2', function() {
-            console.log('my event2');
-            socket.emit('my event', 'I\'m switch!');
+    });
+    function leave_room() {
+        socket.emit('left', {}, function() {
+            socket.disconnect();
+
+            // go back to the login page
+            window.location.href = "{{ url_for('game_route.home') }}";
         });
-
-        socket.on('my event3', function() {
-            console.log('my event3');
-            socket.emit('my event', 'I\'m stand!');
-        });
+    }
 
 
-    })
+
 
 
 </script>

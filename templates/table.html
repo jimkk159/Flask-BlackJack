@@ -1,6 +1,7 @@
 {% include "header.html" %}
 
 <!-- Page Header -->
+<h1>Flask-SocketIO-Chat: {{ room }}</h1>
 <h1>Banker</h1>
 
 {% for card in banker %}
@@ -54,7 +55,7 @@
 {% endif %}
 {% endfor %}
 
-<a href="{{ url_for('game_route.logout') }}">
+<a href="{{ url_for('game_route.logout') }}" onclick="leave_room();">
     <button>Leave</button>
 </a>
 {% include "footer.html" %}

@@ -20,6 +20,7 @@ class SettingForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-class RegisterForm(FlaskForm):
+class LoginForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
+    room = StringField('Room', validators=[DataRequired()])
     submit = SubmitField('Submit')

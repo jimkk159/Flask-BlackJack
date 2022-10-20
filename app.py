@@ -8,7 +8,7 @@ from backend.game_component.game import Blackjack
 from SQL.SQL_management import setup_db, db_drop_and_create, User
 
 # Internet Socket
-socketio = SocketIO()
+socketio = SocketIO(logger=True)
 
 
 def create_app():
@@ -42,10 +42,5 @@ def create_app():
 
     # Internet Socket
     socketio.init_app(app)
-
-    @app.route("/")
-    def home():
-        socketio.send('I got reset', namespace='/')
-        return render_template('index.html'), 200
 
     return app
