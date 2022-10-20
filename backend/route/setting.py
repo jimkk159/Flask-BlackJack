@@ -1,19 +1,17 @@
-from flask import Blueprint, render_template, current_app
+from flask import render_template, current_app
 
 # self import
 from backend.forms import SettingForm
-
-setting_blueprint = Blueprint('setting', __name__)
+from . import game_route
 
 
 # Setting
-@setting_blueprint.route('/setting', methods=['GET', 'POST'])
+@game_route.route('/setting', methods=['GET', 'POST'])
 def setting():
     setting_form = SettingForm()
     game = current_app.config["GAME"]
 
     if setting_form.validate_on_submit():
-
         # Deck Number
         deck_num = setting_form.decks.data
         game.set_deck_num(deck_num)

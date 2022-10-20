@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template
+from flask import render_template
 
 # self import
+from . import game_route
 
-home_blueprint = Blueprint('home', __name__)
 
-
-@home_blueprint.route("/")
-def home():
-    return render_template('index.html'), 200
+# @game_route.route("/")
+# def home():
+#     return render_template('index.html'), 200

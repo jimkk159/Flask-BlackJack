@@ -3,15 +3,14 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 
 # self import
+from . import game_route
 from backend.extension import db
 from backend.forms import RegisterForm
 from SQL.SQL_management import User
 
-user_blueprint = Blueprint('user', __name__)
-
 
 # Setting
-@user_blueprint.route('/login', methods=['GET', 'POST'])
+@game_route.route('/login', methods=['GET', 'POST'])
 def login():
     register_form = RegisterForm()
     if register_form.validate_on_submit():
@@ -25,12 +24,12 @@ def login():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
-        return redirect(url_for('table.reset'))
+        return redirect(url_for('game_route.reset'))
     return render_template('login.html', register_form=register_form), 200
 
 
 # Logout
-@user_blueprint.route('/logout')
+@game_route.route('/logout')
 @login_required
 def logout():
     logout_user()

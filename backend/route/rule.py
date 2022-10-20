@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template
+from flask import render_template
 
 # self import
+from . import game_route
 
-rule_blueprint = Blueprint('rule', __name__)
 
-
-@rule_blueprint.route("/rule")
+@game_route.route("/rule")
 def rule():
     return render_template('rule.html'), 200

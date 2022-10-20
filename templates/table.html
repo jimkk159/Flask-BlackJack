@@ -20,23 +20,23 @@
 {% if player.id == current_user.id and not game_end %}
 {% if ask_insurance %}
 <h2>Want to buy an insurance?</h2>
-<a href="{{ url_for('table.insurance',player_id=player.id, answer=1) }}"><h2>Yes</h2></a>
-<a href="{{ url_for('table.insurance',player_id=player.id, answer=0) }}"><h2>No</h2></a>
+<a href="{{ url_for('game_route.insurance',player_id=player.id, answer=1) }}"><h2>Yes</h2></a>
+<a href="{{ url_for('game_route.insurance',player_id=player.id, answer=0) }}"><h2>No</h2></a>
 {% else %}
 {% if player.get_able_double() %}
-<a href="{{ url_for('table.double',player_id=player.id) }}"><h2>Double</h2></a>
+<a href="{{ url_for('game_route.double',player_id=player.id) }}"><h2>Double</h2></a>
 {% endif %}
 {% if hand.get_able_split() and not hand.get_is_finish()%}
-<a href="{{ url_for('table.split',player_id=player.id,hand_id=hand.id) }}"><h2>Split</h2></a>
+<a href="{{ url_for('game_route.split',player_id=player.id,hand_id=hand.id) }}"><h2>Split</h2></a>
 {% endif %}
 {% if hand.get_is_hit() %}
-<a href="{{ url_for('table.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
+<a href="{{ url_for('game_route.hit',player_id=player.id,hand_id=hand.id) }}"><h2>Hit</h2></a>
 {% endif %}
 {% if not hand.get_is_finish() %}
-<a href="{{ url_for('table.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
+<a href="{{ url_for('game_route.stand',player_id=player.id,hand_id=hand.id) }}"><h2>Stand</h2></a>
 {% endif %}
 {% if player.get_able_fold() %}
-<a href="{{ url_for('table.fold',player_id=player.id) }}"><h2>Fold</h2></a>
+<a href="{{ url_for('game_route.fold',player_id=player.id) }}"><h2>Fold</h2></a>
 {% endif %}
 {% endif %}
 {% endif %}
@@ -48,13 +48,13 @@
 {% for hand in player.hands %}
 <h2>{{ hand.result }}</h2>
 {% endfor %}
-<a href="{{ url_for('table.reset') }}">
+<a href="{{ url_for('game_route.reset') }}">
     <button>Continue</button>
 </a>
 {% endif %}
 {% endfor %}
 
-<a href="{{ url_for('user.logout') }}">
+<a href="{{ url_for('game_route.logout') }}">
     <button>Leave</button>
 </a>
 {% include "footer.html" %}
