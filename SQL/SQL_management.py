@@ -15,6 +15,7 @@ def db_drop_and_create():
     db.drop_all()
     db.create_all()
 
+
 class User(UserMixin, db.Model):
     __tablename__ = "user"
     id = db.Column(db.Text, primary_key=True, default=lambda: str(uuid.uuid4()))

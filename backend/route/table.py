@@ -5,6 +5,7 @@ from flask_login import current_user
 from . import game_route
 from app import socketio
 
+
 # Check Blackjack
 def check_blackjack(game, player):
     if game.get_is_banker_blackjack():
@@ -25,7 +26,7 @@ def table():
     # Session
     name = session.get('name', '')
     room = session.get('room', '')
-    print("table", name, room)
+
     banker = game.get_banker_cards()
     players = game.get_players_in()
     if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
