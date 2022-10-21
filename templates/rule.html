@@ -14,7 +14,8 @@
                         </div>
                         <div class="row section-row-2">
                             <div class="col-lg-4">
-                                <img class="img-right" src="{{ url_for('static',filename='img/stake.jpg') }}">
+                                <img class="img-left content-img"
+                                     src="{{ url_for('static',filename='img/stake.jpg') }}">
                             </div>
                             <div class="col-lg-8">
                                 <p>In Blackjack, everyone plays against the dealer (the house).
@@ -62,7 +63,34 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 banker-text">
+                            <div class="col-lg-9 align-left-text">
+                                <p>The dealer begins the game. Depending on how many people are playing, the dealer
+                                    will deal each player two cards (face up).The dealer is also deal two cards, one
+                                    face up, and one face down. (The dealers faced
+                                    down card is referred to as the "<strong>Hole
+                                        card</strong>.")
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/banker.jpg') }}"
+                                     style="width: 23rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2>Blackjack Rules</h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 align-left-text">
                                 <p>When you receive your first two cards, you may either "<strong>Stand</strong>",
                                     "<strong>Hit</strong>”, "<strong>Double</strong>” or
                                     "<strong>Split</strong>”.</p>
@@ -106,7 +134,8 @@
                                 </p>
                             </div>
                             <div class="col-lg-3">
-                                <img class="img-left" src="{{ url_for('static',filename='img/banker.jpg') }}"
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/blackjack-player.jpg') }}"
                                      style="width: 23rem;">
                             </div>
                         </div>
@@ -114,122 +143,478 @@
                 </div>
             </div>
         </section>
+        <section class="rule-section">
+            <h3 class="card-value-title">Blackjack Card Values</h3>
+        </section>
+        <section class="rule-section">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card number-card">
+                        <div class="card-body card-value-body">
+                            <img class="clip-card-img clip-card-img-top content-img"
+                                 src="{{ url_for('static',filename='img/poker-spade-10.png') }}" style="width: 12rem;">
+                            <h4>Numbered Cards</h4>
+                            <p class="card-text">Cards numbered 2 - 10 are worth their face value.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card face-card">
+                        <div class="card-body card-value-body">
+                            <img class="clip-card-img clip-card-img-top content-img"
+                                 src="{{ url_for('static',filename='img/poker-heart-queen.png') }}"
+                                 style="width: 12rem;">
+                            <h4>Face Cards</h4>
+                            <p class="card-text">Face Cards (Kings, Queens & Jacks) are worth 10 points each.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card a-card">
+                        <div class="card-body card-value-body">
+                            <img class="clip-card-img clip-card-img-top content-img"
+                                 src="{{ url_for('static',filename='img/poker-heart-A.png') }}" style="width: 12rem;">
+                            <h4>Aces</h4>
+                            <p class="card-text">The Ace is worth either 1 or 11 (whichever is more beneficial for your
+                                hand)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <h3 class="card-value-title">Player Choice</h3>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Hit </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 choice-block align-left-text">
+                                <div class="choice-content">
+                                    <p>"<strong>Hit</strong>" is your intention is to "draw more cards". You "Hit" when
+                                        you feel your
+                                        hand is not close enough to 21 and you need to draw additional cards.
+                                    </p>
+                                </div>
+                                <div class="choice-alert">
+                                    <div class="alert alert-dark" role="alert">
+                                        <h4 class="hand-gesture">Hand gestures 👆:</h4>
+                                        <p>"<strong class="aware">HIT</strong>" - If you’re holding your cards, simply
+                                            scrape your cards on the table gently to ask for another card.
+                                            If your cards are face-up, you can either touch your finger on the table or
+                                            use your hand to wave towards yourself. This indicates to the dealer that
+                                            you want another card, and he or she will then deal you one card from the
+                                            shoe, face up, and place it next to your original two cards. You now have to
+                                            make a decision, on whether to "Stand" or "Hit again".</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="stand-img content-img"
+                                     src="{{ url_for('static',filename='img/hit.png') }}"
+                                     style="width: 20rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Stand </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 choice-block align-left-text">
+                                <div class="choice-content">
+                                    <p>When you <strong>Stand</strong> in Blackjack, your intention is to "stay" with
+                                        the original two cards
+                                        you have been dealt, and don’t need another card for the current hand in
+                                        progress.
+                                    </p>
+                                </div>
+                                <div class="choice-alert">
+                                    <div class="alert alert-dark" role="alert">
+                                        <h4 class="hand-gesture">Hand gestures 🤚:</h4>
+                                        <p>"<strong class="aware">STAND</strong>" - To indicate this, you simply extend
+                                            your palm over the cards, and
+                                            slightly wave your hand from
+                                            side-to-side. This indicates to the dealer that you are satisfied with the
+                                            cards
+                                            you already have, and do
+                                            not wish
+                                            to do anything else. The dealer will then move on to the next player, in
+                                            turn.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="stand-img content-img"
+                                     src="{{ url_for('static',filename='img/stand.png') }}"
+                                     style="width: 20rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Double-Down </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 choice-block align-left-text">
+                                <div class="choice-content">
+                                    <p>After receiving your <strong>first two cards</strong>, or on the first two cards
+                                        of any split
+                                        pair,
+                                        you may "<strong>double down</strong>" if
+                                        you have
+                                        two cards whose total value can be much improved by just one good hit (usually
+                                        cards whose initial combined
+                                        value is
+                                        either "10” or "11”).
+                                    </p>
+                                </div>
+                                <div class="choice-alert">
+                                    <div class="alert alert-dark" role="alert">
+                                        <h4 class="hand-gesture">Hand gestures 🤏:</h4>
+                                        <p>"<strong class="aware">DOUBLE DOWN</strong>" - The way to signal that you
+                                            want to "double down" is to place
+                                            the extra chips next to your initial bet or simply say to the dealer:
+                                            "Double-Down, please". When you say this, the dealer will then ask you to
+                                            place an additional wager,
+                                            <strong>equivalent</strong> to the amount of your <strong>original
+                                                bet</strong>
+                                            next to that original bet, and then deal you
+                                            one additional card.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="stand-img content-img"
+                                     src="{{ url_for('static',filename='img/double.png') }}"
+                                     style="width: 20rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Split </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 choice-block align-left-text">
+                                <div class="choice-content">
+                                    <p>If your <strong>first two cards</strong> are of <strong>equal value</strong>, you
+                                        have the option of "splitting"
+                                        them into two separate hands.</p>
+                                    <br>
+                                    <p>
+                                        For
+                                        example, two Aces – you can "split" them into two separate hands, and play them
+                                        both for the round.
+                                    </p>
+                                </div>
+                                <div class="choice-alert">
+                                    <div class="alert alert-dark" role="alert">
+                                        <h4 class="hand-gesture">Hand gestures ✌️:</h4>
+                                        <p>"<strong class="aware">SPLIT PAIRS</strong>" - If you would like to split two
+                                            same-value cards, all you
+                                            have to do is place another bet
+                                            with the
+                                            same value, but put your chips down in an area away from the original
+                                            betting box and hold up your index and
+                                            middle
+                                            finger.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="stand-img content-img"
+                                     src="{{ url_for('static',filename='img/split.png') }}"
+                                     style="width: 20rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <h3 class="card-value-title">Player Outcomes</h3>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Bust </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
 
-        <h2> At the conclusion of each round of play, the dealer will collect all losing wagers and pay off all winning
-            wagers.</h2>
-        <h2>All winning wagers are paid 1 to 1 with the exception of Blackjack which is paid at 3 to 2 or 6 to 5. The
-            payoff
-            odds for a blackjack will be clearly printed on each table game layout. Example it might say "Blackjack pays
-            3:2."</h2>
-        <h2>Numbered Cards</h2>
-        <h2>Cards numbered 2 - 10 are worth their face value.</h2>
-        <h2>Face Cards</h2>
-        <h2>Face Cards (Kings, Queens & Jacks) are worth 10 points each.</h2>
-        <h2>Aces</h2>
-        <h2>The Ace is worth either 1 or 11 (whichever is more beneficial for your hand)</h2>
+                            <div class="col-lg-9 align-left-text">
+                                <p>In Blackjack, the hand with the highest total wins as long as it doesn't exceed 21. A
+                                    hand with a value over 21 is called a
+                                    "<strong>Bust</strong>” or "<strong>Break</strong>" and it is an
+                                    <strong>automatic loser</strong>.
+                                </p>
+                                <br>
+                                <p>When you "Bust", you lose your wager and that round is over for
+                                    you. No matter the banker or dealer also bust or not later.</p>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/Boom-graphic.jpg') }}"
+                                     style="width: 23rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> BlackJack </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 align-left-text">
+                                <p>the best possible hand in Blackjack is a combination of an Ace with a 10-card or a
+                                    face card. This is an
+                                    automatic
+                                    21, when counting the Ace as an 11, and is called, "<strong>Blackjack</strong>", or
+                                    a <strong>Natural</strong>. </p>
+                                <br>
+                                <p>It
+                                    cannot be beaten, unless
+                                    the dealer
+                                    has the same, which would be a <strong>Push</strong>, a <strong>tie</strong>. </p>
+                                <br>
+                                <p>In a push, the player
+                                    receives the bet
+                                    back.
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/blackjack_cards.jpg') }}"
+                                     style="width: 20rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Push </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-4">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/push.png') }}"
+                                     style="width: 30rem;">
+                            </div>
+                            <div class="col-lg-8 align-left-text">
+                                <p>A "<strong>Push</strong>" happens when both you and the dealer have the SAME total
+                                    value of all cards.</p>
+                                <br>
+                                <p>
+                                    For example, if your
+                                    total is,
+                                    say, 18, and the dealer has the same total of 18, then neither you nor the dealer
+                                    win or lose. It’s a
+                                    "push”, a sort
+                                    of "stand-off” where you don’t lose, and don’t win, and neither does the
+                                    dealer. </p>
+                                <br>
+                                <p>If
+                                    you "push” ANY hand, you
+                                    can
+                                    either leave the same wager for the next hand, or change the amount of that wager
+                                    for the next hand, or
+                                    remove all
+                                    your wagers altogether, and even leave the game.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Insurance </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 align-left-text">
+                                <p><strong>Insurance</strong> is a side bet protecting you against the possibility that
+                                    the dealer has a
+                                    blackjack. </p>
+                                <br>
+                                <p>If the
+                                    dealer's "up
+                                    card" is an Ace, you may make an additional wager known as Insurance. You can bet
+                                    only <strong>half</strong> your original
+                                    bet. </p>
+                                <br>
+                                <p>If
+                                    the dealer does have a Blackjack, your original bet loses and the insurance is paid
+                                    2 to 1. If the dealer
+                                    doesn't
+                                    have a Blackjack, he takes the insurance bet and the game continues as normal.</p>
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/insurance.jpg') }}"
+                                     style="width: 23rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Surrender </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 align-left-text">
+                                <p>In Blackjack, players have the option of surrendering one <strong>half</strong> of
+                                    their original
+                                    wager after receiving their
+                                    first
+                                    two cards.
+                                </p>
+                                <br>
+                                <p>If you surrender your cards, the dealer will take half of your wager.
+                                    (Note: the Surrender option
+                                    is not
+                                    available on the Double Deck game.)
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/surrender.jpg') }}"
+                                     style="width: 23rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <h3 class="card-value-title">Player Ratio</h3>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Ratio </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-3">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/chip.jpg') }}"
+                                     style="width: 23rem;">
+                            </div>
+                            <div class="col-lg-9 align-left-text">
+                                <p> At the conclusion of each round of play, the dealer will collect all losing wagers
+                                    and pay off all winning
+                                    wagers.</p>
+                                <p>All winning wagers are paid 1 to 1 with the exception of <strong>Blackjack</strong>
+                                    which is paid at
+                                    3 to 2 or 6 to 5. The
+                                    payoff
+                                    odds for a blackjack will be clearly printed on each table game layout. Example it
+                                    might say "Blackjack pays
+                                    3:2."</p>
+                            </div>
 
-        <h1> Bust </h1>
-        <h2> In Blackjack, the hand with the highest total wins as long as it doesn't exceed 21. A hand with a value
-            over 21 is
-            called a "Bust” or "Break" and it is an automatic loser.</h2>
-        <h1> Soft & Hard </h1>
-        <h2>A hand in which an Ace's value is counted as 11 is called a Soft hand, because it cannot be busted if the
-            player
-            draws another card. When an ace is counted as one point, this is called a Hard hand.</h2>
-        <h2> If the table is designated a must-hit-soft-17 Blackjack game, the dealer must draw on all soft 17 hands
-            until he or
-            she obtains a point total of a hard 17 or higher.</h2>
-        <h2>But here we use the soft 17</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <h3 class="card-value-title">Other</h3>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2> Soft & Hard </h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-5">
+                                <img class="img-right content-img"
+                                     src="{{ url_for('static',filename='img/hard-and-soft-hands.png') }}"
+                                     style="width: 40rem;">
+                            </div>
+                            <div class="col-lg-7 align-left-text">
+                                <p>A hand in which an Ace's value is counted as 11 is called a <strong>Soft
+                                    hand</strong>, because it
+                                    cannot be busted if the
+                                    player
+                                    draws another card. When an ace is counted as one point, this is called a <strong>Hard
+                                        hand</strong>.</p>
+                                <p> If the table is designated a must-hit-soft-17 Blackjack game, the dealer must draw
+                                    on all soft 17 hands
+                                    until he or
+                                    she obtains a point total of a hard 17 or higher.</p>
+                                <p>But here we use the soft 17.</p>
+                            </div>
 
-        <h1>BlackJack</h1>
-        <h2>he best possible hand in Blackjack is a combination of an Ace with a 10-card or a face card. This is an
-            automatic
-            21, when counting the Ace as an 11, and is called, "Blackjack", or a Natural. It cannot be beaten, unless
-            the dealer
-            has the same, which would be a Push, a tie. In a push, the player receives the bet back.</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <h1>Stand</h1>
-        <h2>When you Stand in Blackjack, your intention is to "stay" with the original two cards you have been dealt,
-            and don’t
-            need another card for the current hand in progress.</h2>
-        <h3> Blackjack hand gestures:</h3>
-        <h4>"STAND" - To indicate this, you simply extend your palm over the cards, and slightly wave your hand from
-            side-to-side. This indicates to the dealer that you are satisfied with the cards you already have, and do
-            not wish
-            to do anything else. The dealer will then move on to the next player, in turn.</h4>
-        <h1>Hit</h1>
-        <h2>"Hit" is your intention is to "draw more cards". You "Hit" when you feel your hand is not close enough to 21
-            and you
-            need to draw additional cards.</h2>
-
-        <h3> Blackjack hand gestures:</h3>
-        <h4>"HIT" - If you’re holding your cards, simply scrape your cards on the table gently to ask for another card.
-            If your
-            cards are face-up, you can either touch your finger on the table or use your hand to wave towards yourself.
-            This
-            indicates to the dealer that you want another card, and he or she will then deal you one card from the shoe,
-            face
-            up, and place it next to your original two cards. You now have to make a decision, on whether to "Stand" or
-            "Hit
-            again".</h4>
-        <h1>Double-Down</h1>
-        <h2>After receiving your first two cards, or on the first two cards of any split pair, you may "double down" if
-            you have
-            two cards whose total value can be much improved by just one good hit (usually cards whose initial combined
-            value is
-            either "10” or "11”).</h2>
-        <h3> Blackjack hand gestures:</h3>
-        <h4>"DOUBLE DOWN" - The way to signal that you want to "double down" is to place the extra chips next to your
-            initial
-            bet or simply say to the dealer: "Double-Down, please". When you say this, the dealer will then ask you to
-            place an
-            additional wager, equivalent to the amount of your original bet next to that original bet, and then deal you
-            one
-            additional card.</h4>
-
-        <h1>Splitting Pairs</h1>
-        <h2>If your first two cards are of equal value, you have the option of "splitting" them into two separate hands.
-            For
-            example, two Aces – you can "split" them into two separate hands, and play them both for the round.</h2>
-        <h3> Blackjack hand gestures:</h3>
-        <h4>"SPLIT PAIRS" - If you would like to split two same-value cards, all you have to do is place another bet
-            with the
-            same value, but put your chips down in an area away from the original betting box and hold up your index and
-            middle
-            finger.</h4>
-
-        <h1>Blackjack Outcomes</h1>
-        <h2>Bust</h2>
-        <p>You "Bust" in Blackjack when you draw more cards to your hand (by asking to "hit”) and the combined total
-            value
-            exceeds "21”. When you "Bust", you lose your wager and that round is over for you.</p>
-        <h2>Push</h2>
-        <p>A "push" happens when both you and the dealer have the SAME total value of all cards. For example, if your
-            total is,
-            say, 18, and the dealer has the same total of 18, then neither you nor the dealer win or lose. It’s a
-            "push”, a sort
-            of "stand-off” where you don’t lose, and don’t win, and neither does the dealer. If you "push” ANY hand, you
-            can
-            either leave the same wager for the next hand, or change the amount of that wager for the next hand, or
-            remove all
-            your wagers altogether, and even leave the game.</p>
-        <h2>Insurance</h2>
-        <p>Insurance is a side bet protecting you against the possibility that the dealer has a blackjack. If the
-            dealer's "up
-            card" is an Ace, you may make an additional wager known as Insurance. You can bet only half your original
-            bet. If
-            the dealer does have a Blackjack, your original bet loses and the insurance is paid 2 to 1. If the dealer
-            doesn't
-            have a Blackjack, he takes the insurance bet and the game continues as normal.</p>
-        <h2>Surrender</h2>
-        <p>In Blackjack, players have the option of surrendering one half of their original wager after receiving their
-            first
-            two cards. If you surrender your cards, the dealer will take half of your wager. (Note: the Surrender option
-            is not
-            available on the Double Deck game.)</p>
-        <a href="{{ url_for('game_route.home') }}">
-            <button>Leave</button>
-        </a>
+        <div class="leave-button">
+            <a href="{{ url_for('game_route.home') }}">
+                <button class="btn btn-secondary btn-lg">Leave</button>
+            </a>
+        </div>
     </div>
 </div>
 {% include "footer.html" %}
