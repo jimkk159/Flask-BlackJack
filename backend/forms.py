@@ -21,6 +21,6 @@ class SettingForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    room = StringField('Room', validators=[DataRequired()])
+    name = StringField("Name", validators=[DataRequired()], render_kw={"placeholder": "Your Name"})
+    room = StringField('Room', validators=[DataRequired()], render_kw={"placeholder": "Room Name"})
     submit = SubmitField('Submit')

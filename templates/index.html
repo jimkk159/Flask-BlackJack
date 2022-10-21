@@ -1,9 +1,21 @@
 {% include "header.html" %}
 
 <!-- Page Header -->
-<h1>BlackJack ♠️</h1>
-
-<h1><a href="{{ url_for('game_route.login') }}">Start</a></h1>
-<h1><a href="{{ url_for('game_route.rule') }}">Rule</a></h1>
-<h1><a href="{{ url_for('game_route.setting') }}">Setting</a></h1>
+<div class="page main_page container-fluid mx-auto">
+    <div class="page-inside main_page-inside">
+        <h1 class="page-title">BlackJack ♠️</h1>
+        <img src="{{ url_for('static',filename='img/blackjack-icon.jpg') }}">
+        <div class="gap-3">
+            <a href="{{ url_for('game_route.login') }}">
+                <button class="btn btn-dark px-2 pt-1 m-1">Start</button>
+            </a>
+            <a href="{{ url_for('game_route.rule') }}">
+                <button class="btn btn-dark px-2 pt-1 m-1">Rule</button>
+            </a>
+            <a href="{{ url_for('game_route.setting') }}">
+                <button class="btn btn-dark px-2 pt-1 m-1">Setting</button>
+            </a>
+        </div>
+    </div>
+</div>
 {% include "footer.html" %}

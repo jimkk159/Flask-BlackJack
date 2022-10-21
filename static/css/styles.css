@@ -14,12 +14,15 @@ body{
 .foot-container {
    background-color: #D65A31;
    text-align: center;
-   padding: 3% 15% 1%;
+   padding: 2% 15% 1% ;
+   min-height:10vh;
 }
 
 .foot-container p {
-    font-size: 20px
+    font-size: 20px;
+    color: #fff;
 }
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
 }
@@ -28,4 +31,123 @@ hr{
   border-top: 3px solid #fff;
   color:white;
   margin: 1px 0;
+}
+
+/* Page */
+.page{
+    min-height:89vh;
+    padding: 5%;
+    margin:auto;
+    text-align:center;
+}
+.page-inside{
+    text-align:center;
+}
+.page-title{
+    font-family: PriceDown Black;
+    font-size: 5rem;
+    color: white;
+}
+/* Section */
+.section-row-1{
+}
+.section-row-2{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+/* Main Page */
+.main_page-inside img{
+    margin: 1%;
+    border-radius: 20px;
+    width: 20rem;
+}
+
+.main_page a button{
+   font-family: Neuton-Bold;
+   font-size:35px;
+   text-decoration:none;
+   background-color:#31663D;
+   color:#EBC24E;
+}
+.main_page a button:hover{
+   background-color:#EBC24E;
+   color:#31663D;
+}
+
+/* Login Page */
+.login-page{
+      padding-top: 10rem;
+}
+.login-page form{
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+
+}
+.login-page form label{
+    font-family: Neuton-Bold;
+    font-size:35px;
+    color:white;
+}
+.login-page form #submit{
+    margin-top: 30px;
+    font-size:25px;
+    font-family: Georgia, serif;
+    display: block;
+    width:100%;
+}
+
+/* Rule Page */
+.rule-page{
+    padding-top: 3rem;
+}
+.rule-title{
+    font-size:10rem;
+    padding-bottom: 8rem;
+    border-bottom: 2px solid #73ac05;
+}
+.rule-section{
+    font-family: 'Open Sans', sans-serif;
+    text-align:left;
+    padding:1rem;
+    font-weight:500;
+}
+/* Section */
+.section-row-outside{
+    margin: 0.5rem 1rem 1rem;
+}
+
+.section-row-2{
+    padding-top:0.5rem;
+    text-align:justify;
+}
+.rule-section .card{
+    background-color:#444;
+}
+.rule-section h2{
+    color: #54D1B3;
+}
+.rule-section p{
+    color: #ddd;
+}
+strong{
+    font-weight:800;
+    color:#AF69EF;
+}
+.rule-section img{
+    border-radius: 20px;
+    width: 30rem;
+}
+.rule-section .img-right{
+}
+.rule-section .img-left{
+
+    margin-right: 2rem;
+}
+.aware{
+    color:#E36067;
+}
+.banker-text{
+    padding-right:3rem;
 }

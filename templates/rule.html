@@ -1,104 +1,235 @@
 {% include "header.html" %}
 
 <!-- Page Header -->
-<h1>Rule</h1>
-<h1>Blackjack Rules -</h1>
-<h2>In Blackjack, everyone plays against the dealer (the house). Your goal is to draw cards with a value as close to 21
-    as possible without going over. A hand that goes over 21 is a bust or break . The players at a blackjack table do
-    not play against each other, they play against the dealer. Each player only has to beat the dealer's hand to Win.
-    You do this in one of two ways: </h2>
-<h2>1 Have a card total value greater than that of the dealer and not "bust". </h2>
-<h2>2 Win "by default” if the dealer "busts.</h2>
+<div class="page rule-page">
+    <div class="page-inside rule-page-inside">
+        <h1 class="page-title rule-title">Rule</h1>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2>Blackjack Rules</h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-4">
+                                <img class="img-right" src="{{ url_for('static',filename='img/stake.jpg') }}">
+                            </div>
+                            <div class="col-lg-8">
+                                <p>In Blackjack, everyone plays against the dealer (the house).
+                                    Your goal is to draw cards with
+                                    a
+                                    value
+                                    as
+                                    <strong>close to 21</strong>
+                                    as possible without going over. A hand that <strong>goes over 21</strong> is a
+                                    <strong>bust</strong> or <strong>break</strong>
+                                    . The players at a
+                                    blackjack
+                                    table do
+                                    not play against each other, they play against the dealer. Each player only has to
+                                    beat the
+                                    dealer's
+                                    hand to
+                                    Win.
+                                    You do this in one of two ways:
+                                </p>
+                                <p>
+                                    <span class="badge rounded-pill bg-dark">1</span> Have a card total value greater
+                                    than
+                                    that
+                                    of
+                                    the
+                                    dealer and not "bust".</p>
+                                <p>
+                                    <span class="badge rounded-pill bg-dark">2</span> Win "by default” if the dealer
+                                    "busts
+                                    .
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="rule-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-row-outside">
+                        <div class="row section-row-1">
+                            <h2>Blackjack Rules</h2>
+                            <hr>
+                        </div>
+                        <div class="row section-row-2">
+                            <div class="col-lg-9 banker-text">
+                                <p>When you receive your first two cards, you may either "<strong>Stand</strong>",
+                                    "<strong>Hit</strong>”, "<strong>Double</strong>” or
+                                    "<strong>Split</strong>”.</p>
+                                <br>
+                                <p>Once all the players have completed their hands, it's now the dealers turn to play
+                                    his or
+                                    her
+                                    hand. The
+                                    dealer
+                                    starts with the reveal of the "<strong>Hole Card</strong>" (the dealers faced down
+                                    card)
+                                    and
+                                    acts on the hand
+                                    according
+                                    to
+                                    the rules
+                                    of the game. If these two cards add up to 16 or less, the dealer must
+                                    "<strong>Hit</strong>"
+                                    until reaching
+                                    <strong>17 or more</strong>.
+                                    If
+                                    the two
+                                    cards add <strong>up to 17 to 21</strong>, the dealer must "<strong>Stand</strong>".
+                                    Just
+                                    like the players, the dealer will
+                                    <strong>bust</strong>
+                                    if he/she
+                                    <strong>exceeds
+                                        21</strong>.
+                                </p>
+                                <br>
+                                <p><strong class="aware">Beware</strong>: Some Blackjack tables are designated as "must
+                                    hit
+                                    soft
+                                    17". At such a blackjack
+                                    table,
+                                    the
+                                    dealer
+                                    must draw
+                                    on all soft 17 hands until he or she obtains a point total of a hard 17 or higher.
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="img-left" src="{{ url_for('static',filename='img/banker.jpg') }}"
+                                     style="width: 23rem;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<h1>Blackjack Rules -</h1>
-<h2>When you receive your first two cards, you may either "Stand", "Hit”, "Double” or "Split”.</h2>
+        <h2> At the conclusion of each round of play, the dealer will collect all losing wagers and pay off all winning
+            wagers.</h2>
+        <h2>All winning wagers are paid 1 to 1 with the exception of Blackjack which is paid at 3 to 2 or 6 to 5. The
+            payoff
+            odds for a blackjack will be clearly printed on each table game layout. Example it might say "Blackjack pays
+            3:2."</h2>
+        <h2>Numbered Cards</h2>
+        <h2>Cards numbered 2 - 10 are worth their face value.</h2>
+        <h2>Face Cards</h2>
+        <h2>Face Cards (Kings, Queens & Jacks) are worth 10 points each.</h2>
+        <h2>Aces</h2>
+        <h2>The Ace is worth either 1 or 11 (whichever is more beneficial for your hand)</h2>
 
-<h2>Once all the players have completed their hands, it's now the dealers turn to play his or her hand. The dealer
-    starts with the reveal of the "Hole Card" (the dealers faced down card) and acts on the hand according to the rules
-    of the game. If these two cards add up to 16 or less, the dealer must "Hit" until reaching 17 or more. If the two
-    cards add up to 17 to 21, the dealer must "Stand". Just like the players, the dealer will bust if he/she exceeds
-    21.</h2>
-<h2>Beware: Some Blackjack tables are designated as "must hit soft 17". At such a blackjack table, the dealer must draw
-    on all soft 17 hands until he or she obtains a point total of a hard 17 or higher.</h2>
+        <h1> Bust </h1>
+        <h2> In Blackjack, the hand with the highest total wins as long as it doesn't exceed 21. A hand with a value
+            over 21 is
+            called a "Bust” or "Break" and it is an automatic loser.</h2>
+        <h1> Soft & Hard </h1>
+        <h2>A hand in which an Ace's value is counted as 11 is called a Soft hand, because it cannot be busted if the
+            player
+            draws another card. When an ace is counted as one point, this is called a Hard hand.</h2>
+        <h2> If the table is designated a must-hit-soft-17 Blackjack game, the dealer must draw on all soft 17 hands
+            until he or
+            she obtains a point total of a hard 17 or higher.</h2>
+        <h2>But here we use the soft 17</h2>
 
+        <h1>BlackJack</h1>
+        <h2>he best possible hand in Blackjack is a combination of an Ace with a 10-card or a face card. This is an
+            automatic
+            21, when counting the Ace as an 11, and is called, "Blackjack", or a Natural. It cannot be beaten, unless
+            the dealer
+            has the same, which would be a Push, a tie. In a push, the player receives the bet back.</h2>
 
-<h2> At the conclusion of each round of play, the dealer will collect all losing wagers and pay off all winning
-    wagers.</h2>
-<h2>All winning wagers are paid 1 to 1 with the exception of Blackjack which is paid at 3 to 2 or 6 to 5. The payoff
-    odds for a blackjack will be clearly printed on each table game layout. Example it might say "Blackjack pays
-    3:2."</h2>
-<h2>Numbered Cards</h2><h2>Cards numbered 2 - 10 are worth their face value.</h2>
-<h2>Face Cards</h2><h2>Face Cards (Kings, Queens & Jacks) are worth 10 points each.</h2>
-<h2>Aces</h2><h2>The Ace is worth either 1 or 11 (whichever is more beneficial for your hand)</h2>
+        <h1>Stand</h1>
+        <h2>When you Stand in Blackjack, your intention is to "stay" with the original two cards you have been dealt,
+            and don’t
+            need another card for the current hand in progress.</h2>
+        <h3> Blackjack hand gestures:</h3>
+        <h4>"STAND" - To indicate this, you simply extend your palm over the cards, and slightly wave your hand from
+            side-to-side. This indicates to the dealer that you are satisfied with the cards you already have, and do
+            not wish
+            to do anything else. The dealer will then move on to the next player, in turn.</h4>
+        <h1>Hit</h1>
+        <h2>"Hit" is your intention is to "draw more cards". You "Hit" when you feel your hand is not close enough to 21
+            and you
+            need to draw additional cards.</h2>
 
-<h1> Bust </h1>
-<h2> In Blackjack, the hand with the highest total wins as long as it doesn't exceed 21. A hand with a value over 21 is
-    called a "Bust” or "Break" and it is an automatic loser.</h2>
-<h1> Soft & Hard </h1>
-<h2>A hand in which an Ace's value is counted as 11 is called a Soft hand, because it cannot be busted if the player
-    draws another card. When an ace is counted as one point, this is called a Hard hand.</h2>
-<h2> If the table is designated a must-hit-soft-17 Blackjack game, the dealer must draw on all soft 17 hands until he or
-    she obtains a point total of a hard 17 or higher.</h2>
-<h2>But here we use the soft 17</h2>
+        <h3> Blackjack hand gestures:</h3>
+        <h4>"HIT" - If you’re holding your cards, simply scrape your cards on the table gently to ask for another card.
+            If your
+            cards are face-up, you can either touch your finger on the table or use your hand to wave towards yourself.
+            This
+            indicates to the dealer that you want another card, and he or she will then deal you one card from the shoe,
+            face
+            up, and place it next to your original two cards. You now have to make a decision, on whether to "Stand" or
+            "Hit
+            again".</h4>
+        <h1>Double-Down</h1>
+        <h2>After receiving your first two cards, or on the first two cards of any split pair, you may "double down" if
+            you have
+            two cards whose total value can be much improved by just one good hit (usually cards whose initial combined
+            value is
+            either "10” or "11”).</h2>
+        <h3> Blackjack hand gestures:</h3>
+        <h4>"DOUBLE DOWN" - The way to signal that you want to "double down" is to place the extra chips next to your
+            initial
+            bet or simply say to the dealer: "Double-Down, please". When you say this, the dealer will then ask you to
+            place an
+            additional wager, equivalent to the amount of your original bet next to that original bet, and then deal you
+            one
+            additional card.</h4>
 
-<h1>BlackJack</h1>
-<h2>he best possible hand in Blackjack is a combination of an Ace with a 10-card or a face card. This is an automatic
-    21, when counting the Ace as an 11, and is called, "Blackjack", or a Natural. It cannot be beaten, unless the dealer
-    has the same, which would be a Push, a tie. In a push, the player receives the bet back.</h2>
+        <h1>Splitting Pairs</h1>
+        <h2>If your first two cards are of equal value, you have the option of "splitting" them into two separate hands.
+            For
+            example, two Aces – you can "split" them into two separate hands, and play them both for the round.</h2>
+        <h3> Blackjack hand gestures:</h3>
+        <h4>"SPLIT PAIRS" - If you would like to split two same-value cards, all you have to do is place another bet
+            with the
+            same value, but put your chips down in an area away from the original betting box and hold up your index and
+            middle
+            finger.</h4>
 
-<h1>Stand</h1>
-<h2>When you Stand in Blackjack, your intention is to "stay" with the original two cards you have been dealt, and don’t
-    need another card for the current hand in progress.</h2>
-<h3> Blackjack hand gestures:</h3>
-<h4>"STAND" - To indicate this, you simply extend your palm over the cards, and slightly wave your hand from
-    side-to-side. This indicates to the dealer that you are satisfied with the cards you already have, and do not wish
-    to do anything else. The dealer will then move on to the next player, in turn.</h4>
-<h1>Hit</h1>
-<h2>"Hit" is your intention is to "draw more cards". You "Hit" when you feel your hand is not close enough to 21 and you
-    need to draw additional cards.</h2>
-
-<h3> Blackjack hand gestures:</h3>
-<h4>"HIT" - If you’re holding your cards, simply scrape your cards on the table gently to ask for another card. If your
-    cards are face-up, you can either touch your finger on the table or use your hand to wave towards yourself. This
-    indicates to the dealer that you want another card, and he or she will then deal you one card from the shoe, face
-    up, and place it next to your original two cards. You now have to make a decision, on whether to "Stand" or "Hit
-    again".</h4>
-<h1>Double-Down</h1>
-<h2>After receiving your first two cards, or on the first two cards of any split pair, you may "double down" if you have
-    two cards whose total value can be much improved by just one good hit (usually cards whose initial combined value is
-    either "10” or "11”).</h2>
-<h3> Blackjack hand gestures:</h3>
-<h4>"DOUBLE DOWN" - The way to signal that you want to "double down" is to place the extra chips next to your initial
-    bet or simply say to the dealer: "Double-Down, please". When you say this, the dealer will then ask you to place an
-    additional wager, equivalent to the amount of your original bet next to that original bet, and then deal you one
-    additional card.</h4>
-
-<h1>Splitting Pairs</h1>
-<h2>If your first two cards are of equal value, you have the option of "splitting" them into two separate hands. For
-    example, two Aces – you can "split" them into two separate hands, and play them both for the round.</h2>
-<h3> Blackjack hand gestures:</h3>
-<h4>"SPLIT PAIRS" - If you would like to split two same-value cards, all you have to do is place another bet with the
-    same value, but put your chips down in an area away from the original betting box and hold up your index and middle
-    finger.</h4>
-
-<h1>Blackjack Outcomes</h1>
-<h2>Bust</h2>
-<p>You "Bust" in Blackjack when you draw more cards to your hand (by asking to "hit”) and the combined total value
-    exceeds "21”. When you "Bust", you lose your wager and that round is over for you.</p>
-<h2>Push</h2>
-<p>A "push" happens when both you and the dealer have the SAME total value of all cards. For example, if your total is,
-    say, 18, and the dealer has the same total of 18, then neither you nor the dealer win or lose. It’s a "push”, a sort
-    of "stand-off” where you don’t lose, and don’t win, and neither does the dealer. If you "push” ANY hand, you can
-    either leave the same wager for the next hand, or change the amount of that wager for the next hand, or remove all
-    your wagers altogether, and even leave the game.</p>
-<h2>Insurance</h2>
-<p>Insurance is a side bet protecting you against the possibility that the dealer has a blackjack. If the dealer's "up
-    card" is an Ace, you may make an additional wager known as Insurance. You can bet only half your original bet. If
-    the dealer does have a Blackjack, your original bet loses and the insurance is paid 2 to 1. If the dealer doesn't
-    have a Blackjack, he takes the insurance bet and the game continues as normal.</p>
-<h2>Surrender</h2>
-<p>In Blackjack, players have the option of surrendering one half of their original wager after receiving their first
-    two cards. If you surrender your cards, the dealer will take half of your wager. (Note: the Surrender option is not
-    available on the Double Deck game.)</p>
-<a href="{{ url_for('game_route.home') }}"><button>Leave</button></a>
+        <h1>Blackjack Outcomes</h1>
+        <h2>Bust</h2>
+        <p>You "Bust" in Blackjack when you draw more cards to your hand (by asking to "hit”) and the combined total
+            value
+            exceeds "21”. When you "Bust", you lose your wager and that round is over for you.</p>
+        <h2>Push</h2>
+        <p>A "push" happens when both you and the dealer have the SAME total value of all cards. For example, if your
+            total is,
+            say, 18, and the dealer has the same total of 18, then neither you nor the dealer win or lose. It’s a
+            "push”, a sort
+            of "stand-off” where you don’t lose, and don’t win, and neither does the dealer. If you "push” ANY hand, you
+            can
+            either leave the same wager for the next hand, or change the amount of that wager for the next hand, or
+            remove all
+            your wagers altogether, and even leave the game.</p>
+        <h2>Insurance</h2>
+        <p>Insurance is a side bet protecting you against the possibility that the dealer has a blackjack. If the
+            dealer's "up
+            card" is an Ace, you may make an additional wager known as Insurance. You can bet only half your original
+            bet. If
+            the dealer does have a Blackjack, your original bet loses and the insurance is paid 2 to 1. If the dealer
+            doesn't
+            have a Blackjack, he takes the insurance bet and the game continues as normal.</p>
+        <h2>Surrender</h2>
+        <p>In Blackjack, players have the option of surrendering one half of their original wager after receiving their
+            first
+            two cards. If you surrender your cards, the dealer will take half of your wager. (Note: the Surrender option
+            is not
+            available on the Double Deck game.)</p>
+        <a href="{{ url_for('game_route.home') }}">
+            <button>Leave</button>
+        </a>
+    </div>
+</div>
 {% include "footer.html" %}
