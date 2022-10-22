@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-flex flex-col setting-checkbox-col-2">
                     <div class="round-checkbox">
-                        {{ setting_form.is_insurance(id="checkbox-1") }}<label for="checkbox-1"></label>
+                        {{ setting_form.is_insurance(id="checkbox-1", checked=game.get_is_insurance()) }}<label for="checkbox-1"></label>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="d-flex flex-col setting-checkbox-col-2">
                     <div class="round-checkbox">
-                        {{ setting_form.is_over_10(id="checkbox-2") }}<label for="checkbox-2"></label>
+                        {{ setting_form.is_over_10(id="checkbox-2", checked=game.get_insurance_over_10()) }}<label for="checkbox-2"></label>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="d-flex flex-col setting-checkbox-col-2">
                     <div class="round-checkbox">
-                        {{ setting_form.is_double(id="checkbox-3") }}<label for="checkbox-3"></label>
+                        {{ setting_form.is_double(id="checkbox-3", checked=game.get_is_double()) }}<label for="checkbox-3"></label>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-from flask import redirect, render_template, current_app, url_for
+from flask import render_template, current_app
 
 # self import
 from backend.forms import SettingForm
