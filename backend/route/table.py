@@ -30,14 +30,14 @@ def table():
     banker = game.get_banker_cards()
     players = game.get_players_in()
     if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
-        return render_template('table.html', banker=banker, players=players, ask_insurance=True,
+        return render_template('table.html', game=game, banker=banker, players=players, ask_insurance=True,
                                game_end=game_end, name=name, room=room), 200
     if is_check_blackjack:
         current_app.config["check_blackjack"] = False
         player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
             return redirect(url_for('game_route.end'))
-    return render_template('table.html', banker=banker, players=players, ask_insurance=False,
+    return render_template('table.html', game=game, banker=banker, players=players, ask_insurance=False,
                            game_end=game_end, name=name, room=room), 200
 
 
