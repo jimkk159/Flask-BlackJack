@@ -235,6 +235,7 @@ strong{
     position:absolute;
     bottom:3rem;
 }
+
 /*Alert */
 .alert-dark p{
     color:#000;
@@ -337,8 +338,8 @@ font-size: 30px;
     color:#EBC24E
 }
 /* Table Page */
-.table-page {
-    padding:4%;
+.table-page{
+    padding:4% 4% 2%;
 }
 .table-page-inside{
 
@@ -401,11 +402,18 @@ font-size: 30px;
 .inner-border p{
 	color:white;
 	font-family: Neuton-Bold;
-	font-size: 30px;
+	font-size: 28px;
 	text-align:left;
 	padding:0 1rem;
 }
 
+.player-status-content p{
+	margin-bottom:0;
+	text-align:right;
+	font-family: Neuton-Bold;
+	font-size: 28px;
+	color:#EBC24E;
+}
 /* Decorations */
 .corner-decoration {
 	position: absolute;
@@ -421,14 +429,14 @@ font-size: 30px;
 .corner-decoration.corner-right-top {
 	top: 0;
 	right: 0;
-	 -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .corner-decoration.corner-right-bottom {
 	right: 0;
 	bottom: 0;
-	 -webkit-transform: scale(-1);
+	-webkit-transform: scale(-1);
   	transform: scale(-1);
 }
 
@@ -437,4 +445,16 @@ font-size: 30px;
 	bottom: 0;
 	-webkit-transform: scaleY(-1);
   	transform: scaleY(-1);
+}
+
+.table .player-status-row{
+    position:relative;
+}
+.table .player-status-content{
+    position:absolute;
+    right:0;
+}
+.table-page .leave-button{
+    margin: 3rem 3rem 0;
+    bottom:3rem;
 }

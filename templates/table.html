@@ -1,10 +1,16 @@
 {% include "header.html" %}
 
-<div class="page table-page container-fluid mx-auto px-4">
+<div class="page table-page container-fluid mx-auto">
     <div class="page-inside table-page-inside row">
         <div class="col-lg-9 table-col-1">
             <div class="px-1 table"
                  style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
+                <div class="row player-status-row">
+                    <div class="player-status-content">
+                        <p>Total Money: {{ 123 }}</p>
+                        <p>Total Stake: {{ 123 }}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-3 table-col-2">
@@ -29,9 +35,11 @@
                                         <h1>Table Rule</h1>
                                         <p>Number of decks: {{ game.get_deck_num() }}</p>
                                         <p>Max Number of Players: {{ game.get_players_num() }}</p>
+                                        <p>Minimum Bet: {{ game.get_min_bet() }}</p>
                                         <p>BlackJack Ration: {{ game.get_blackjack_ratio() }}</p>
                                         <p>Insurance: {{ "Open" if game.get_is_insurance() else "Close" }}</p>
-                                        <p>Over 10 Insurance: {{ "Open" if game.get_insurance_over_10() else "Close" }}</p>
+                                        <p>Over 10 Insurance: {{ "Open" if game.get_insurance_over_10() else "Close"
+                                            }}</p>
                                         <p>Double Down: {{ "Open" if game.get_is_double() else "Close" }}</p>
                                     </div>
                                 </div>
@@ -42,6 +50,17 @@
             </div>
         </div>
     </div>
+    <div class="row table-leave-button">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-2">
+            <div class="leave-button">
+                <a href="{{ url_for('game_route.home') }}">
+                    <button class="btn btn-secondary btn-lg">Leave</button>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+
 {% include "footer.html" %}
