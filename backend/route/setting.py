@@ -1,4 +1,4 @@
-from flask import render_template, current_app
+from flask import redirect, render_template, current_app, url_for
 
 # self import
 from backend.forms import SettingForm
@@ -10,12 +10,12 @@ from . import game_route
 def setting():
     setting_form = SettingForm()
     game = current_app.config["GAME"]
-
+    submit_result = False
     if setting_form.validate_on_submit():
+        submit_result = True
         # Deck Number
         deck_num = setting_form.decks.data
         game.set_deck_num(deck_num)
-
         # Player Number
         players_num = setting_form.players.data
         game.set_player_num(players_num)
@@ -36,4 +36,4 @@ def setting():
         bj_ratio = setting_form.bj_ratio.data
         game.set_blackjack_ratio(bj_ratio)
 
-    return render_template('setting.html', setting_form=setting_form), 200
+    return render_template('setting.html', setting_form=setting_form, game=game, submit_result=submit_result), 200

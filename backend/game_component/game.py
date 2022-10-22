@@ -24,7 +24,7 @@ class Blackjack:
         self.set_blackjack_value(self.deck)
 
         # Setting Player
-        self.player_num = 2
+        self.players_num = 2
         self.players = Table()
 
         # Setting Banker
@@ -41,8 +41,8 @@ class Blackjack:
     def get_deck_cards(self):
         return self.get_deck().deck
 
-    def get_player_num(self):
-        return self.player_num
+    def get_players_num(self):
+        return self.players_num
 
     def get_min_bet(self):
         return self.min_bet
@@ -165,7 +165,7 @@ class Blackjack:
         self.deck_num = deck_num
 
     def set_player_num(self, player_num):
-        self.player_num = player_num
+        self.players_num = player_num
 
     def set_min_bet(self, min_bet):
         self.min_bet = min_bet
@@ -300,7 +300,7 @@ class Blackjack:
         return player.pay_stake()
 
     def set_players(self):
-        self.players.create(self.player_num)
+        self.players.create(self.players_num)
 
     def set_players_by_ids(self, ids: list[int]):
         self.players.create_by_id(ids)

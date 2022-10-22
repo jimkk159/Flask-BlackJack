@@ -1,10 +1,99 @@
 {% import "bootstrap/wtf.html" as wtf %}
+
 {% block content %}
 {% include "header.html" %}
-<h1>Setting</h1>
-{{ wtf.quick_form(setting_form, novalidate=True, button_map={"submit": "primary"}) }}
-<a href="{{ url_for('game_route.home') }}">
-    <button>Leave</button>
-</a>
+<div class="page setting-page container-fluid mx-auto">
+    <div class="page-inside setting-page-inside">
+        <h1 class="page-title">Setting</h1>
+        <form method="POST" action="{{ url_for('game_route.setting') }}" novalidate>
+            {{ setting_form.csrf_token }}
+            <p>
+                {{ setting_form.decks.label }} {{ setting_form.decks(oninput="this.nextElementSibling.value =
+                this.value") }}
+                <output>{{ game.get_deck_num() }}</output>
+            </p>
+            <p>
+                {{ setting_form.players.label }} {{ setting_form.players(oninput="this.nextElementSibling.value =
+                this.value") }}
+                <output>{{ game.get_players_num() }}</output>
+            </p>
+
+            <div class="d-flex flex-row setting-checkbox">
+                <div class="d-flex flex-col setting-checkbox-col-1">
+                    <p>{{ setting_form.is_insurance.label }}</p>
+                </div>
+                <div class="d-flex flex-col setting-checkbox-col-2">
+                    <div class="round-checkbox">
+                        {{ setting_form.is_insurance(id="checkbox-1") }}<label for="checkbox-1"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row setting-checkbox">
+                <div class="d-flex flex-col setting-checkbox-col-1">
+                    <p>{{ setting_form.is_over_10.label }}</p>
+                </div>
+                <div class="d-flex flex-col setting-checkbox-col-2">
+                    <div class="round-checkbox">
+                        {{ setting_form.is_over_10(id="checkbox-2") }}<label for="checkbox-2"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row setting-checkbox">
+                <div class="d-flex flex-col setting-checkbox-col-1">
+                    <p>{{ setting_form.is_double.label }}</p>
+                </div>
+                <div class="d-flex flex-col setting-checkbox-col-2">
+                    <div class="round-checkbox">
+                        {{ setting_form.is_double(id="checkbox-3") }}<label for="checkbox-3"></label>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                {{ setting_form.bj_ratio.label }} {{ setting_form.bj_ratio(oninput="this.nextElementSibling.value =
+                this.value") }}
+                <output>{{ game.get_blackjack_ratio() }}</output>
+            </p>
+            {% if submit_result %}
+            <div class="text-center">
+                <span class="submit-alert">Submit Success</span>
+            </div>
+            {% endif %}
+            {{ setting_form.submit(class_="btn btn-primary") }}
+        </form>
+        <div class="row">
+            <div class="col-lg-10">
+            </div>
+            <div class="col-lg-2">
+                <div class="leave-button">
+                    <a href="{{ url_for('game_route.home') }}">
+                        <button class="btn btn-secondary btn-lg">Leave</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function outputUpdate(decks) {
+    document.querySelector('#selected-decks').value = decks;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 {% include "footer.html" %}
 {% endblock %}
