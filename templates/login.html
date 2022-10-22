@@ -6,6 +6,18 @@
         <h1 class="page-title">What is your name</h1>
         {{ wtf.quick_form(register_form, novalidate=True, button_map={"submit": "primary"}) }}
     </div>
+    <div class="row">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-2">
+            <div class="leave-button">
+                <a href="{{ url_for('game_route.home') }}">
+                    <button class="btn btn-secondary btn-lg">Leave</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 {% include "footer.html" %}
 {% endblock %}
