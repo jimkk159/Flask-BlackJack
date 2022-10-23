@@ -260,6 +260,12 @@ class Blackjack:
         return False
 
     # Check Player End
+    def get_is_hand_end(self, hand):
+
+        if hand:
+            return True if (hand.get_result() != "" and hand.get_result() != "stand") else False
+        return False
+
     def get_is_player_end(self, player):
 
         hands = player.get_hands()

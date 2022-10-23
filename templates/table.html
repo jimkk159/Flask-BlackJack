@@ -9,7 +9,7 @@
                     <div class="row banker-status-row">
                         <div class="player-status-content">
                             {% for player in game.get_players() %}
-                            <p class="player-name">Player: <span >{{ player.get_name() }}</span></p>
+                            <p class="player-name">Player: <span>{{ player.get_name() }}</span></p>
                             {% endfor %}
                             <p>Total Money: {{ 1000 }}</p>
                             <p>Basic Stake: {{ 5 }}</p>
@@ -29,7 +29,33 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="row player-status-row">
+                    <div class="row player-dialog-row">
+                        {% for player in game.get_players() %}
+                        {% for hand in player.get_hands() %}
+                        {% if hand.get_is_end() %}
+                        <div class="player-dialog" style="left:{{ hand.get_cards()[0].get_x() }}rem;">
+                            <div class="row player-dialog-name">
+                                <div class="leftAlign">
+                                    <div class="dialogContainer">
+                                        <div class="mainDialog">Player {{ player.get_name() }} </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row player-dialog-content">
+                                <div class="leftAlign">
+                                    <div class="dialogContainer">
+                                        <div class="mainDialog">This hand is {{ hand.get_result() }}<br><br></div>
+                                        <img src="{{ url_for('static',filename='img/moreText.gif') }}"
+                                             class="moreTextIcon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="row player-cards-row">
                         <div class="card-content">
                             {% for player in game.get_players() %}
                             {% for hand in player.get_hands() %}

@@ -42,11 +42,15 @@ class Hand:
     def get_is_finish(self):
         return self.is_finish
 
-    def set_is_hit(self, is_hit: bool):
-        self.is_hit = is_hit
+    def get_is_end(self):
+        result = self.get_result()
+        return True if (result != "" and result != "stand") else False
 
     def get_able_split(self):
         return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
+
+    def set_is_hit(self, is_hit: bool):
+        self.is_hit = is_hit
 
     def set_is_ace_split(self, is_ace_split: bool):
         self.is_ace_split = is_ace_split

@@ -449,9 +449,9 @@ font-size: 30px;
 	-webkit-transform: scaleY(-1);
   	transform: scaleY(-1);
 }
-
-.table .player-status-row{
+.table .card-content{
     position:relative;
+
 }
 .table .player-status-content{
     position:absolute;
@@ -472,21 +472,84 @@ font-size: 30px;
 .game-status-row{
     min-height:40rem;
 }
-.game-status-row, .banker-status-row{
+
+/* status-row */
+.game-status-row, .banker-status-row, .player-dialog-row, .player-cards-row{
     position:relative;
 }
 .banker-status-row {
-    min-height:15rem;
+    min-height:19rem;
 }
+
+.player-cards-row{
+    min-height:12rem;
+}
+.player-cards-row .poker-card{
+    position:absolute;
+    bottom:2rem;
+}
+.player-dialog-row{
+    min-height:9rem;
+}
+
 .banker-status-row .poker-card{
     position:absolute;
     top:1rem;
 }
-.player-status-row{
+/* Player Dialog */
+.player-dialog{
     position:relative;
-    min-height:25rem;
 }
-.player-status-row .poker-card{
+.player-dialog-name{
+    position:relative;
+    min-height:4rem;
+}
+.player-dialog-content{
+    position:relative;
+    min-height:6rem;
+}
+.leftAlign{
+    padding:0;
     position:absolute;
-    bottom:2rem;
+    text-align:left;
 }
+.mainDialog {
+  background-clip: padding-box;
+  background-color: #432616;
+  border-width: 6px;
+  border-style: solid;
+  border-image: url("/static/img/border.gif");
+  border-image-repeat: repeat;
+  border-image-slice: 10;
+  border-image-width: 14px;
+  color: white;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  image-rendering: crisp-edges;
+  padding: 8px;
+  text-shadow: 2px 2px 1px black;
+}
+
+.dialogContainer {
+  display: inline-block;
+  position: relative;
+}
+
+.moreTextIcon {
+  position: absolute;
+  left: calc(100% - 36px);
+  animation-duration: 1s;
+  animation-name: moreTextIcon;
+  animation-iteration-count: infinite;
+}
+
+@keyframes moreTextIcon {
+  from {
+    top: calc(100% - 32px);
+  }
+
+  to {
+    top: calc(100% - 26px);
+  }
+}
+
