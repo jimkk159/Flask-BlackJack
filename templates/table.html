@@ -144,10 +144,78 @@
         </div>
     </div>
     <div class="control-panel container-fluid">
-        <div class="row table-leave-button">
-            <div class="col-lg-10">
+        <div class="row">
+            {% for player in game.get_players() %}
+            {% for hand in player.hands %}
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        {% if hand.get_is_hit() %}
+                        <a href="{{ url_for('game_route.hit',player_id=player.id,hand_id=hand.id) }}">
+                            <img class="gestures gestures-hit"
+                                 src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}">
+                        </a>
+                        {% else %}
+                        <img class="gestures gestures-hit"
+                             src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}"
+                             style="filter: grayscale(100%);">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-2">
+                        {% if player.get_able_double() %}
+                        <a href="{{ url_for('game_route.double',player_id=player.id) }}">
+                            <img class="gestures gestures-double"
+                                 src="{{ url_for('static',filename='img/gestures/gesture-double-no-bg.png') }}">
+                        </a>
+                        {% else %}
+                        <img class="gestures gestures-double"
+                             src="{{ url_for('static',filename='img/gestures/gesture-double-no-bg.png') }}"
+                             style="filter: grayscale(100%);">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-2">
+                        {% if hand.get_able_split() and not hand.get_is_finish()%}
+                        <a href="{{ url_for('game_route.split',player_id=player.id,hand_id=hand.id) }}">
+                            <img class="gestures gestures-split"
+                                 src="{{ url_for('static',filename='img/gestures/gesture-split-no-bg.png') }}">
+                        </a>
+                        {% else %}
+                        <img class="gestures gestures-split"
+                             src="{{ url_for('static',filename='img/gestures/gesture-split-no-bg.png') }}"
+                             style="filter: grayscale(100%);">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-2">
+                        {% if not hand.get_is_finish() %}
+                        <a href="{{ url_for('game_route.stand',player_id=player.id,hand_id=hand.id) }}">
+                            <img class="gestures gestures-stand"
+                                 src="{{ url_for('static',filename='img/gestures/gesture-stand-no-bg.png') }}">
+                        </a>
+                        {% else %}
+                        <img class="gestures gestures-stand"
+                             src="{{ url_for('static',filename='img/gestures/gesture-stand-no-bg.png') }}"
+                             style="filter: grayscale(100%);">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-2">
+                        {% if player.get_able_fold() %}
+                        <a href="{{ url_for('game_route.fold',player_id=player.id) }}">
+                            <img class="gestures gestures-surrender"
+                                 src="{{ url_for('static',filename='img/gestures/gesture-surrender-no-bg.png') }}">
+                        </a>
+                        {% else %}
+                        <img class="gestures gestures-surrender"
+                             src="{{ url_for('static',filename='img/gestures/gesture-surrender-no-bg.png') }}"
+                             style="filter: grayscale(100%);">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
             </div>
-            <div class="col-lg-2">
+            {% endfor %}
+            {% endfor %}
+            <div class="col-lg-3">
                 <div class="leave-button">
                     <a href="{{ url_for('game_route.home') }}">
                         <button class="btn btn-secondary btn-lg">Leave</button>

@@ -339,7 +339,7 @@ font-size: 30px;
 }
 /* Table Page */
 .table-page{
-    padding:4% 4% 2%;
+    padding:4% 4% 1%;
 }
 .table-page-inside{
 
@@ -566,4 +566,21 @@ font-size: 30px;
 }
 .insurance-choice:hover{
     color:#FF7D7D;
+}
+/* Player control panel */
+.control-panel .gestures{
+    margin: 1rem 0rem;
+    height: 10rem;
+    background-color:#A74737;
+    border-radius:30%;
+}
+.control-panel .gestures:hover{
+    background-color:#892919;
+}
+.control-panel .gestures-stand, .control-panel .gestures-surrender{
+    background-color:#2A6062;
+}
+
+.control-panel .gestures-stand:hover, .control-panel .gestures-surrender:hover{
+    background-color:#1A4C4E;
 }
