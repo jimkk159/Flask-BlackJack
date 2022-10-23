@@ -174,7 +174,7 @@ class Table:
         return all_hands
 
     # Get All Players inside table
-    def get_players_in(self):
+    def get_players(self):
         return self.in_
 
     def get_is_player_id(self, id_):

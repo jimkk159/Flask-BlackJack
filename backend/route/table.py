@@ -34,7 +34,9 @@ def table():
                                game_end=game_end, name=name, room=room), 200
     if is_check_blackjack:
         current_app.config["check_blackjack"] = False
-        player = game.get_player_by_id(current_user.id)
+        # ToDo remember to recover
+        player = game.get_players()[0]
+        # player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
             return redirect(url_for('game_route.end'))
     return render_template('table.html', banker=banker, game=game, ask_insurance=False,
@@ -144,10 +146,13 @@ def reset():
     current_app.config["END"] = False
     current_app.config["show_insurance"] = True
     current_app.config["check_blackjack"] = True
-    game.enter_table(id_=current_user.id, name=current_user.name, money=current_user.money)
-    player = game.get_player_by_id(current_user.id)
+    game.set_players()
+    # ToDo remember to recover
+    # game.enter_table(id_=current_user.id, name=current_user.name, money=current_user.money)
+    # player = game.get_player_by_id(current_user.id)
     game.reset()
-    game.pay_player_stake(player)
+    game.pay_all_stake()
+    # game.pay_player_stake(player)
     game.deal_initial()
     # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                Card(symbol='A', suit='heart', value=11)]

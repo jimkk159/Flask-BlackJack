@@ -99,7 +99,7 @@ class Blackjack:
         return self.table
 
     def get_players(self):
-        return self.table.get_players_in()
+        return self.table.get_players()
 
     def get_player_option(self, player, hand):
         result = []
@@ -297,6 +297,12 @@ class Blackjack:
         # Reset Banker Cards
         self.banker = []
 
+    def pay_all_stake(self):
+        result = []
+        for player in self.get_players():
+            result.append(self.pay_player_stake(player))
+        return result
+
     def pay_player_stake(self, player):
         return player.pay_stake()
 
@@ -319,7 +325,7 @@ class Blackjack:
     def deal_to_all(self):
 
         # To each player
-        for player in self.table.get_players_in():
+        for player in self.table.get_players():
             self.deal(player.get_hands()[0].get_cards())
 
         # To banker
@@ -336,7 +342,7 @@ class Blackjack:
 
         # ToDo only for player 1
         # for num in range(self.player_num):
-        self.ask_player_insurance(self.table.get_players_in()[0], choice)
+        self.ask_player_insurance(self.table.get_players()[0], choice)
 
     def ask_player_insurance(self, player, choice):
 
@@ -414,7 +420,7 @@ class Blackjack:
 
     def banker_bust_process(self):
 
-        for player in self.table.get_players_in():
+        for player in self.table.get_players():
             for hand in player.get_hands():
                 hand_result = hand.get_result()
                 if hand_result == "" or hand_result == "stand":
@@ -424,7 +430,7 @@ class Blackjack:
     def compare_cards(self):
 
         banker_point = self.get_hand_sum_switch_ace(self.banker)
-        for player in self.table.get_players_in():
+        for player in self.table.get_players():
             for hand in player.get_hands():
                 hand_result = hand.get_result()
                 if hand_result == "" or hand_result == "stand":
