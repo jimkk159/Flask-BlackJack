@@ -20,6 +20,8 @@ class Card:
         self.value = value if value else poker_value[symbol]
         self.faced = faced
         self.img = self.get_card_img(self.suit, self.symbol)
+        self.x = 0
+        self.y = 0
 
     # GET
     def get_symbol(self):
@@ -41,12 +43,24 @@ class Card:
         if suit and symbol:
             return f"{poker_value_to_img[symbol]}_of_{suit}s.svg"
 
+    def get_x(self):
+        return self.x
+
+    def get_y(self):
+        return self.y
+
     # SET
     def set_value(self, value):
         self.value = value
 
     def set_faced(self, faced):
         self.faced = faced
+
+    def set_x(self, x):
+        self.x = x
+
+    def set_y(self, y):
+        self.y = y
 
 
 class Deck:

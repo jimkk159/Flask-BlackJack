@@ -90,6 +90,10 @@ class Player:
     def get_total_stake(self):
         return self.total_stake
 
+    def get_hand(self, num):
+        if len(self.hands) > num:
+            return self.hands[num]
+
     def get_hands(self):
         return self.hands
 
@@ -117,6 +121,13 @@ class Player:
             if str(hand.id) == id_:
                 return hand
 
+    def get_is_pay(self):
+
+        if self.money > self.basic_stake:
+            return True
+        else:
+            return False
+
     # SET
     def set_money(self, money: int):
         self.money = money
@@ -142,12 +153,8 @@ class Player:
     def set_insurance(self, insurance: bool):
         self.insurance = insurance
 
-    def get_is_pay(self):
-
-        if self.money > self.basic_stake:
-            return True
-        else:
-            return False
+    def append_empty_hand(self):
+        self.hands.append(Hand())
 
     def pay_stake(self):
 

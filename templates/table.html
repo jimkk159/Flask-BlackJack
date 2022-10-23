@@ -33,10 +33,10 @@
                         <div class="card-content">
                             {% for player in game.get_players() %}
                             {% for hand in player.get_hands() %}
-                            {% for num in range(hand.get_cards()|length) %}
+                            {% for card in hand.get_cards() %}
                             <img class="poker-card"
-                                 src="{{ url_for('static',filename='img/poker/'+hand.get_cards()[num].get_suit()+'/'+hand.get_cards()[num].get_img()) }}"
-                                 style="left:{{ 40+2*num }}rem;">
+                                 src="{{ url_for('static',filename='img/poker/'+card.get_suit()+'/'+card.get_img()) }}"
+                                 style="left:{{ card.get_x() }}rem;">
                             {% endfor %}
                             {% endfor %}
                             {% endfor %}
