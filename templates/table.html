@@ -28,20 +28,53 @@
                             {% endif %}
                             {% endfor %}
                         </div>
+                        {% if ask_insurance %}
+                        <div class="dialog banker-dialog" style="top:1rem;left:23rem;">
+                            <div class="row dialog-name">
+                                <div class="leftAlign">
+                                    <div class="dialogContainer">
+                                        <div class="mainDialog">Dealer</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row dialog-content">
+                                <div class="leftAlign">
+                                    <div class="dialogContainer">
+                                        <div class="mainDialog">Buy Insurance?<br>
+                                            <p>&nbsp
+                                                <a class="insurance-choice"
+                                                   href="{{ url_for('game_route.insurance',player_id=0, answer=1) }}">
+                                                    Yes
+                                                </a>
+                                                &nbsp &nbsp
+                                                <a class="insurance-choice"
+                                                   href="{{ url_for('game_route.insurance',player_id=0, answer=0) }}">
+                                                    No
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <img src="{{ url_for('static',filename='img/moreText.gif') }}"
+                                             class="moreTextIcon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="row player-dialog-row">
                         {% for player in game.get_players() %}
                         {% for hand in player.get_hands() %}
                         {% if hand.get_is_end() %}
-                        <div class="player-dialog" style="left:{{ hand.get_cards()[0].get_x() }}rem;">
-                            <div class="row player-dialog-name">
+                        <div class="dialog" style="left:{{ hand.get_cards()[0].get_x() }}rem;">
+                            <div class="row dialog-name">
                                 <div class="leftAlign">
                                     <div class="dialogContainer">
-                                        <div class="mainDialog">Player {{ player.get_name() }} </div>
+                                        <div class="mainDialog">Player {{ player.get_name() }}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row player-dialog-content">
+                            <div class="row dialog-content">
                                 <div class="leftAlign">
                                     <div class="dialogContainer">
                                         <div class="mainDialog">This hand is {{ hand.get_result() }}<br><br></div>

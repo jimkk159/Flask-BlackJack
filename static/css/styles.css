@@ -497,17 +497,7 @@ font-size: 30px;
     top:1rem;
 }
 /* Player Dialog */
-.player-dialog{
-    position:relative;
-}
-.player-dialog-name{
-    position:relative;
-    min-height:4rem;
-}
-.player-dialog-content{
-    position:relative;
-    min-height:6rem;
-}
+
 .leftAlign{
     padding:0;
     position:absolute;
@@ -553,3 +543,27 @@ font-size: 30px;
   }
 }
 
+/* Dialog */
+.dialog{
+    position:relative;
+}
+.dialog-name{
+    position:relative;
+    min-height:4rem;
+}
+.dialog-content{
+    position:relative;
+    min-height:6rem;
+}
+.banker-dialog{
+    position:absolute;
+}
+
+/* Insurance choice */
+.insurance-choice{
+    color:#FFF;
+    text-decoration:none;
+}
+.insurance-choice:hover{
+    color:#FF7D7D;
+}
