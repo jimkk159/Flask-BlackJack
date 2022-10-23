@@ -1,6 +1,16 @@
 from flask import render_template, current_app, redirect, url_for, session
 from flask_login import current_user
 
+TABLE_WIDTH = 81
+CARD_WIDTH = 5
+
+INIT_CARD_X_SPACE = 2.0
+INIT_CARD_Y_SPACE = 15.0
+INIT_HAND_X_SPACE = 12.0
+INIT_HAND_Y_SPACE = 0.0
+INIT_PLAYER_X_SPACE = 30.0
+INIT_PLAYER_Y_SPACE = 0.0
+
 # self import
 from . import game_route
 from app import socketio
@@ -17,8 +27,26 @@ def check_blackjack(game, player):
 # Set Card Location
 def set_cards_location(game):
     set_banker_location(game.get_banker_cards())
-    if game.get_players_num() == 2:
-        set_table_players_location(init_x=5, init_y=0, table_=game.get_table())
+    table_ = game.get_table()
+    if game.get_players_num() == 1:
+        set_table_players_location(init_x=TABLE_WIDTH / 2 - CARD_WIDTH/2,
+                                   table_=table_)
+
+    elif game.get_players_num() == 2:
+        set_table_players_location(init_x=TABLE_WIDTH / 4 - 2 * CARD_WIDTH, player_x_space=43 - CARD_WIDTH,
+                                   table_=table_)
+
+    elif game.get_players_num() == 3:
+        set_table_players_location(init_x=TABLE_WIDTH / 5 - 2 * CARD_WIDTH,
+                                   player_x_space=30 - CARD_WIDTH,
+                                   hand_x_space=INIT_HAND_X_SPACE - 2,
+                                   table_=table_)
+
+    elif game.get_players_num() == 4:
+        set_table_players_location(init_x=TABLE_WIDTH / 6 - 2 * CARD_WIDTH,
+                                   player_x_space=25 - CARD_WIDTH,
+                                   hand_x_space=INIT_HAND_X_SPACE - 2,
+                                   table_=table_)
 
 
 def set_banker_location(cards):
@@ -30,28 +58,42 @@ def set_banker_location(cards):
             cards[num].set_x(40 + 2 * num)
 
 
-def set_table_players_location(init_x=0, init_y=0, x_space=30, y_space=0, table_=None):
+def set_table_players_location(init_x=0.0, init_y=0.0, card_x_space=None, card_y_space=None, hand_x_space=None,
+                               hand_y_space=None, player_x_space=30.0, player_y_space=0.0, table_=None):
     if table_:
         players = table_.get_players()
         for num in range(len(players)):
-            set_player_location(init_x=init_x + num * x_space, init_y=init_y + num * y_space, player=players[num])
+            set_player_location(init_x=init_x + (num * player_x_space if player_x_space else num * INIT_PLAYER_X_SPACE),
+                                init_y=init_y + (num * player_y_space if player_y_space else num * INIT_PLAYER_Y_SPACE),
+                                card_x_space=card_x_space,
+                                card_y_space=card_y_space,
+                                hand_x_space=hand_x_space,
+                                hand_y_space=hand_y_space,
+                                player=players[num])
 
 
-def set_player_location(init_x=0, init_y=0, x_space=10, y_space=0, player=None):
+def set_player_location(init_x=0.0, init_y=0.0, card_x_space=None, card_y_space=None, hand_x_space=None,
+                        hand_y_space=None, player=None):
     if player:
         hands = player.get_hands()
         for num in range(len(hands)):
-            set_hand_location(init_x=init_x + num * x_space, init_y=init_y + num * y_space, hand=hands[num])
+            set_hand_location(init_x=init_x + (num * hand_x_space if hand_x_space else num * INIT_HAND_X_SPACE),
+                              init_y=init_y + (num * hand_y_space if hand_y_space else num * INIT_HAND_Y_SPACE),
+                              card_x_space=card_x_space,
+                              card_y_space=card_y_space,
+                              hand=hands[num])
 
 
-def set_hand_location(init_x=0, init_y=0, x_space=2, y_space=15, hand=None):
+def set_hand_location(init_x=0.0, init_y=0.0, card_x_space=None, card_y_space=None, hand=None):
     if hand:
         cards = hand.get_cards()
         for num in range(len(cards)):
-            set_card_location(x=init_x + num * x_space, y=init_y + num * y_space, card=cards[num])
+            set_card_location(x=init_x + (num * card_x_space if card_x_space else num * INIT_CARD_X_SPACE),
+                              y=init_y + (num * card_y_space if card_y_space else num * INIT_CARD_Y_SPACE),
+                              card=cards[num])
 
 
-def set_card_location(x=0, y=0, card=None):
+def set_card_location(x=0.0, y=0.0, card=None):
     card.set_x(x)
     card.set_y(y)
 
@@ -202,10 +244,19 @@ def reset():
     #                Card(symbol='A', suit='heart', value=11)]
     # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                                  Card(symbol='A', value=11, suit='heart')]
-    game.get_players()[0].append_empty_hand()
-    game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                  Card(symbol='A', value=11, suit='heart')]
-    print(game.get_players()[0].get_hand(1))
+    # game.get_players()[0].append_empty_hand()
+    # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                               Card(symbol='A', value=11, suit='heart')]
+    # game.get_players()[1].append_empty_hand()
+    # game.get_players()[1].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                               Card(symbol='A', value=11, suit='heart')]
+    # game.get_players()[2].append_empty_hand()
+    # game.get_players()[2].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                               Card(symbol='A', value=11, suit='heart')]
+    # game.get_players()[3].append_empty_hand()
+    # game.get_players()[3].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                               Card(symbol='A', value=11, suit='heart')]
+
     name = session.get('name', '')
     room = session.get('room', '')
     if name == '' or room == '':

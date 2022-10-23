@@ -24,7 +24,7 @@ class Blackjack:
         self.set_blackjack_value(self.deck)
 
         # Setting Player
-        self.players_num = 2
+        self.players_num = 1
         self.table = Table()
 
         # Setting Banker
