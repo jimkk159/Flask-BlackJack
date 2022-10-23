@@ -5,14 +5,17 @@
         <div class="col-lg-9 table-col-1">
             <div class="px-1 table"
                  style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
-                <div class="row player-status-row">
-                    <div class="row">
+                <div class="row game-status-row">
+                    <div class="row banker-status-row">
                         <div class="player-status-content">
+                            {% for player in game.get_players() %}
+                            <p class="player-name">Player: <span >{{ player.get_name() }}</span></p>
+                            {% endfor %}
                             <p>Total Money: {{ 1000 }}</p>
                             <p>Basic Stake: {{ 5 }}</p>
                             <p>Total Stake: {{ 10 }}</p>
                         </div>
-                        <div>
+                        <div class="card-content">
                             {% for card in game.get_banker_cards() %}
                             {% if card.get_faced() %}
                             <img class="poker-card"
@@ -24,18 +27,13 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="row">
-                        <div>
+                    <div class="row player-status-row">
+                        <div class="card-content">
                             {% for player in game.get_players() %}
                             {% for hand in player.get_hands() %}
                             {% for card in hand.get_cards() %}
-                            {% if card.get_faced() %}
                             <img class="poker-card"
                                  src="{{ url_for('static',filename='img/poker/'+card.get_suit()+'/'+card.get_img()) }}">
-                            {% else %}
-                            <img class="poker-card"
-                                 src="{{ url_for('static',filename='img/poker/poker_back.svg') }}">
-                            {% endif %}
                             {% endfor %}
                             {% endfor %}
                             {% endfor %}

@@ -464,3 +464,29 @@ font-size: 30px;
 .table .poker-card{
     height: 10rem;
 }
+.table .player-name{
+    font-family: 'Anton', sans-serif;
+    font-weight:400;
+    color:#652A0E;
+}
+.game-status-row{
+    min-height:40rem;
+}
+.game-status-row, .banker-status-row{
+    position:relative;
+}
+.banker-status-row {
+    min-height:15rem;
+}
+.banker-status-row .poker-card{
+    position:absolute;
+    top:1rem;
+}
+.player-status-row{
+    position:relative;
+    min-height:25rem;
+}
+.player-status-row .poker-card{
+    position:absolute;
+    bottom:2rem;
+}
