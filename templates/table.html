@@ -16,13 +16,15 @@
                             <p>Total Stake: {{ 10 }}</p>
                         </div>
                         <div class="card-content">
-                            {% for card in game.get_banker_cards() %}
-                            {% if card.get_faced() %}
+                            {% for num in range(banker|length) %}
+                            {% if banker[num].get_faced() %}
                             <img class="poker-card"
-                                 src="{{ url_for('static',filename='img/poker/'+card.get_suit()+'/'+card.get_img()) }}">
+                                 src="{{ url_for('static',filename='img/poker/'+banker[num].get_suit()+'/'+banker[num].get_img()) }}"
+                                 style="left:{{ 40+2*num }}rem;">
                             {% else %}
                             <img class="poker-card"
-                                 src="{{ url_for('static',filename='img/poker/poker_back.svg') }}">
+                                 src="{{ url_for('static',filename='img/poker/poker_back.svg') }}"
+                                 style="left:34rem;">
                             {% endif %}
                             {% endfor %}
                         </div>
