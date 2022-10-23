@@ -354,6 +354,7 @@ font-size: 30px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     min-height:40rem;
+    border-radius: 10px;
 }
 .table-rule{
     border: 2px;
@@ -409,6 +410,8 @@ font-size: 30px;
 
 .player-status-content p{
 	margin-bottom:0;
+	padding:0;
+	padding-right:1rem;
 	text-align:right;
 	font-family: Neuton-Bold;
 	font-size: 28px;
@@ -457,4 +460,7 @@ font-size: 30px;
 .table-page .leave-button{
     margin: 3rem 3rem 0;
     bottom:3rem;
+}
+.table .poker-card{
+    height: 10rem;
 }

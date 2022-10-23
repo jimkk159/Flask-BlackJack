@@ -6,9 +6,40 @@
             <div class="px-1 table"
                  style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
                 <div class="row player-status-row">
-                    <div class="player-status-content">
-                        <p>Total Money: {{ 123 }}</p>
-                        <p>Total Stake: {{ 123 }}</p>
+                    <div class="row">
+                        <div class="player-status-content">
+                            <p>Total Money: {{ 1000 }}</p>
+                            <p>Basic Stake: {{ 5 }}</p>
+                            <p>Total Stake: {{ 10 }}</p>
+                        </div>
+                        <div>
+                            {% for card in game.get_banker_cards() %}
+                            {% if card.get_faced() %}
+                            <img class="poker-card"
+                                 src="{{ url_for('static',filename='img/poker/'+card.get_suit()+'/'+card.get_img()) }}">
+                            {% else %}
+                            <img class="poker-card"
+                                 src="{{ url_for('static',filename='img/poker/poker_back.svg') }}">
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            {% for player in game.get_players() %}
+                            {% for hand in player.get_hands() %}
+                            {% for card in hand.get_cards() %}
+                            {% if card.get_faced() %}
+                            <img class="poker-card"
+                                 src="{{ url_for('static',filename='img/poker/'+card.get_suit()+'/'+card.get_img()) }}">
+                            {% else %}
+                            <img class="poker-card"
+                                 src="{{ url_for('static',filename='img/poker/poker_back.svg') }}">
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,7 +65,7 @@
                                     <div class="col-lg-12 text-center">
                                         <h1>Table Rule</h1>
                                         <p>Number of decks: {{ game.get_deck_num() }}</p>
-                                        <p>Max Number of Players: {{ game.get_players_num() }}</p>
+                                        <p>Max Players of Table: {{ game.get_players_num() }}</p>
                                         <p>Minimum Bet: {{ game.get_min_bet() }}</p>
                                         <p>BlackJack Ration: {{ game.get_blackjack_ratio() }}</p>
                                         <p>Insurance: {{ "Open" if game.get_is_insurance() else "Close" }}</p>

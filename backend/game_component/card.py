@@ -4,9 +4,10 @@ from flask import Blueprint
 
 suits = ["spade", "heart", "diamond", "club"]
 poker_symbol = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
-poker_value_dict = {"K": 13, "Q": 12, "J": 11, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
-                    "4": 4, "3": 3, "2": 2, "A": 1}
-
+poker_value = {"K": 13, "Q": 12, "J": 11, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
+               "4": 4, "3": 3, "2": 2, "A": 1}
+poker_value_to_img = {"K": "King", "Q": "Queen", "J": "Jack", "10": "10", "9": "9", "8": "8", "7": "7",
+                      "6": "6", "5": "5", "4": "4", "3": "3", "2": "2", "A": "Ace"}
 card_blueprint = Blueprint('card', __name__)
 
 
@@ -14,10 +15,11 @@ class Card:
 
     def __init__(self, symbol, suit, value=None, faced=True):
         self.id = uuid.uuid1()
-        self.symbol = symbol
         self.suit = suit
-        self.value = value if value else poker_value_dict[symbol]
+        self.symbol = symbol
+        self.value = value if value else poker_value[symbol]
         self.faced = faced
+        self.img = self.get_card_img(self.suit, self.symbol)
 
     # GET
     def get_symbol(self):
@@ -31,6 +33,13 @@ class Card:
 
     def get_faced(self):
         return self.faced
+
+    def get_img(self):
+        return self.img
+
+    def get_card_img(self, suit, symbol):
+        if suit and symbol:
+            return f"{poker_value_to_img[symbol]}_of_{suit}s.svg"
 
     # SET
     def set_value(self, value):
