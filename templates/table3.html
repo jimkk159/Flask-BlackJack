@@ -152,7 +152,7 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-2">
                         {% if hand.get_is_hit() %}
-                        <a href="#" onclick="hit_click( { hand_id:'{{ hand.id }}' } );">
+                        <a href="{{ url_for('game_route.hit',player_id=player.id,hand_id=hand.id) }}">
                             <img class="gestures gestures-hit"
                                  src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}">
                         </a>
@@ -164,7 +164,7 @@
                     </div>
                     <div class="col-lg-2">
                         {% if player.get_able_double() %}
-                        <a href="#" onclick="double_click( { player_id:'{{ player.id }}' } );">
+                        <a href="{{ url_for('game_route.double',player_id=player.id) }}">
                             <img class="gestures gestures-double"
                                  src="{{ url_for('static',filename='img/gestures/gesture-double-no-bg.png') }}">
                         </a>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="col-lg-2">
                         {% if hand.get_able_split() and not hand.get_is_finish()%}
-                        <a href="#" onclick="split_click( { player_id:'{{ player.id }}', hand_id:'{{ hand.id }}' } );">
+                        <a href="{{ url_for('game_route.split',player_id=player.id,hand_id=hand.id) }}">
                             <img class="gestures gestures-split"
                                  src="{{ url_for('static',filename='img/gestures/gesture-split-no-bg.png') }}">
                         </a>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="col-lg-2">
                         {% if not hand.get_is_finish() %}
-                        <a href="#" onclick="stand_click( { hand_id:'{{ hand.id }}' } );">
+                        <a href="{{ url_for('game_route.stand',player_id=player.id,hand_id=hand.id) }}">
                             <img class="gestures gestures-stand"
                                  src="{{ url_for('static',filename='img/gestures/gesture-stand-no-bg.png') }}">
                         </a>
@@ -200,7 +200,7 @@
                     </div>
                     <div class="col-lg-2">
                         {% if player.get_able_fold() %}
-                        <a href="#" onclick="fold_click( { player_id:'{{ player.id }}' } );">
+                        <a href="{{ url_for('game_route.fold',player_id=player.id) }}">
                             <img class="gestures gestures-surrender"
                                  src="{{ url_for('static',filename='img/gestures/gesture-surrender-no-bg.png') }}">
                         </a>
@@ -217,7 +217,7 @@
             {% endfor %}
             <div class="col-lg-3">
                 <div class="leave-button">
-                    <a href="#" onclick="leave_room();">
+                    <a href="{{ url_for('game_route.home') }}">
                         <button class="btn btn-secondary btn-lg">Leave</button>
                     </a>
                 </div>
@@ -225,56 +225,5 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.3/socket.io.js"
-        integrity="sha512-iWPnCISAd/J+ZacwV2mbNLCaPGRrRo5OS81lKTVPtRg1wGTC20Cfmp5Us5RcbLv42QLdbAWl0MI57yox5VecQg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript" charset="utf-8">
-    var socket;
-    $(document).ready(function(){
-        socket = io.connect('http://' + document.domain + ':' + location.port + '/table')
-        socket.on('connect', function() {
-            console.log('connect');
-            socket.emit('joined', {});
-        });
 
-        socket.on('disconnect', function() {
-            console.log('disconnect');
-        });
-        socket.on('status', function(data) {
-            socket.emit('refresh', {});
-        });
-
-        socket.on('message', function(data) {
-        });
-
-
-    });
-    function leave_room() {
-        socket.emit('left', {}, function() {
-            socket.disconnect();
-
-            // go back to the logout page
-            window.location.href = "{{ url_for('game_route.logout') }}";
-        });
-    }
-    function hit_click(data) {
-        socket.emit('hit_', data);
-    }
-    function double_click(data) {
-        socket.emit('double_', data);
-    }
-    function split_click(data) {
-        socket.emit('split_', data);
-    }
-    function stand_click(data) {
-        socket.emit('stand_', data);
-    }
-    function fold_click(data) {
-        socket.emit('fold_', data);
-    }
-
-</script>
 {% include "footer.html" %}

@@ -13,7 +13,6 @@ INIT_PLAYER_Y_SPACE = 0.0
 
 # self import
 from . import game_route
-from app import socketio
 from backend.game_component.card import Card
 
 
@@ -120,9 +119,10 @@ def table():
                                game_end=game_end, name=name, room=room), 200
     if is_check_blackjack:
         current_app.config["SHOW_BLACKJACK"] = False
-        # ToDo remember to recover
+        # For debug
         player = game.get_players()[0]
-        # player = game.get_player_by_id(current_user.id)
+        # ToDo remember to recover
+        player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
             return redirect(url_for('game_route.end'))
     return render_template('table.html', banker=banker, game=game, ask_insurance=False,
@@ -232,18 +232,22 @@ def reset():
     current_app.config["END"] = False
     current_app.config["SHOW_INSURANCE"] = True
     current_app.config["SHOW_BLACKJACK"] = True
-    game.set_players()
+    # For Debug
+    # game.set_players()
     # ToDo remember to recover
-    # game.enter_table(id_=current_user.id, name=current_user.name, money=current_user.money)
-    # player = game.get_player_by_id(current_user.id)
+    game.enter_table(id_=current_user.id, name=current_user.name, money=current_user.money)
+    player = game.get_player_by_id(current_user.id)
     game.reset()
-    game.pay_all_stake()
-    # game.pay_player_stake(player)
+    # For Debug
+    # game.pay_all_stake()
+    game.pay_player_stake(player)
     game.deal_initial()
+
+    # For Debug
     # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                Card(symbol='A', suit='heart', value=11)]
-    # game.get_players_in()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                                  Card(symbol='A', value=11, suit='heart')]
+    game.get_players()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+                                                     Card(symbol='A', value=11, suit='heart')]
     # game.get_players()[0].append_empty_hand()
     # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]

@@ -16,6 +16,9 @@ class Hand:
         self._5_card_charlie = False
         self.result = ""
 
+    def get_id(self):
+        return self.id
+
     def get_cards(self):
         return self.cards
 
@@ -122,7 +125,7 @@ class Player:
     # find hand
     def get_hand_by_id(self, id_):
         for hand in self.get_hands():
-            if str(hand.id) == id_:
+            if str(hand.get_id()) == id_:
                 return hand
 
     def get_is_pay(self):

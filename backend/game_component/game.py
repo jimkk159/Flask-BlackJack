@@ -31,7 +31,6 @@ class Blackjack:
         self.banker = []
         self.min_bet = 5
 
-
     # GET
     def get_deck(self):
         return self.deck
@@ -288,8 +287,14 @@ class Blackjack:
 
     def get_player_by_id(self, id_):
         for player in self.get_players():
-            if player.get_id() == id_:
+            if str(player.get_id()) == id_:
                 return player
+
+    def get_hand_by_id(self, id_):
+        for player in self.get_players():
+            for hand in player.get_hands():
+                if str(hand.get_id()) == id_:
+                    return hand
 
     # Game Setting
     def reset(self):
