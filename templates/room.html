@@ -1,0 +1,21 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+{% include "header.html" %}
+<div class="page room-page container-fluid mx-auto">
+    <div class="page-inside room-page-inside">
+    
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+        </div>
+        <div class="col-lg-2">
+            <div class="leave-button">
+                <a href="{{ url_for('game_route.home') }}">
+                    <button class="btn btn-secondary btn-lg">Leave</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

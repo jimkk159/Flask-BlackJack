@@ -339,10 +339,18 @@ font-size: 30px;
 }
 /* Table Page */
 .table-page{
-    padding:4% 4% 1%;
+    padding:2% 4% 1%;
 }
-.table-page-inside{
-
+.table-title-padding {
+    text-align:center;
+}
+.table-page .page-title{
+    margin-top: 1%;
+    margin-bottom: 2%;
+    padding:1%;
+    width: 15%;
+    border: solid 5px;
+    font-size: 2rem;
 }
 .table-col-1{
     padding: 0 1.5rem 0 2rem;

@@ -68,6 +68,7 @@ class Blackjack:
         return False
 
     def get_judge_insurance(self):
+
         if self.banker[1].get_symbol() == "A" or (
                 self.is_insurance_over_10 and self.banker[1].get_symbol() in ["A", "K", "Q", "J", "10"]):
             return True

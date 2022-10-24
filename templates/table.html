@@ -3,6 +3,12 @@
 <div class="page table-page">
     <div class="table-screen container-fluid mx-auto">
         <div class="page-inside table-page-inside row">
+            <div class="row">
+                <div class="col-lg-9 table-title-padding ">
+                        <h1 class="page-title mx-auto">Room {{ room }}️</h1>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
             <div class="col-lg-9 table-col-1">
                 <div class="px-1 table"
                      style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
@@ -285,6 +291,8 @@
     function fold_click(data) {
         socket.emit('fold_', data);
     }
+
+
 
 
 
