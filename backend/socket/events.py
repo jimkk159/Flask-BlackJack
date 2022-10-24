@@ -38,14 +38,15 @@ def hit_(message):
 def double_(message):
     print('I got double')
     room = session.get('room')
-    game = current_app.config["GAME"]
-
-    player_id = message['player_id']
-    player = game.get_player_by_id(player_id)
-
-    game.double_down_process(player)
+    print(message['userId'])
+    # game = current_app.config["GAME"]
+    #
+    # player_id = message['player_id']
+    # player = game.get_player_by_id(player_id)
+    #
+    # game.double_down_process(player)
     emit('reload', {}, room=room)
-    bandker_check(game, player, room)
+    # bandker_check(game, player, room)
 
 
 @socketio.on('split_', namespace='/table')

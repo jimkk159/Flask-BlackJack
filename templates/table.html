@@ -87,7 +87,13 @@
                             </div>
                             {% endif %}
                             {% endfor %}
+                            {% if current_user.id == player.get_id() and player.get_current_hand() %}
+                            <img class="yellow-arrow"
+                                 style="left:{{ player.get_current_hand().get_cards()[0].get_x() }}rem;"
+                                 src="{{ url_for('static',filename='img/yellow_arrow.png') }}">
+                            {% endif %}
                             {% endfor %}
+
                         </div>
                         <div class="row player-cards-row">
                             <div class="card-content">
@@ -145,14 +151,14 @@
     </div>
     <div class="control-panel container-fluid">
         <div class="row">
-            {% for player in game.get_players() %}
-            {% for hand in player.hands %}
+            {% for player in game.get_players() if current_user.id == player.get_id() %}
+            {% set current_hand = player.get_current_hand() %}
             <div class="col-lg-9">
                 <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-2">
-                        {% if hand.get_able_hit() %}
-                        <a href="#" onclick="hit_click( { hand_id:'{{ hand.id }}' } );">
+                        {% if current_hand and current_hand.get_able_hit() %}
+                        <a href="#" onclick="hit_click( { hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-hit"
                                  src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}">
                         </a>
@@ -175,8 +181,9 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if hand.get_able_split() and not hand.get_is_finish()%}
-                        <a href="#" onclick="split_click( { player_id:'{{ player.id }}', hand_id:'{{ hand.id }}' } );">
+                        {% if current_hand and current_hand.get_able_split() and not current_hand.get_is_finish()%}
+                        <a href="#"
+                           onclick="split_click( { player_id:'{{ player.id }}', hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-split"
                                  src="{{ url_for('static',filename='img/gestures/gesture-split-no-bg.png') }}">
                         </a>
@@ -187,8 +194,8 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if not hand.get_is_finish() %}
-                        <a href="#" onclick="stand_click( { hand_id:'{{ hand.id }}' } );">
+                        {% if current_hand and not current_hand.get_is_finish() %}
+                        <a href="#" onclick="stand_click( { hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-stand"
                                  src="{{ url_for('static',filename='img/gestures/gesture-stand-no-bg.png') }}">
                         </a>
@@ -213,7 +220,6 @@
                     <div class="col-lg-1"></div>
                 </div>
             </div>
-            {% endfor %}
             {% endfor %}
             <div class="col-lg-3">
                 <div class="leave-button">
@@ -267,6 +273,7 @@
         socket.emit('hit_', data);
     }
     function double_click(data) {
+
         socket.emit('double_', data);
     }
     function split_click(data) {
@@ -278,6 +285,10 @@
     function fold_click(data) {
         socket.emit('fold_', data);
     }
+
+
+
+
 
 </script>
 {% include "footer.html" %}

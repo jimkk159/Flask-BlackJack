@@ -128,6 +128,11 @@ class Player:
             if str(hand.get_id()) == id_:
                 return hand
 
+    def get_current_hand(self):
+        for hand in self.get_hands():
+            if not hand.get_is_finish():
+                return hand
+
     def get_is_pay(self):
 
         if self.money > self.basic_stake:

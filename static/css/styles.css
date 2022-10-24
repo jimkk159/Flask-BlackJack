@@ -482,11 +482,11 @@ font-size: 30px;
 }
 
 .player-cards-row{
-    min-height:12rem;
+    min-height:11rem;
 }
 .player-cards-row .poker-card{
     position:absolute;
-    bottom:2rem;
+    bottom:1rem;
 }
 .player-dialog-row{
     min-height:9rem;
@@ -545,7 +545,8 @@ font-size: 30px;
 
 /* Dialog */
 .dialog{
-    position:relative;
+    position:absolute;
+    bottom:0.1rem;
 }
 .dialog-name{
     position:relative;
@@ -583,4 +584,11 @@ font-size: 30px;
 
 .control-panel .gestures-stand:hover, .control-panel .gestures-surrender:hover{
     background-color:#1A4C4E;
+}
+
+.yellow-arrow{
+    position:absolute;
+    bottom: 0;
+    height: 4rem;
+    width: 3.5rem;
 }
