@@ -191,7 +191,7 @@ class Blackjack:
         hand.set_result("stand")
 
     def stand_process(self, hand):
-        hand.set_is_hit(False)
+        hand.set_able_hit(False)
         hand.set_is_finish(True)
         self.set_hand_stand(hand)
 
@@ -385,8 +385,11 @@ class Blackjack:
 
     def double_down_process(self, player):
         self.double_down(player)
-        if self.get_is_hand_bust(player.get_hands()[0].get_cards()):
-            player.get_hands()[0].set_result("bust")
+        hand = player.get_hands()[0]
+        hand.set_able_hit(False)
+        hand.set_is_finish(True)
+        if self.get_is_hand_bust(hand.get_cards()):
+            hand.set_result("bust")
             return True
         return False
 
@@ -397,13 +400,15 @@ class Blackjack:
             hand.set_charlie(True)
 
     def hit_process(self, hand):
-        if hand.get_is_hit() and not hand.get_is_finish():
+        if hand.get_able_hit() and not hand.get_is_finish():
             self.hit(hand)
         if hand.get_is_ace_split():
-            hand.set_is_hit(False)
+            hand.set_able_hit(False)
             if not hand.get_able_split():
                 hand.set_is_finish(True)
         if self.get_is_hand_bust(hand.get_cards()):
+            hand.set_able_hit(False)
+            hand.set_is_finish(True)
             hand.set_result("bust")
 
     # Split
@@ -412,7 +417,7 @@ class Blackjack:
         is_ace_pair = hand.get_is_ace_pair()
         # Separate the card
         split_card = hand.get_cards().pop()
-        hand.set_is_hit(True)
+        hand.set_able_hit(True)
 
         # Create New Hand
         split_hand = Hand()

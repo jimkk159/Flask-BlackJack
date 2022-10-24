@@ -10,7 +10,7 @@ class Hand:
     def __init__(self):
         self.id = uuid.uuid1()
         self.cards = []
-        self.is_hit = True
+        self.is_able_hit = True
         self.is_ace_split = False
         self.is_finish = False
         self._5_card_charlie = False
@@ -25,8 +25,8 @@ class Hand:
     def get_cards_num(self):
         return len(self.cards)
 
-    def get_is_hit(self):
-        return self.is_hit
+    def get_able_hit(self):
+        return self.is_able_hit
 
     def get_is_ace_split(self):
         return self.is_ace_split
@@ -52,8 +52,8 @@ class Hand:
     def get_able_split(self):
         return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
 
-    def set_is_hit(self, is_hit: bool):
-        self.is_hit = is_hit
+    def set_able_hit(self, is_hit: bool):
+        self.is_able_hit = is_hit
 
     def set_is_ace_split(self, is_ace_split: bool):
         self.is_ace_split = is_ace_split

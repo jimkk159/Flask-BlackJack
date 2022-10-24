@@ -151,7 +151,7 @@
                 <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-2">
-                        {% if hand.get_is_hit() %}
+                        {% if hand.get_able_hit() %}
                         <a href="#" onclick="hit_click( { hand_id:'{{ hand.id }}' } );">
                             <img class="gestures gestures-hit"
                                  src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}">
