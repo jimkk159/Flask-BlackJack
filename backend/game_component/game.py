@@ -279,6 +279,13 @@ class Blackjack:
             return all([(True if (hand.get_result() != "" or hand.get_is_finish()) else False) for hand in hands])
         return False
 
+    def get_is_players_finish(self):
+
+        players = self.get_players()
+        if players:
+            return all(map(self.get_is_player_finish, players))
+        return False
+
     def get_cards_enough(self):
 
         if len(self.get_deck_cards()) <= self.deck_num * 52 / 2:
@@ -295,6 +302,12 @@ class Blackjack:
             for hand in player.get_hands():
                 if str(hand.get_id()) == id_:
                     return hand
+
+    def get_player_by_hand_id(self, id_):
+        for player in self.get_players():
+            for hand in player.get_hands():
+                if str(hand.get_id()) == id_:
+                    return player
 
     # Game Setting
     def reset(self):

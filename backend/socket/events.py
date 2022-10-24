@@ -24,41 +24,56 @@ def left(message):
 @socketio.on('hit_', namespace='/table')
 def hit_(message):
     print('I got hit')
+    room = session.get('room')
     game = current_app.config["GAME"]
     hand_id = message['hand_id']
     hand = game.get_hand_by_id(hand_id)
+    player = game.get_player_by_hand_id(hand_id)
     game.hit_process(hand)
+    emit('reload', {}, room=room)
+    bandker_check(game, player, room)
 
 
 @socketio.on('double_', namespace='/table')
 def double_(message):
     print('I got double')
+    room = session.get('room')
     game = current_app.config["GAME"]
     player_id = message['player_id']
     player = game.get_player_by_id(player_id)
+    emit('reload', {}, room=room)
+    bandker_check(game, player, room)
 
 
 @socketio.on('split_', namespace='/table')
 def split_(message):
     print('I got split')
+    room = session.get('room')
     game = current_app.config["GAME"]
 
     player_id = message['player_id']
-    hand_id = message['hand_id']
-
     player = game.get_player_by_id(player_id)
+
+    hand_id = message['hand_id']
     hand = player.get_hand_by_id(hand_id)
 
     game.split_process(player, hand)
+    emit('reload', {}, room=room)
 
 
 @socketio.on('stand_', namespace='/table')
 def stand_(message):
     print('I got stand')
+    room = session.get('room')
     game = current_app.config["GAME"]
+
     hand_id = message['hand_id']
     hand = game.get_hand_by_id(hand_id)
+    player = game.get_player_by_hand_id(hand_id)
+
     game.stand_process(hand)
+    emit('reload', {}, room=room)
+    bandker_check(game, player, room)
 
 
 @socketio.on('fold_', namespace='/table')
@@ -80,3 +95,20 @@ def banker_(message):
         game.banker_bust_process()
     else:
         game.compare_cards()
+
+
+def bandker_check(game, player, room):
+
+    if game.get_is_players_finish():
+        # Banker Round
+        print('All Players are finish')
+        return
+
+    if game.get_is_player_finish(player):
+        # Next Player Round
+        print('Player is finish')
+        return
+
+        # Player Next Hand action
+    print('Player next hand')
+    socketio.emit('reload', {}, room=room)

@@ -243,6 +243,7 @@
         socket.on('disconnect', function() {
             console.log('disconnect');
         });
+
         socket.on('status', function(data) {
             socket.emit('refresh', {});
         });
@@ -250,7 +251,9 @@
         socket.on('message', function(data) {
         });
 
-
+        socket.on('reload', function(data) {
+            location.reload()
+        });
     });
     function leave_room() {
         socket.emit('left', {}, function() {
