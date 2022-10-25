@@ -254,10 +254,10 @@ def reset():
     # if len(game.get_players()) > 1:
     #     print("Player 1", game.get_players()[0].get_id())
     #     print("Player 2", game.get_players()[1].get_id())
-    game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
-                   Card(symbol='A', suit='heart', value=11)]
+    # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+    #                Card(symbol='A', suit='heart', value=11)]
     game.get_table_name_players(table_name=room)[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                                            Card(symbol='A', value=11, suit='heart')]
+                                                                            Card(symbol='J', value=10, suit='heart')]
     # game.get_players()[0].append_empty_hand()
     # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]

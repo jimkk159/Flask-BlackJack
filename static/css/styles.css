@@ -496,6 +496,33 @@ font-size: 30px;
     position:absolute;
     bottom:1rem;
 }
+.player-cards-row .card-result{
+    position:absolute;
+    text-align:left;
+}
+.player-cards-row .card-result-bust{
+    top:3.4rem;
+}
+.player-cards-row .card-result-blackjack{
+    top:2rem;
+}
+.bust-alarm{
+    font-family: 'Bangers', cursive;
+    color: red;
+}
+.blackjack-alarm{
+    font-family: BLKCHCRY;
+    font-size:25px;
+    color: black;
+}
+.blackjack-alarm .alphabet{
+    font-size:50px;
+    color: #EBC24E;
+}
+.blackjack-alarm .spade-emoji{
+    font-size:70px;
+    color: black;
+}
 .player-dialog-row{
     min-height:9rem;
 }

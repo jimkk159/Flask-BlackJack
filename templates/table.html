@@ -2,7 +2,7 @@
 {% set current_table = game.get_table_by_name(room) %}
 {% set current_player = current_table.get_player_by_id(current_user.id) %}
 {% set current_hand = current_player.get_current_hand() %}
-<div class="page table-page">
+<div class="page table-page" xmlns="http://www.w3.org/1999/html">
     <div class="table-screen container-fluid mx-auto">
         <div class="page-inside table-page-inside row">
             <div class="row">
@@ -71,34 +71,21 @@
                         </div>
                         <div class="row player-dialog-row">
 
-                            <div class="row dialog-name player-dialog-name" style="left:{{ current_player.get_x() -0.5 }}rem;">
+                            <div class="row dialog-name player-dialog-name"
+                                 style="left:{{ current_player.get_x() -0.5 }}rem;">
                                 <div class="leftAlign">
                                     <div class="dialogContainer">
                                         <div class="mainDialog">Player {{ current_player.get_name() }}</div>
                                     </div>
                                 </div>
                             </div>
-                            {% if current_hand and current_hand.get_is_end() %}
-                            <div class="row dialog-content">
-                                <div class="leftAlign">
-                                    <div class="dialogContainer">
-                                        <div class="mainDialog">This hand is {{ current_hand.get_result() }}<br><br>
-                                        </div>
-                                        <img src="{{ url_for('static',filename='img/moreText.gif') }}"
-                                             class="moreTextIcon">
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
                             {% if current_hand %}
                             {% set arrow_loc = current_hand.get_x()+7 if current_player.get_x() == current_hand.get_x()
                             else current_hand.get_x()%}
                             <img class="yellow-arrow"
                                  style="left:{{ arrow_loc }}rem;"
                                  src="{{ url_for('static',filename='img/yellow_arrow.png') }}">
-
                             {% endif %}
-
                         </div>
                         <div class="row player-cards-row">
                             <div class="card-content">
@@ -109,9 +96,26 @@
                                      src="{{ url_for('static',filename='img/poker/'+card.get_suit()+'/'+card.get_img()) }}"
                                      style="left:{{ card.get_x() }}rem;">
                                 {% endfor %}
+
+                                {% if hand.get_result() == "bust" %}
+                                <div class="card-result card-result-bust"
+                                     style="left:{{ hand.get_cards()[0].get_x()+hand.get_cards_num() }}rem;">
+                                    <h1 class="bust-alarm">Bust!</h1>
+                                </div>
+                                {% endif %}
+
+                                {% if hand.get_result() == "blackjack" %}
+                                <div class="card-result card-result-blackjack"
+                                     style="left:{{ hand.get_cards()[0].get_x()-1.5 }}rem;">
+                                    <h1 class="blackjack-alarm"><span class="alphabet">B</span>lack<span class="alphabet">J</span>ack<span class="spade-emoji">♠️</span></h1>
+
+                                </div>
+                                {% endif %}
+
                                 {% endfor %}
                                 {% endfor %}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -288,6 +292,8 @@
     function fold_click(data) {
         socket.emit('fold_', data);
     }
+
+
 
 
 
