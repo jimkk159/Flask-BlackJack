@@ -183,13 +183,16 @@ class Player:
 
 class Table:
 
-    def __init__(self):
-        self.id = uuid.uuid1()
+    def __init__(self, id_):
+        self.id = id_ if id_ else uuid.uuid1()
         self.player_num = 0
         self.in_ = []
 
     # GET
     # Get All Players Hands
+    def get_id(self):
+        return self.id
+
     def get_all_hands(self):
 
         all_hands = []

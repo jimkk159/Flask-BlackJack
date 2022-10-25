@@ -25,7 +25,7 @@ class Blackjack:
 
         # Setting Player
         self.players_num = 1
-        self.table = Table()
+        self.tables = [Table()]
 
         # Setting Banker
         self.banker = []
@@ -92,14 +92,16 @@ class Blackjack:
     def get_banker_cards(self):
         return self.banker
 
-    def get_table_cards(self):
-        return self.table.get_all_hands()
+    def get_table_cards(self, table):
+        for table in self.tables:
+            table.get_id()
+        return self.tables.get_all_hands()
 
     def get_table(self):
-        return self.table
+        return self.tables
 
     def get_players(self):
-        return self.table.get_players()
+        return self.tables.get_players()
 
     def get_player_option(self, player, hand):
         result = []
@@ -317,7 +319,7 @@ class Blackjack:
             self.deck.reset_deck()
 
         # Reset Player
-        self.table.reset_players()
+        self.tables.reset_players()
 
         # Reset Banker Cards
         self.banker = []
@@ -332,14 +334,14 @@ class Blackjack:
         return player.pay_stake()
 
     def set_players(self):
-        self.table.create(self.players_num)
+        self.tables.create(self.players_num)
 
     def set_players_by_ids(self, ids: list[int]):
-        self.table.create_by_id(ids)
+        self.tables.create_by_id(ids)
 
     def enter_table(self, id_=None, name="Unknown", money=0):
-        if not self.table.get_is_player_id(id_):
-            self.table.append_by_id(id_=id_, name=name, money=money)
+        if not self.tables.get_is_player_id(id_):
+            self.tables.append_by_id(id_=id_, name=name, money=money)
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):
@@ -350,7 +352,7 @@ class Blackjack:
     def deal_to_all(self):
 
         # To each player
-        for player in self.table.get_players():
+        for player in self.tables.get_players():
             self.deal(player.get_hands()[0].get_cards())
 
         # To banker
@@ -367,7 +369,7 @@ class Blackjack:
 
         # ToDo only for player 1
         # for num in range(self.player_num):
-        self.ask_player_insurance(self.table.get_players()[0], choice)
+        self.ask_player_insurance(self.tables.get_players()[0], choice)
 
     def ask_player_insurance(self, player, choice):
 
@@ -450,7 +452,7 @@ class Blackjack:
 
     def banker_bust_process(self):
 
-        for player in self.table.get_players():
+        for player in self.tables.get_players():
             for hand in player.get_hands():
                 hand_result = hand.get_result()
                 if hand_result == "" or hand_result == "stand":
@@ -460,7 +462,7 @@ class Blackjack:
     def compare_cards(self):
 
         banker_point = self.get_hand_sum_switch_ace(self.banker)
-        for player in self.table.get_players():
+        for player in self.tables.get_players():
             for hand in player.get_hands():
                 hand_result = hand.get_result()
                 if hand_result == "" or hand_result == "stand":
