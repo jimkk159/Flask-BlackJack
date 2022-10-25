@@ -23,13 +23,16 @@ class Blackjack:
         self.deck.shuffle()
         self.set_blackjack_value(self.deck)
 
-        # Setting Player
-        self.players_num = 1
-        self.tables = [Table()]
-
         # Setting Banker
         self.banker = []
         self.min_bet = 5
+
+        # Setting Player
+        self.players_num = 1
+
+        # Setting Table
+        self.max_table = 6
+        self.tables = []
 
     # GET
     def get_deck(self):
@@ -92,16 +95,8 @@ class Blackjack:
     def get_banker_cards(self):
         return self.banker
 
-    def get_table_cards(self, table):
-        for table in self.tables:
-            table.get_id()
-        return self.tables.get_all_hands()
-
-    def get_table(self):
-        return self.tables
-
-    def get_players(self):
-        return self.tables.get_players()
+    def get_first_table_players(self):
+        return self.tables[0].get_players()
 
     def get_player_option(self, player, hand):
         result = []
@@ -230,7 +225,7 @@ class Blackjack:
 
     def check_blackjack(self):
 
-        return all(map(self.check_player_blackjack, self.get_players()))
+        return all(map(self.check_player_blackjack, self.get_first_table_players()))
 
     def check_player_blackjack(self, player):
 
@@ -284,7 +279,7 @@ class Blackjack:
 
     def get_is_players_finish(self):
 
-        players = self.get_players()
+        players = self.get_first_table_players()
         if players:
             return all(map(self.get_is_player_finish, players))
         return False
@@ -296,18 +291,18 @@ class Blackjack:
         return False
 
     def get_player_by_id(self, id_):
-        for player in self.get_players():
+        for player in self.get_first_table_players():
             if str(player.get_id()) == id_:
                 return player
 
     def get_hand_by_id(self, id_):
-        for player in self.get_players():
+        for player in self.get_first_table_players():
             for hand in player.get_hands():
                 if str(hand.get_id()) == id_:
                     return hand
 
     def get_player_by_hand_id(self, id_):
-        for player in self.get_players():
+        for player in self.get_first_table_players():
             for hand in player.get_hands():
                 if str(hand.get_id()) == id_:
                     return player
@@ -319,14 +314,14 @@ class Blackjack:
             self.deck.reset_deck()
 
         # Reset Player
-        self.tables.reset_players()
+        self.get_table_first().reset_players()
 
         # Reset Banker Cards
         self.banker = []
 
     def pay_all_stake(self):
         result = []
-        for player in self.get_players():
+        for player in self.get_first_table_players():
             result.append(self.pay_player_stake(player))
         return result
 
@@ -334,14 +329,131 @@ class Blackjack:
         return player.pay_stake()
 
     def set_players(self):
-        self.tables.create(self.players_num)
+        self.get_table_first().create(self.players_num)
 
     def set_players_by_ids(self, ids: list[int]):
-        self.tables.create_by_id(ids)
+        self.get_table_first().create_by_id(ids)
 
-    def enter_table(self, id_=None, name="Unknown", money=0):
-        if not self.tables.get_is_player_id(id_):
-            self.tables.append_by_id(id_=id_, name=name, money=money)
+    # Table Maintain
+    def create_table(self, table_name=None):
+
+        if not table_name:
+            return
+
+        if table_name == "":
+            return
+
+        if len(self.tables) == self.max_table:
+            return
+
+        if self.get_table_by_name(table_name):
+            return
+
+        self.tables.append(Table(name=table_name))
+
+    def enter_table(self, table_name=None, player_id=None, player_name="Unknown", money=0):
+
+        if not table_name:
+            return
+
+        if table_name == "":
+            return
+
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        if table.get_is_player_id(player_id):
+            return
+
+        table.append_by_id(id_=player_id, player_name=player_name, money=money)
+
+    def delete_table(self, table_name=None):
+
+        if not table_name:
+            return
+
+        if table_name == "":
+            return
+
+        if not self.get_table_by_name(table_name):
+            return
+
+        table_num = None
+        for num in range(len(self.tables)):
+            # Find Table
+            if self.tables[num].get_name() == table_name:
+                table_num = num
+                break
+
+        # Table delete
+        if table_num is not None:
+            self.tables.pop(table_num)
+
+    def leave_table(self, player, table):
+
+        player_num = None
+        players = table.get_players()
+        for num in range(len(players)):
+            # Find Player
+            if str(players[num].get_id()) == str(player.get_id()):
+                player_num = num
+                break
+
+        # Player leave table
+        if player_num is not None:
+            table.get_players().pop(player_num)
+
+    def get_table_by_id(self, table_id):
+        for table in self.tables:
+            if str(table.get_id()) == table_id:
+                return table
+
+    def get_table_cards(self, table):
+        return table.get_all_hands()
+
+    def get_cards_by_table_id(self, table_id):
+        for table in self.tables:
+            if str(table.get_id()) == table_id:
+                return table.get_all_hands()
+
+    def get_tables(self):
+        return self.tables
+
+    def get_table_first(self):
+        return self.tables[0]
+
+    def get_table_by_name(self, table_name):
+        for table in self.tables:
+            if table.get_name() == str(table_name):
+                return table
+
+    def get_table_players(self, table):
+        return table.get_players()
+
+    def get_is_table_name_empty(self, table_name):
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return True
+        if self.get_is_table_empty(table) == 0:
+            return True
+        return False
+
+    def get_is_table_empty(self, table):
+        if len(table.get_players()) == 0:
+            return True
+        return False
+
+    def get_table_has_player(self, table, input_player):
+        for player in table.get_players():
+            if str(input_player.get_id()) == str(player.get_id()):
+                return True
+        return False
+
+    def get_player_table(self, input_player):
+        for table in self.get_tables():
+            for player in table.get_players():
+                if str(input_player.get_id()) == str(player.get_id()):
+                    return table
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):
@@ -352,7 +464,7 @@ class Blackjack:
     def deal_to_all(self):
 
         # To each player
-        for player in self.tables.get_players():
+        for player in self.get_table_first().get_players():
             self.deal(player.get_hands()[0].get_cards())
 
         # To banker
@@ -369,7 +481,7 @@ class Blackjack:
 
         # ToDo only for player 1
         # for num in range(self.player_num):
-        self.ask_player_insurance(self.tables.get_players()[0], choice)
+        self.ask_player_insurance(self.get_table_first().get_players()[0], choice)
 
     def ask_player_insurance(self, player, choice):
 
@@ -452,7 +564,7 @@ class Blackjack:
 
     def banker_bust_process(self):
 
-        for player in self.tables.get_players():
+        for player in self.get_table_first().get_players():
             for hand in player.get_hands():
                 hand_result = hand.get_result()
                 if hand_result == "" or hand_result == "stand":
@@ -462,7 +574,7 @@ class Blackjack:
     def compare_cards(self):
 
         banker_point = self.get_hand_sum_switch_ace(self.banker)
-        for player in self.tables.get_players():
+        for player in self.get_table_first().get_players():
             for hand in player.get_hands():
                 hand_result = hand.get_result()
                 if hand_result == "" or hand_result == "stand":

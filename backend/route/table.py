@@ -26,7 +26,7 @@ def check_blackjack(game, player):
 # Set Card Location
 def set_cards_location(game):
     set_banker_location(game.get_banker_cards())
-    table_ = game.get_table()
+    table_ = game.get_table_first()
     if game.get_players_num() == 1:
         set_table_players_location(init_x=TABLE_WIDTH / 2 - CARD_WIDTH / 2,
                                    table_=table_)
@@ -102,8 +102,8 @@ def table():
     print('I got table')
 
     # Config
-    game_end = current_app.config["END"]
     game = current_app.config["GAME"]
+    game_end = current_app.config["END"]
     show_insurance = current_app.config["SHOW_INSURANCE"]
     is_check_blackjack = current_app.config["SHOW_BLACKJACK"]
 
@@ -120,7 +120,7 @@ def table():
     if is_check_blackjack:
         current_app.config["SHOW_BLACKJACK"] = False
         # For debug
-        player = game.get_players()[0]
+        player = game.get_first_table_players()[0]
         # ToDo remember to recover
         player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
@@ -229,17 +229,21 @@ def end():
 def reset():
     print("I got reset")
     game = current_app.config["GAME"]
+
+    # ToDo need to split by table
     current_app.config["END"] = False
     current_app.config["SHOW_INSURANCE"] = True
     current_app.config["SHOW_BLACKJACK"] = True
-    # For Debug
-    # game.set_players()
-    # ToDo remember to recover
-    game.enter_table(id_=current_user.id, name=current_user.name, money=current_user.money)
+
+    name = session.get('name', '')
+    room = session.get('room', '')
+    if name == '' or room == '':
+        return redirect(url_for('game_route.login'))
+    game.create_table(table_name=room)
+    game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name, money=current_user.money)
     player = game.get_player_by_id(current_user.id)
     game.reset()
-    # For Debug
-    # game.pay_all_stake()
+
     game.pay_player_stake(player)
     game.deal_initial()
 
@@ -265,8 +269,4 @@ def reset():
     # game.get_players()[3].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]
 
-    name = session.get('name', '')
-    room = session.get('room', '')
-    if name == '' or room == '':
-        return redirect(url_for('game_route.login'))
-    return redirect(url_for('game_route.table', name=name, room=room))
+    return redirect(url_for('game_route.table'))

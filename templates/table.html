@@ -15,7 +15,7 @@
                     <div class="row game-status-row">
                         <div class="row banker-status-row">
                             <div class="player-status-content">
-                                {% for player in game.get_players() %}
+                                {% for player in game.get_first_table_players() %}
                                 <p class="player-name">Player: <span>{{ player.get_name() }}</span></p>
                                 {% endfor %}
                                 <p>Total Money: {{ 1000 }}</p>
@@ -70,7 +70,7 @@
                             {% endif %}
                         </div>
                         <div class="row player-dialog-row">
-                            {% for player in game.get_players() %}
+                            {% for player in game.get_first_table_players() %}
                             {% for hand in player.get_hands() %}
                             {% if hand.get_is_end() %}
                             <div class="dialog" style="left:{{ hand.get_cards()[0].get_x() }}rem;">
@@ -103,7 +103,7 @@
                         </div>
                         <div class="row player-cards-row">
                             <div class="card-content">
-                                {% for player in game.get_players() %}
+                                {% for player in game.get_first_table_players() %}
                                 {% for hand in player.get_hands() %}
                                 {% for card in hand.get_cards() %}
                                 <img class="poker-card"
@@ -157,7 +157,7 @@
     </div>
     <div class="control-panel container-fluid">
         <div class="row">
-            {% for player in game.get_players() if current_user.id == player.get_id() %}
+            {% for player in game.get_first_table_players() if current_user.id == player.get_id() %}
             {% set current_hand = player.get_current_hand() %}
             <div class="col-lg-9">
                 <div class="row">

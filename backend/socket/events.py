@@ -9,7 +9,7 @@ def joined(message):
     A status message is broadcast to all people in the room."""
     room = session.get('room')
     join_room(room)
-    emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
+    # emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 
 
 @socketio.on('left', namespace='/table')
@@ -18,7 +18,7 @@ def left(message):
     A status message is broadcast to all people in the room."""
     room = session.get('room')
     leave_room(room)
-    emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room)
+    # emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room)
 
 
 @socketio.on('hit_', namespace='/table')
@@ -113,6 +113,6 @@ def bandker_check(game, player, room):
         print('Player is finish')
         return
 
-        # Player Next Hand action
+    # Player Next Hand action
     print('Player next hand')
     socketio.emit('reload', {}, room=room)

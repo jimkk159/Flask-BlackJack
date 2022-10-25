@@ -183,8 +183,9 @@ class Player:
 
 class Table:
 
-    def __init__(self, id_):
+    def __init__(self, id_=None, name=None):
         self.id = id_ if id_ else uuid.uuid1()
+        self.name = name
         self.player_num = 0
         self.in_ = []
 
@@ -193,8 +194,10 @@ class Table:
     def get_id(self):
         return self.id
 
-    def get_all_hands(self):
+    def get_name(self):
+        return self.name
 
+    def get_all_hands(self):
         all_hands = []
         for player in self.in_:
             all_hands.append(player.get_hands())

@@ -1,6 +1,6 @@
 import uuid
-from flask import render_template, redirect, url_for, session
-from flask_login import login_user, logout_user, login_required
+from flask import render_template, redirect, url_for, session, current_app
+from flask_login import login_user, logout_user, login_required, current_user
 
 # self import
 from . import game_route
@@ -35,5 +35,13 @@ def login():
 @game_route.route('/logout')
 @login_required
 def logout():
+    # Config
+    game = current_app.config["GAME"]
+    table = game.get_player_table(current_user)
+    table_name = table.get_name()
+
+    game.leave_table(current_user, table)
     logout_user()
+    if game.get_is_table_empty(table):
+        game.delete_table(table_name)
     return redirect(url_for('game_route.home'))
