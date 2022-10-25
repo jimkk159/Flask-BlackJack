@@ -83,11 +83,14 @@ def stand_(message):
 @socketio.on('fold_', namespace='/table')
 def fold_(message):
     print('I got fold')
+    room = session.get('room')
     game = current_app.config["GAME"]
     player_id = message['player_id']
+
     player = game.get_player_by_id(player_id)
     game.fold_process(player)
-
+    emit('reload', {}, room=room)
+    bandker_check(game, player, room)
 
 @socketio.on('banker_', namespace='/table')
 def banker_(message):

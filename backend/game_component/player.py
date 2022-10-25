@@ -121,10 +121,16 @@ class Player:
         return self.insurance
 
     def get_able_double(self):
-        return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2
+        return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2 and not self.get_is_finish()
 
     def get_able_fold(self):
-        return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2
+        return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2 and not self.get_is_finish()
+
+    def get_is_hand_finish(self, hand):
+        return hand.get_is_finish()
+
+    def get_is_finish(self):
+        return all(map(self.get_is_hand_finish, self.get_hands()))
 
     # find hand
     def get_hand_by_id(self, id_):

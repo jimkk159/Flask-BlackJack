@@ -70,7 +70,7 @@
                             {% endif %}
                         </div>
                         <div class="row player-dialog-row">
-                            {% if current_hand and current_hand.get_is_end() %}
+
                             <div class="dialog" style="left:{{ current_hand.get_cards()[0].get_x() }}rem;">
                                 <div class="row dialog-name">
                                     <div class="leftAlign">
@@ -79,6 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if current_hand and current_hand.get_is_end() %}
                                 <div class="row dialog-content">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
@@ -88,8 +89,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
+
                             {% if current_hand %}
                             <img class="yellow-arrow"
                                  style="left:{{ current_hand.get_x() }}rem;"
@@ -182,7 +184,7 @@
                     <div class="col-lg-2">
                         {% if current_hand and current_hand.get_able_split() and not current_hand.get_is_finish()%}
                         <a href="#"
-                           onclick="split_click( { player_id:'{{ player.id }}', hand_id:'{{ current_hand.id }}' } );">
+                           onclick="split_click( { player_id:'{{ current_player.id }}', hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-split"
                                  src="{{ url_for('static',filename='img/gestures/gesture-split-no-bg.png') }}">
                         </a>
