@@ -133,6 +133,11 @@ class Player:
             if not hand.get_is_finish():
                 return hand
 
+    def get_current_hand_x(self):
+        for hand in self.get_hands():
+            if not hand.get_is_finish():
+                return hand.get_cards()[0].get_x()
+
     def get_is_pay(self):
 
         if self.money > self.basic_stake:

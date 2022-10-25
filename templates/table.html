@@ -95,7 +95,7 @@
                             {% endfor %}
                             {% if current_user.id == player.get_id() and player.get_current_hand() %}
                             <img class="yellow-arrow"
-                                 style="left:{{ player.get_current_hand().get_cards()[0].get_x() }}rem;"
+                                 style="left:{{ player.get_current_hand_x() }}rem;"
                                  src="{{ url_for('static',filename='img/yellow_arrow.png') }}">
                             {% endif %}
                             {% endfor %}
