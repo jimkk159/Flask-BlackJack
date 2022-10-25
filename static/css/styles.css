@@ -554,6 +554,7 @@ font-size: 30px;
 /* Dialog */
 .dialog{
     position:absolute;
+    padding-bottom:0!important;
     bottom:0.1rem;
 }
 .dialog-name{
@@ -599,4 +600,17 @@ font-size: 30px;
     bottom: 0;
     height: 4rem;
     width: 3.5rem;
+    animation-duration: 1.5s;
+    animation-name: yellow-arrow;
+    animation-iteration-count: infinite;
+}
+
+@keyframes yellow-arrow {
+  from {
+    top: calc(100% - 70px);
+  }
+
+  to {
+    top: calc(100% - 60px);
+  }
 }

@@ -71,7 +71,7 @@
                         </div>
                         <div class="row player-dialog-row">
 
-                            <div class="dialog" style="left:{{ current_hand.get_cards()[0].get_x() }}rem;">
+                            <div class="dialog" style="left:{{ current_player.get_x() }}rem;">
                                 <div class="row dialog-name">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
@@ -93,9 +93,15 @@
                             </div>
 
                             {% if current_hand %}
+                            {% if current_player.get_x() == current_hand.get_x()%}
+                            {% set arrow_loc = current_hand.get_x()+7 %}
+                            {% else %}
+                            {% set arrow_loc = current_hand.get_x() %}
+                            {% endif %}
                             <img class="yellow-arrow"
-                                 style="left:{{ current_hand.get_x() }}rem;"
+                                 style="left:{{ arrow_loc }}rem;"
                                  src="{{ url_for('static',filename='img/yellow_arrow.png') }}">
+
                             {% endif %}
                         </div>
                         <div class="row player-cards-row">

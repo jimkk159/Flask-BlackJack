@@ -53,8 +53,7 @@ class Hand:
         return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
 
     def get_x(self):
-        if not self.get_is_finish():
-            return self.get_cards()[0].get_x()
+        return self.get_cards()[0].get_x()
 
     def set_able_hit(self, is_hit: bool):
         self.is_able_hit = is_hit
@@ -86,6 +85,15 @@ class Player:
         self.insurance = False
 
     # GET
+    def get_x(self):
+        first_hand = self.get_hands()[0]
+        if not first_hand:
+            return
+        first_card = first_hand.get_cards()[0]
+        if not first_card:
+            return
+        return first_card.get_x()
+
     def get_id(self):
         return self.id
 
