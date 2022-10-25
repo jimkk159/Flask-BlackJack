@@ -7,7 +7,7 @@
         <div class="page-inside table-page-inside row">
             <div class="row">
                 <div class="col-lg-9 table-title-padding ">
-                        <h1 class="page-title mx-auto">Room {{ room }}️</h1>
+                    <h1 class="page-title mx-auto">Room {{ room }}️</h1>
                 </div>
                 <div class="col-lg-3"></div>
             </div>
@@ -36,8 +36,8 @@
                                 {% endfor %}
                             </div>
                             {% if ask_insurance %}
-                            <div class="dialog banker-dialog" style="top:1rem;left:23rem;">
-                                <div class="row dialog-name">
+                            <div class="banker-dialog">
+                                <div class="row dialog-name banker-dialog-name">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
                                             <div class="mainDialog">Dealer</div>
@@ -71,38 +71,34 @@
                         </div>
                         <div class="row player-dialog-row">
 
-                            <div class="dialog" style="left:{{ current_player.get_x() }}rem;">
-                                <div class="row dialog-name">
-                                    <div class="leftAlign">
-                                        <div class="dialogContainer">
-                                            <div class="mainDialog">Player {{ current_player.get_name() }}</div>
-                                        </div>
+                            <div class="row dialog-name player-dialog-name" style="left:{{ current_player.get_x() -0.5 }}rem;">
+                                <div class="leftAlign">
+                                    <div class="dialogContainer">
+                                        <div class="mainDialog">Player {{ current_player.get_name() }}</div>
                                     </div>
                                 </div>
-                                {% if current_hand and current_hand.get_is_end() %}
-                                <div class="row dialog-content">
-                                    <div class="leftAlign">
-                                        <div class="dialogContainer">
-                                            <div class="mainDialog">This hand is {{ current_hand.get_result() }}<br><br></div>
-                                            <img src="{{ url_for('static',filename='img/moreText.gif') }}"
-                                                 class="moreTextIcon">
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
                             </div>
-
-                            {% if current_hand %}
-                            {% if current_player.get_x() == current_hand.get_x()%}
-                            {% set arrow_loc = current_hand.get_x()+7 %}
-                            {% else %}
-                            {% set arrow_loc = current_hand.get_x() %}
+                            {% if current_hand and current_hand.get_is_end() %}
+                            <div class="row dialog-content">
+                                <div class="leftAlign">
+                                    <div class="dialogContainer">
+                                        <div class="mainDialog">This hand is {{ current_hand.get_result() }}<br><br>
+                                        </div>
+                                        <img src="{{ url_for('static',filename='img/moreText.gif') }}"
+                                             class="moreTextIcon">
+                                    </div>
+                                </div>
+                            </div>
                             {% endif %}
+                            {% if current_hand %}
+                            {% set arrow_loc = current_hand.get_x()+7 if current_player.get_x() == current_hand.get_x()
+                            else current_hand.get_x()%}
                             <img class="yellow-arrow"
                                  style="left:{{ arrow_loc }}rem;"
                                  src="{{ url_for('static',filename='img/yellow_arrow.png') }}">
 
                             {% endif %}
+
                         </div>
                         <div class="row player-cards-row">
                             <div class="card-content">
@@ -292,6 +288,9 @@
     function fold_click(data) {
         socket.emit('fold_', data);
     }
+
+
+
 
 </script>
 {% include "footer.html" %}

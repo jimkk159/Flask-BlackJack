@@ -552,21 +552,26 @@ font-size: 30px;
 }
 
 /* Dialog */
-.dialog{
-    position:absolute;
-    padding-bottom:0!important;
-    bottom:0.1rem;
-}
+
 .dialog-name{
-    position:relative;
-    min-height:4rem;
+    position:absolute;
+    bottom:0.1rem;
 }
 .dialog-content{
     position:relative;
     min-height:6rem;
+    top:4rem;
+    left:23rem;
 }
 .banker-dialog{
     position:absolute;
+}
+.banker-dialog-name{
+    min-height:6.5rem;
+    left:23.5rem;
+}
+.player-dialog-name{
+    min-height:4rem;
 }
 
 /* Insurance choice */

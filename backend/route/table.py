@@ -240,7 +240,8 @@ def reset():
     if name == '' or room == '':
         return redirect(url_for('game_route.login'))
     game.create_table(table_name=room)
-    game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name, money=current_user.money)
+    game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name,
+                     money=current_user.money)
 
     table = game.get_table_by_name(table_name=room)
     player = game.get_player_by_id(current_user.id)
@@ -249,15 +250,14 @@ def reset():
     game.pay_player_stake(player)
     game.deal_initial(table)
 
-
     # For Debug
     # if len(game.get_players()) > 1:
     #     print("Player 1", game.get_players()[0].get_id())
     #     print("Player 2", game.get_players()[1].get_id())
-    # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
-    #                Card(symbol='A', suit='heart', value=11)]
-    # game.get_players()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                               Card(symbol='A', value=11, suit='heart')]
+    game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+                   Card(symbol='A', suit='heart', value=11)]
+    game.get_table_name_players(table_name=room)[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+                                                                            Card(symbol='A', value=11, suit='heart')]
     # game.get_players()[0].append_empty_hand()
     # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]
