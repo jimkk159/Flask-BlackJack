@@ -206,6 +206,20 @@ class Blackjack:
             return True
         return False
 
+    # Set Hand Blackjack
+    def set_hand_blackjack(self, hand):
+        hand.set_result("blackjack")
+
+    def blackjack_process(self, player):
+
+        if self.check_player_blackjack(player):
+            hand = player.get_hands()[0]
+            hand.set_able_hit(False)
+            hand.set_is_finish(True)
+            self.set_hand_blackjack(hand)
+            return True
+        return False
+
     # Set card value
     def set_blackjack_value(self, deck):
         poker_value_dict = {"K": 10, "Q": 10, "J": 10, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
