@@ -24,9 +24,9 @@ def check_blackjack(game, player):
 
 
 # Set Card Location
-def set_cards_location(game):
+def set_cards_location(game, table_name=None):
     set_banker_location(game.get_banker_cards())
-    table_ = game.get_table_first()
+    table_ = game.get_table_by_name(str(table_name))
     if game.get_players_num() == 1:
         set_table_players_location(init_x=TABLE_WIDTH / 2 - CARD_WIDTH / 2,
                                    table_=table_)
@@ -112,7 +112,7 @@ def table():
     room = session.get('room', '')
 
     banker = game.get_banker_cards()
-    set_cards_location(game)
+    set_cards_location(game, room)
 
     if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
         return render_template('table.html', banker=banker, game=game, ask_insurance=True,
@@ -208,9 +208,9 @@ def banker():
     game.reveal_banker_card()
     game.deal_to_banker()
     if game.get_is_banker_bust():
-        game.banker_bust_process()
+        game.banker_bust_process(table)
     else:
-        game.compare_cards()
+        game.compare_cards(table)
     return redirect(url_for('game_route.end'))
 
 
@@ -241,11 +241,13 @@ def reset():
         return redirect(url_for('game_route.login'))
     game.create_table(table_name=room)
     game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name, money=current_user.money)
-    player = game.get_player_by_id(current_user.id)
-    game.reset()
 
+    table = game.get_table_by_name(table_name=room)
+    player = game.get_player_by_id(current_user.id)
+
+    game.reset(table)
     game.pay_player_stake(player)
-    game.deal_initial()
+    game.deal_initial(table)
 
 
     # For Debug

@@ -1,5 +1,7 @@
 {% include "header.html" %}
-
+{% set current_table = game.get_table_by_name(room) %}
+{% set current_player = current_table.get_player_by_id(current_user.id) %}
+{% set current_hand = current_player.get_current_hand() %}
 <div class="page table-page">
     <div class="table-screen container-fluid mx-auto">
         <div class="page-inside table-page-inside row">
@@ -15,12 +17,10 @@
                     <div class="row game-status-row">
                         <div class="row banker-status-row">
                             <div class="player-status-content">
-                                {% for player in game.get_first_table_players() %}
-                                <p class="player-name">Player: <span>{{ player.get_name() }}</span></p>
-                                {% endfor %}
-                                <p>Total Money: {{ 1000 }}</p>
-                                <p>Basic Stake: {{ 5 }}</p>
-                                <p>Total Stake: {{ 10 }}</p>
+                                <p class="player-name">Player: <span>{{ current_player.get_name() }}</span></p>
+                                <p>Total Money: {{ current_player.get_money() }}</p>
+                                <p>Basic Stake: {{ current_player.get_basic_stake() }}</p>
+                                <p>Total Stake: {{ current_player.get_total_stake() }}</p>
                             </div>
                             <div class="card-content">
                                 {% for num in range(banker|length) %}
@@ -70,21 +70,19 @@
                             {% endif %}
                         </div>
                         <div class="row player-dialog-row">
-                            {% for player in game.get_first_table_players() %}
-                            {% for hand in player.get_hands() %}
-                            {% if hand.get_is_end() %}
-                            <div class="dialog" style="left:{{ hand.get_cards()[0].get_x() }}rem;">
+                            {% if current_hand and current_hand.get_is_end() %}
+                            <div class="dialog" style="left:{{ current_hand.get_cards()[0].get_x() }}rem;">
                                 <div class="row dialog-name">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
-                                            <div class="mainDialog">Player {{ player.get_name() }}</div>
+                                            <div class="mainDialog">Player {{ current_player.get_name() }}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row dialog-content">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
-                                            <div class="mainDialog">This hand is {{ hand.get_result() }}<br><br></div>
+                                            <div class="mainDialog">This hand is {{ current_hand.get_result() }}<br><br></div>
                                             <img src="{{ url_for('static',filename='img/moreText.gif') }}"
                                                  class="moreTextIcon">
                                         </div>
@@ -92,18 +90,15 @@
                                 </div>
                             </div>
                             {% endif %}
-                            {% endfor %}
-                            {% if current_user.id == player.get_id() and player.get_current_hand() %}
+                            {% if current_hand %}
                             <img class="yellow-arrow"
-                                 style="left:{{ player.get_current_hand_x() }}rem;"
+                                 style="left:{{ current_hand.get_x() }}rem;"
                                  src="{{ url_for('static',filename='img/yellow_arrow.png') }}">
                             {% endif %}
-                            {% endfor %}
-
                         </div>
                         <div class="row player-cards-row">
                             <div class="card-content">
-                                {% for player in game.get_first_table_players() %}
+                                {% for player in game.get_table_name_players(room) %}
                                 {% for hand in player.get_hands() %}
                                 {% for card in hand.get_cards() %}
                                 <img class="poker-card"
@@ -157,8 +152,6 @@
     </div>
     <div class="control-panel container-fluid">
         <div class="row">
-            {% for player in game.get_first_table_players() if current_user.id == player.get_id() %}
-            {% set current_hand = player.get_current_hand() %}
             <div class="col-lg-9">
                 <div class="row">
                     <div class="col-lg-1"></div>
@@ -175,8 +168,8 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if player.get_able_double() %}
-                        <a href="#" onclick="double_click( { player_id:'{{ player.id }}' } );">
+                        {% if current_player.get_able_double() %}
+                        <a href="#" onclick="double_click( { player_id:'{{ current_player.id }}' } );">
                             <img class="gestures gestures-double"
                                  src="{{ url_for('static',filename='img/gestures/gesture-double-no-bg.png') }}">
                         </a>
@@ -212,8 +205,8 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if player.get_able_fold() %}
-                        <a href="#" onclick="fold_click( { player_id:'{{ player.id }}' } );">
+                        {% if current_player.get_able_fold() %}
+                        <a href="#" onclick="fold_click( { player_id:'{{ current_player.id }}' } );">
                             <img class="gestures gestures-surrender"
                                  src="{{ url_for('static',filename='img/gestures/gesture-surrender-no-bg.png') }}">
                         </a>
@@ -226,7 +219,7 @@
                     <div class="col-lg-1"></div>
                 </div>
             </div>
-            {% endfor %}
+
             <div class="col-lg-3">
                 <div class="leave-button">
                     <a href="#" onclick="leave_room();">

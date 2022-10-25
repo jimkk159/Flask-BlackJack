@@ -52,6 +52,10 @@ class Hand:
     def get_able_split(self):
         return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
 
+    def get_x(self):
+        if not self.get_is_finish():
+            return self.get_cards()[0].get_x()
+
     def set_able_hit(self, is_hit: bool):
         self.is_able_hit = is_hit
 
@@ -231,8 +235,8 @@ class Table:
         self.player_num = 0
 
     # Append
-    def append_by_id(self, id_=None, name="Unknown", money=0):
-        player = Player(id_=id_, name=name, money=money)
+    def append_by_id(self, id_=None, player_name="Unknown", money=0):
+        player = Player(id_=id_, name=player_name, money=money)
         self.in_.append(player)
         self.player_num = len(self.in_)
 

@@ -92,13 +92,14 @@ def fold_(message):
 @socketio.on('banker_', namespace='/table')
 def banker_(message):
     print("I got banker")
+    room = session.get('room')
     game = current_app.config["GAME"]
     game.reveal_banker_card()
     game.deal_to_banker()
     if game.get_is_banker_bust():
-        game.banker_bust_process()
+        game.banker_bust_process(table_name=room)
     else:
-        game.compare_cards()
+        game.compare_cards(table_name=room)
 
 
 def bandker_check(game, player, room):
