@@ -201,9 +201,10 @@ class Player:
 
 class Table:
 
-    def __init__(self, id_=None, name=None):
+    def __init__(self, id_=None, name=None, max_player=None):
         self.id = id_ if id_ else uuid.uuid1()
         self.name = name
+        self.max_player = max_player if max_player else 4
         self.player_num = 0
         self.in_ = []
 
@@ -225,6 +226,12 @@ class Table:
     def get_players(self):
         return self.in_
 
+    def get_player_num(self):
+        return self.player_num
+
+    def get_max_player(self):
+        return self.max_player
+
     def get_is_player_id(self, id_):
         for player in self.in_:
             if player.id == id_:
@@ -242,6 +249,9 @@ class Table:
         for player in self.in_:
             basic_stake = player.get_basic_stake()
             player.set_total_stake(basic_stake)
+
+    def set_max_player(self, number):
+        self.max_player = number
 
     # Refresh
     def refresh(self):

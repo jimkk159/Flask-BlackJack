@@ -1,4 +1,4 @@
-from flask import render_template, current_app
+from flask import session, render_template, current_app
 
 # self import
 from backend.forms import SettingForm
@@ -10,8 +10,10 @@ from . import game_route
 def setting():
     setting_form = SettingForm()
     game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+
     submit_result = False
-    print(1)
     if setting_form.validate_on_submit():
 
         submit_result = True
@@ -21,7 +23,7 @@ def setting():
 
         # Player Number
         players_num = setting_form.players.data
-        game.set_player_num(players_num)
+        game.set_table_name_max(room, players_num)
 
         # Minimum wager
         min_bet = setting_form.min_bet.data
@@ -43,5 +45,4 @@ def setting():
         is_double = setting_form.is_double.data
         game.set_is_double(is_double)
 
-        print(setting_form.validate_on_submit(), game.get_min_bet())
-    return render_template('setting.html', setting_form=setting_form, game=game, submit_result=submit_result), 200
+    return render_template('setting.html', setting_form=setting_form, game=game, submit_result=submit_result, room=room), 200

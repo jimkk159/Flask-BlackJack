@@ -7,7 +7,12 @@
         <div class="page-inside table-page-inside row">
             <div class="row">
                 <div class="col-lg-9 table-title-padding ">
-                    <h1 class="page-title mx-auto">Room {{ room }}️</h1>
+                    <div class="row">
+                        <h1 class="mx-auto page-title">
+                            <span class="table-name">Room {{ room }}</span>
+                            <span class="table-capability">( {{ game.get_table_name_players_num(room) }}/{{ game.get_table_name_max(room) }} )</span>
+                        </h1>
+                    </div>
                 </div>
                 <div class="col-lg-3"></div>
             </div>
@@ -107,7 +112,8 @@
                                 {% if hand.get_result() == "blackjack" %}
                                 <div class="card-result card-result-blackjack"
                                      style="left:{{ hand.get_cards()[0].get_x()-1.5 }}rem;">
-                                    <h1 class="blackjack-alarm"><span class="alphabet">B</span>lack<span class="alphabet">J</span>ack<span class="spade-emoji">♠️</span></h1>
+                                    <h1 class="blackjack-alarm"><span class="alphabet">B</span>lack<span
+                                            class="alphabet">J</span>ack<span class="spade-emoji">♠️</span></h1>
 
                                 </div>
                                 {% endif %}
@@ -141,7 +147,6 @@
                                         <div class="col-lg-12 text-center">
                                             <h1>Table Rule</h1>
                                             <p>Number of decks: {{ game.get_deck_num() }}</p>
-                                            <p>Max Players of Table: {{ game.get_players_num() }}</p>
                                             <p>Minimum Bet: {{ game.get_min_bet() }}</p>
                                             <p>BlackJack Ration: {{ game.get_blackjack_ratio() }}</p>
                                             <p>Insurance: {{ "Open" if game.get_is_insurance() else "Close" }}</p>
@@ -292,6 +297,8 @@
     function fold_click(data) {
         socket.emit('fold_', data);
     }
+
+
 
 
 

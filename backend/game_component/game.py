@@ -27,9 +27,6 @@ class Blackjack:
         self.banker = []
         self.min_bet = 5
 
-        # Setting Player
-        self.players_num = 1
-
         # Setting Table
         self.max_table = 6
         self.tables = []
@@ -43,9 +40,6 @@ class Blackjack:
 
     def get_deck_cards(self):
         return self.get_deck().deck
-
-    def get_players_num(self):
-        return self.players_num
 
     def get_min_bet(self):
         return self.min_bet
@@ -161,9 +155,6 @@ class Blackjack:
     # SET
     def set_deck_num(self, deck_num):
         self.deck_num = deck_num
-
-    def set_player_num(self, player_num):
-        self.players_num = player_num
 
     def set_min_bet(self, min_bet):
         self.min_bet = min_bet
@@ -436,9 +427,6 @@ class Blackjack:
     def get_tables(self):
         return self.tables
 
-    def get_table_first(self):
-        return self.tables[0]
-
     def get_table_by_name(self, table_name):
         for table in self.tables:
             if table.get_name() == str(table_name):
@@ -446,6 +434,13 @@ class Blackjack:
 
     def get_table_name_players(self, table_name):
         return self.get_table_by_name(table_name).get_players()
+
+    def get_table_players_num(self, table):
+        return table.get_player_num()
+
+    def get_table_name_players_num(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_player_num()
 
     def get_table_players(self, table):
         return table.get_players()
@@ -479,6 +474,20 @@ class Blackjack:
             for player in table.get_players():
                 if str(input_player.get_id()) == str(player.get_id()):
                     return table
+
+    def get_table_max(self, table):
+        table.get_max_player()
+
+    def get_table_name_max(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_max_player()
+
+    def set_table_max(self, table, max_player_num):
+        table.set_max_player(max_player_num)
+
+    def set_table_name_max(self, table_name, max_player_num):
+        table = self.get_table_by_name(table_name)
+        table.set_max_player(max_player_num)
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):

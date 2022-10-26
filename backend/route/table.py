@@ -30,21 +30,21 @@ def check_blackjack(game, player):
 def set_cards_location(game, table_name=None):
     set_banker_location(game.get_banker_cards())
     table_ = game.get_table_by_name(str(table_name))
-    if game.get_players_num() == 1:
+    if game.get_table_players_num(table_) == 1:
         set_table_players_location(init_x=TABLE_WIDTH / 2 - CARD_WIDTH / 2,
                                    table_=table_)
 
-    elif game.get_players_num() == 2:
+    elif game.get_table_players_num(table_) == 2:
         set_table_players_location(init_x=TABLE_WIDTH / 4 - 2 * CARD_WIDTH, player_x_space=43 - CARD_WIDTH,
                                    table_=table_)
 
-    elif game.get_players_num() == 3:
+    elif game.get_table_players_num(table_) == 3:
         set_table_players_location(init_x=TABLE_WIDTH / 5 - 2 * CARD_WIDTH,
                                    player_x_space=30 - CARD_WIDTH,
                                    hand_x_space=INIT_HAND_X_SPACE - 2,
                                    table_=table_)
 
-    elif game.get_players_num() == 4:
+    elif game.get_table_players_num(table_) == 4:
         set_table_players_location(init_x=TABLE_WIDTH / 6 - 2 * CARD_WIDTH,
                                    player_x_space=25 - CARD_WIDTH,
                                    hand_x_space=INIT_HAND_X_SPACE - 2,
@@ -259,8 +259,8 @@ def reset():
     #     print("Player 2", game.get_players()[1].get_id())
     # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                Card(symbol='A', suit='heart', value=11)]
-    game.get_table_name_players(table_name=room)[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                                            Card(symbol='J', value=10, suit='heart')]
+    # game.get_table_name_players(table_name=room)[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+    #                                                                         Card(symbol='J', value=10, suit='heart')]
     # game.get_players()[0].append_empty_hand()
     # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]
