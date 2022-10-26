@@ -200,13 +200,18 @@ class Blackjack:
 
     def blackjack_process(self, player):
 
-        if self.check_player_blackjack(player):
-            hand = player.get_hands()[0]
-            hand.set_able_hit(False)
-            hand.set_is_finish(True)
-            self.set_hand_blackjack(hand)
+        if self.get_is_player_blackjack(player):
+            self.check_player_blackjack(player)
             return True
         return False
+
+    # Set Hand Push
+    def set_hand_push(self, hand):
+        hand.set_result("push")
+
+    # Set Hand Lose
+    def set_hand_lose(self, hand):
+        hand.set_result("lose")
 
     # Set card value
     def set_blackjack_value(self, deck):
@@ -236,14 +241,23 @@ class Blackjack:
         player_blackjack = self.get_is_player_blackjack(player)
         if banker_blackjack and player_blackjack:
             hand.set_result("push")
+            hand.set_able_hit(False)
+            hand.set_is_finish(True)
+            self.set_hand_push(hand)
             return True
 
         if banker_blackjack:
             hand.set_result("lose")
+            hand.set_able_hit(False)
+            hand.set_is_finish(True)
+            self.set_hand_lose(hand)
             return True
 
         if player_blackjack:
             hand.set_result("blackjack")
+            hand.set_able_hit(False)
+            hand.set_is_finish(True)
+            self.set_hand_blackjack(hand)
             return True
         return False
 

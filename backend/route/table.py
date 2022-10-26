@@ -19,12 +19,10 @@ from backend.game_component.card import Card
 # Check Blackjack
 def check_blackjack(game, player):
 
-    # ToDo logic problem
     if game.get_is_banker_blackjack():
         game.reveal_banker_card()
 
     if game.check_player_blackjack(player):
-        game.blackjack_process(player)
         return True
     return False
 
@@ -124,9 +122,7 @@ def table():
                                game_end=game_end, name=name, room=room), 200
     if is_check_blackjack:
         current_app.config["SHOW_BLACKJACK"] = False
-        # For debug
-        player = game.get_first_table_players()[0]
-        # ToDo remember to recover
+
         player = game.get_player_by_id(current_user.id)
         if check_blackjack(game, player):
             return redirect(url_for('game_route.end'))
