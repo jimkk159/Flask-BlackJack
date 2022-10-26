@@ -93,9 +93,7 @@ class Blackjack:
     def get_table_by_name(self, table_name):
         for table in self.tables:
             if table.get_name() == str(table_name):
-                print(table, self.tables)
                 return table
-        print(20)
 
     def get_table_name_players(self, table_name):
         return self.get_table_by_name(table_name).get_players()

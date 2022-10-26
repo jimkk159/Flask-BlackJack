@@ -24,6 +24,8 @@ def left(message):
 @socketio.on('hit_', namespace='/table')
 def hit_(message):
     print('I got hit')
+    current_app.config["SHOW_INSURANCE"] = False
+
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)
@@ -41,6 +43,8 @@ def hit_(message):
 @socketio.on('double_', namespace='/table')
 def double_(message):
     print('I got double')
+    current_app.config["SHOW_INSURANCE"] = False
+
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)
@@ -56,6 +60,8 @@ def double_(message):
 @socketio.on('split_', namespace='/table')
 def split_(message):
     print('I got split')
+    current_app.config["SHOW_INSURANCE"] = False
+
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)
@@ -73,6 +79,8 @@ def split_(message):
 @socketio.on('stand_', namespace='/table')
 def stand_(message):
     print('I got stand')
+    current_app.config["SHOW_INSURANCE"] = False
+
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)
@@ -89,6 +97,8 @@ def stand_(message):
 @socketio.on('fold_', namespace='/table')
 def fold_(message):
     print('I got fold')
+    current_app.config["SHOW_INSURANCE"] = False
+
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)

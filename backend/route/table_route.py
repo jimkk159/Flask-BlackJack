@@ -260,7 +260,7 @@ def reset():
     # if len(game.get_players()) > 1:
     #     print("Player 1", game.get_players()[0].get_id())
     #     print("Player 2", game.get_players()[1].get_id())
-    table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+    table.banker = [Card(symbol='K', suit='spade', value=2, faced=False),
                     Card(symbol='A', suit='heart', value=11)]
     table.get_players()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
                                                    Card(symbol='A', value=11, suit='heart')]
