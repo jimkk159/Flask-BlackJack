@@ -146,13 +146,13 @@
                                     <div class="row">
                                         <div class="col-lg-12 text-center">
                                             <h1>Table Rule</h1>
-                                            <p>Number of decks: {{ game.get_deck_num() }}</p>
-                                            <p>Minimum Bet: {{ game.get_min_bet() }}</p>
-                                            <p>BlackJack Ration: {{ game.get_blackjack_ratio() }}</p>
-                                            <p>Insurance: {{ "Open" if game.get_is_insurance() else "Close" }}</p>
-                                            <p>Over 10 Insurance: {{ "Open" if game.get_insurance_over_10() else "Close"
+                                            <p>Number of decks: {{ game.get_table_deck_num(current_table) }}</p>
+                                            <p>Minimum Bet: {{ game.get_table_min_bet(current_table) }}</p>
+                                            <p>BlackJack Ration: {{ game.get_table_blackjack_ratio(current_table) }}</p>
+                                            <p>Insurance: {{ "Open" if game.get_table_is_insurance(current_table) else "Close" }}</p>
+                                            <p>Over 10 Insurance: {{ "Open" if game.get_table_insurance_over_10(current_table) else "Close"
                                                 }}</p>
-                                            <p>Double Down: {{ "Open" if game.get_is_double() else "Close" }}</p>
+                                            <p>Double Down: {{ "Open" if game.get_table_is_double(current_table) else "Close" }}</p>
                                         </div>
                                     </div>
                                 </div>

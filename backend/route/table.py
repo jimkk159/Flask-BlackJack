@@ -18,13 +18,13 @@ from backend.game_component.card import Card
 
 # Check Blackjack
 def check_blackjack(game, player):
-
     if game.get_is_banker_blackjack():
         game.reveal_banker_card()
 
     if game.check_player_blackjack(player):
         return True
     return False
+
 
 # Set Card Location
 def set_cards_location(game, table_name=None):

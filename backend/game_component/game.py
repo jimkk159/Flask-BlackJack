@@ -25,7 +25,6 @@ class Blackjack:
 
         # Setting Banker
         self.banker = []
-        self.min_bet = 5
 
         # Setting Table
         self.max_table = 6
@@ -35,14 +34,8 @@ class Blackjack:
     def get_deck(self):
         return self.deck
 
-    def get_deck_num(self):
-        return self.deck_num
-
     def get_deck_cards(self):
         return self.get_deck().deck
-
-    def get_min_bet(self):
-        return self.min_bet
 
     def get_is_insurance(self):
         return self.is_insurance
@@ -82,9 +75,6 @@ class Blackjack:
 
     def get_able_fold(self, player):
         return player.get_able_fold()
-
-    def get_blackjack_ratio(self):
-        return self.blackjack_ratio
 
     def get_banker_cards(self):
         return self.banker
@@ -150,12 +140,112 @@ class Blackjack:
         return False
 
     # SET
-    def set_deck_num(self, deck_num):
-        self.deck_num = deck_num
+    def set_table_deck_num(self, table=None, deck_num=4):
 
-    def set_min_bet(self, min_bet):
-        self.min_bet = min_bet
+        if not table:
+            return
+        table.set_deck_num(deck_num)
 
+    def set_table_name_deck_num(self, table_name=None, deck_num=4):
+
+        if table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if table:
+            return
+        table.set_deck_num(deck_num)
+
+    def set_table_max(self, table=None, max_player_num=4):
+
+        if not table:
+            return
+        table.set_max_player(max_player_num)
+
+    def set_table_name_max(self, table_name=None, max_player_num=4):
+
+        if not table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        table.set_max_player(max_player_num)
+
+    def set_table_min_bet(self, table=None, min_bet=5):
+
+        if not table:
+            return
+        table.set_min_bet(min_bet)
+
+    def set_table_name_min_bet(self, table_name=None, min_bet=5):
+
+        if not table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        table.set_min_bet(min_bet)
+
+    def set_table_blackjack_ratio(self, table=None, bj_ratio=1.5):
+
+        if not table:
+            return
+        table.set_blackjack_ratio(bj_ratio)
+
+    def set_table_name_blackjack_ratio(self, table_name=None, bj_ratio=1.5):
+
+        if not table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        table.set_blackjack_ratio(bj_ratio)
+
+    def set_table_is_insurance(self, table=None, is_insurance=True):
+
+        if not table:
+            return
+        table.set_is_insurance(is_insurance)
+
+    def set_table_name_is_insurance(self, table_name=None, is_insurance=True):
+
+        if not table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        table.set_is_insurance(is_insurance)
+
+    def set_table_insurance_over_10(self, table=None, is_insurance_over_10=False):
+
+        if not table:
+            return
+        table.set_is_insurance_over_10(is_insurance_over_10)
+
+    def set_table_name_insurance_over_10(self, table_name=None, is_insurance_over_10=False):
+
+        if not table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        table.set_is_insurance_over_10(is_insurance_over_10)
+
+    def set_table_is_double(self, table=None, is_double=True):
+
+        if not table:
+            return
+        table.set_is_double(is_double)
+
+    def set_table_name_is_double(self, table_name=None, is_double=True):
+
+        if not table_name:
+            return
+        table = self.get_table_by_name(table_name)
+        if not table:
+            return
+        table.set_is_double(is_double)
+
+    #
     def set_is_insurance(self, is_insurance):
         self.is_insurance = is_insurance
 
@@ -164,9 +254,6 @@ class Blackjack:
 
     def set_is_double(self, is_double):
         self.is_double = is_double
-
-    def set_blackjack_ratio(self, blackjack_ratio):
-        self.blackjack_ratio = blackjack_ratio
 
     def set_player_insurance(self, player, insurance: bool):
 
@@ -483,19 +570,54 @@ class Blackjack:
                 if str(input_player.get_id()) == str(player.get_id()):
                     return table
 
+    def get_table_deck_num(self, table):
+        return table.get_deck_num()
+
+    def get_table_name_deck_num(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_deck_num()
+
     def get_table_max(self, table):
-        table.get_max_player()
+        return table.get_max_player()
 
     def get_table_name_max(self, table_name):
         table = self.get_table_by_name(table_name)
         return table.get_max_player()
 
-    def set_table_max(self, table, max_player_num):
-        table.set_max_player(max_player_num)
+    def get_table_min_bet(self, table):
+        return table.get_min_bet()
 
-    def set_table_name_max(self, table_name, max_player_num):
+    def get_table_name_min_bet(self, table_name):
         table = self.get_table_by_name(table_name)
-        table.set_max_player(max_player_num)
+        return table.get_min_bet()
+
+    def get_table_blackjack_ratio(self, table):
+        return table.get_blackjack_ratio()
+
+    def get_table_name_blackjack_ratio(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_blackjack_ratio()
+
+    def get_table_is_insurance(self, table):
+        return table.get_is_insurance()
+
+    def get_table_name_is_insurance(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_is_insurance()
+
+    def get_table_insurance_over_10(self, table):
+        return table.get_is_insurance_over_10()
+
+    def get_table_name_is_insurance_over_10(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_is_insurance_over_10()
+
+    def get_table_is_double(self, table):
+        return table.get_is_double()
+
+    def get_table_name_is_double(self, table_name):
+        table = self.get_table_by_name(table_name)
+        return table.get_is_double()
 
     # Deal Card
     def deal(self, cards_in_hand: list, faced=True):

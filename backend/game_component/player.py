@@ -201,12 +201,22 @@ class Player:
 
 class Table:
 
-    def __init__(self, id_=None, name=None, max_player=None):
+    def __init__(self, id_=None, name=None, deck_num=None, max_player=None, min_bet=None, blackjack_ratio=None,
+                 is_insurance=True, is_insurance_over_10=False, is_double=True):
         self.id = id_ if id_ else uuid.uuid1()
         self.name = name
-        self.max_player = max_player if max_player else 4
+
         self.player_num = 0
         self.in_ = []
+
+        # Table Rule
+        self.deck_num = deck_num if deck_num else 4
+        self.max_player = max_player if max_player else 4
+        self.min_bet = min_bet if min_bet else 5
+        self.blackjack_ratio = blackjack_ratio if blackjack_ratio else 1.5
+        self.is_insurance = is_insurance
+        self.is_insurance_over_10 = is_insurance_over_10
+        self.is_double = is_double
 
     # GET
     # Get All Players Hands
@@ -229,8 +239,26 @@ class Table:
     def get_player_num(self):
         return self.player_num
 
+    def get_deck_num(self):
+        return self.deck_num
+
     def get_max_player(self):
         return self.max_player
+
+    def get_min_bet(self):
+        return self.min_bet
+
+    def get_blackjack_ratio(self):
+        return self.blackjack_ratio
+
+    def get_is_insurance(self):
+        return self.is_insurance
+
+    def get_is_insurance_over_10(self):
+        return self.is_insurance_over_10
+
+    def get_is_double(self):
+        return self.is_double
 
     def get_is_player_id(self, id_):
         for player in self.in_:
@@ -250,8 +278,26 @@ class Table:
             basic_stake = player.get_basic_stake()
             player.set_total_stake(basic_stake)
 
+    def set_deck_num(self, number):
+        self.deck_num = number
+
     def set_max_player(self, number):
         self.max_player = number
+
+    def set_min_bet(self, min_bet):
+        self.min_bet = min_bet
+
+    def set_is_insurance(self, is_insurance):
+        self.is_insurance = is_insurance
+
+    def set_is_insurance_over_10(self, is_insurance_over_10):
+        self.is_insurance_over_10 = is_insurance_over_10
+
+    def set_is_double(self, is_double):
+        self.is_double = is_double
+
+    def set_blackjack_ratio(self, blackjack_ratio):
+        self.blackjack_ratio = blackjack_ratio
 
     # Refresh
     def refresh(self):
