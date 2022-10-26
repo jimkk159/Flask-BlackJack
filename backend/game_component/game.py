@@ -89,9 +89,6 @@ class Blackjack:
     def get_banker_cards(self):
         return self.banker
 
-    def get_first_table_players(self):
-        return self.tables[0].get_players()
-
     def get_player_option(self, player, hand):
         result = []
         if self.get_player_can_double(player):
@@ -228,9 +225,9 @@ class Blackjack:
 
         player.set_insurance(False)
 
-    def check_blackjack(self):
+    def check_blackjack(self, table_name):
 
-        return all(map(self.check_player_blackjack, self.get_first_table_players()))
+        return all(map(self.check_player_blackjack, self.get_table_name_players(table_name)))
 
     def check_player_blackjack(self, player):
 
@@ -282,9 +279,9 @@ class Blackjack:
             return all([(True if (hand.get_result() != "" or hand.get_is_finish()) else False) for hand in hands])
         return False
 
-    def get_is_players_finish(self):
+    def get_is_players_finish(self, table_name):
 
-        players = self.get_first_table_players()
+        players = self.get_table_name_players(table_name)
         if players:
             return all(map(self.get_is_player_finish, players))
         return False
@@ -327,17 +324,14 @@ class Blackjack:
         # Reset Banker Cards
         self.banker = []
 
-    def pay_all_stake(self):
+    def pay_all_stake(self, table_name):
         result = []
-        for player in self.get_first_table_players():
+        for player in self.get_table_name_players(table_name):
             result.append(self.pay_player_stake(player))
         return result
 
     def pay_player_stake(self, player):
         return player.pay_stake()
-
-    def set_players(self, table):
-        table.create(self.players_num)
 
     def set_players_by_ids(self, table, ids: list[int]):
         table.create_by_id(ids)

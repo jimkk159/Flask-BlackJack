@@ -18,6 +18,8 @@ from backend.game_component.card import Card
 
 # Check Blackjack
 def check_blackjack(game, player):
+
+    # ToDo logic problem
     if game.get_is_banker_blackjack():
         game.reveal_banker_card()
 

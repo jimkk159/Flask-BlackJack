@@ -107,7 +107,7 @@ def banker_(message):
 
 def bandker_check(game, player, room):
 
-    if game.get_is_players_finish():
+    if game.get_is_players_finish(room):
         # Banker Round
         print('All Players are finish')
         return

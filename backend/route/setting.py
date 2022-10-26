@@ -15,7 +15,6 @@ def setting():
 
     submit_result = False
     if setting_form.validate_on_submit():
-
         submit_result = True
         # Deck Number
         deck_num = setting_form.decks.data
@@ -45,4 +44,5 @@ def setting():
         is_double = setting_form.is_double.data
         game.set_is_double(is_double)
 
-    return render_template('setting.html', setting_form=setting_form, game=game, submit_result=submit_result, room=room), 200
+    return render_template('setting.html', setting_form=setting_form, game=game, submit_result=submit_result,
+                           room=room), 200
