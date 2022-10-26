@@ -125,6 +125,7 @@ def table():
     if is_check_blackjack:
         current_app.config["SHOW_BLACKJACK"] = False
         table_.check_player_blackjack(player)
+        return redirect(url_for('game_route.end'))
 
     return render_template('table.html', banker=banker_, table=table_, ask_insurance=False, name=name, room=room), 200
 
@@ -136,14 +137,12 @@ def insurance(answer):
     room = session.get('room', '')
 
     current_app.config["SHOW_INSURANCE"] = False
-    current_app.config["SHOW_BLACKJACK"] = False
 
     table_ = game.get_table_by_name(room)
     player = table_.get_player_by_id(current_user.id)
     if answer == 1:
         table_.player_has_insurance(player)
-    if table_.check_player_blackjack(player):
-        return redirect(url_for('game_route.end'))
+
     return redirect(url_for('game_route.table'))
 
 
@@ -260,10 +259,10 @@ def reset():
     # if len(game.get_players()) > 1:
     #     print("Player 1", game.get_players()[0].get_id())
     #     print("Player 2", game.get_players()[1].get_id())
-    table.banker = [Card(symbol='K', suit='spade', value=2, faced=False),
+    table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
                     Card(symbol='A', suit='heart', value=11)]
     table.get_players()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                   Card(symbol='A', value=11, suit='heart')]
+                                                   Card(symbol='K', value=10, suit='heart')]
     # game.get_players()[0].append_empty_hand()
     # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]

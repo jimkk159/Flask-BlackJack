@@ -486,6 +486,7 @@ class Table:
 
         hand = player.get_hands()[0]
         banker_blackjack = self.get_is_banker_blackjack()
+
         player_blackjack = self.get_is_player_blackjack(player)
         if banker_blackjack and player_blackjack:
             hand.set_result("push")

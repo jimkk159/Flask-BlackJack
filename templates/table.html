@@ -109,7 +109,8 @@
                                 </div>
                                 {% endif %}
 
-                                {% if hand.get_result() == "blackjack" %}
+                                {% if hand.get_result() == "blackjack" or
+                                (current_table.get_is_banker_blackjack() and hand.get_result() == "push") %}
                                 <div class="card-result card-result-blackjack"
                                      style="left:{{ hand.get_cards()[0].get_x()-1.5 }}rem;">
                                     <h1 class="blackjack-alarm"><span class="alphabet">B</span>lack<span
@@ -149,10 +150,13 @@
                                             <p>Number of decks: {{ current_table.get_deck_num() }}</p>
                                             <p>Minimum Bet: {{ current_table.get_min_bet() }}</p>
                                             <p>BlackJack Ration: {{ current_table.get_blackjack_ratio() }}</p>
-                                            <p>Insurance: {{ "Open" if current_table.get_is_insurance() else "Close" }}</p>
-                                            <p>Over 10 Insurance: {{ "Open" if current_table.get_is_insurance_over_10() else "Close"
+                                            <p>Insurance: {{ "Open" if current_table.get_is_insurance() else "Close"
                                                 }}</p>
-                                            <p>Double Down: {{ "Open" if current_table.get_is_double() else "Close" }}</p>
+                                            <p>Over 10 Insurance: {{ "Open" if current_table.get_is_insurance_over_10()
+                                                else "Close"
+                                                }}</p>
+                                            <p>Double Down: {{ "Open" if current_table.get_is_double() else "Close"
+                                                }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +173,7 @@
                 <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-2">
-                        {% if current_hand and current_hand.get_able_hit() %}
+                        {% if not ask_insurance and current_hand and current_hand.get_able_hit() %}
                         <a href="#" onclick="hit_click( { hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-hit"
                                  src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}">
@@ -181,7 +185,7 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if current_player.get_able_double() %}
+                        {% if not ask_insurance and current_player.get_able_double() %}
                         <a href="#" onclick="double_click( { player_id:'{{ current_player.id }}' } );">
                             <img class="gestures gestures-double"
                                  src="{{ url_for('static',filename='img/gestures/gesture-double-no-bg.png') }}">
@@ -193,7 +197,8 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if current_hand and current_hand.get_able_split() and not current_hand.get_is_finish()%}
+                        {% if not ask_insurance and current_hand and current_hand.get_able_split() and not
+                        current_hand.get_is_finish()%}
                         <a href="#"
                            onclick="split_click( { player_id:'{{ current_player.id }}', hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-split"
@@ -206,7 +211,7 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if current_hand and not current_hand.get_is_finish() %}
+                        {% if not ask_insurance and current_hand and not current_hand.get_is_finish() %}
                         <a href="#" onclick="stand_click( { hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-stand"
                                  src="{{ url_for('static',filename='img/gestures/gesture-stand-no-bg.png') }}">
@@ -218,7 +223,7 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if current_player.get_able_fold() %}
+                        {% if not ask_insurance and current_player.get_able_fold() %}
                         <a href="#" onclick="fold_click( { player_id:'{{ current_player.id }}' } );">
                             <img class="gestures gestures-surrender"
                                  src="{{ url_for('static',filename='img/gestures/gesture-surrender-no-bg.png') }}">
@@ -297,6 +302,9 @@
     function fold_click(data) {
         socket.emit('fold_', data);
     }
+
+
+
 
 
 
