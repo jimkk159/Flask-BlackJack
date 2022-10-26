@@ -26,27 +26,31 @@ def hit_(message):
     print('I got hit')
     room = session.get('room')
     game = current_app.config["GAME"]
+    table = game.get_table_by_name(table_name=room)
+
     hand_id = message['hand_id']
-    hand = game.get_hand_by_id(hand_id)
-    player = game.get_player_by_hand_id(hand_id)
-    game.hit_process(hand)
+    hand = table.get_hand_by_id(hand_id)
+
+    player = table.get_player_by_hand_id(hand_id)
+
+    table.hit_process(hand)
     emit('reload', {}, room=room)
-    bandker_check(game, player, room)
+    bandker_check(player)
 
 
 @socketio.on('double_', namespace='/table')
 def double_(message):
     print('I got double')
     room = session.get('room')
-    # print(message['current_id'])
     game = current_app.config["GAME"]
+    table = game.get_table_by_name(table_name=room)
 
     player_id = message['player_id']
-    player = game.get_player_by_id(player_id)
+    player = table.get_player_by_id(player_id)
 
-    game.double_down_process(player)
+    table.double_down_process(player)
     emit('reload', {}, room=room)
-    bandker_check(game, player, room)
+    bandker_check(player)
 
 
 @socketio.on('split_', namespace='/table')
@@ -54,14 +58,15 @@ def split_(message):
     print('I got split')
     room = session.get('room')
     game = current_app.config["GAME"]
+    table = game.get_table_by_name(table_name=room)
 
     player_id = message['player_id']
-    player = game.get_player_by_id(player_id)
+    player = table.get_player_by_id(player_id)
 
     hand_id = message['hand_id']
     hand = player.get_hand_by_id(hand_id)
 
-    game.split_process(player, hand)
+    table.split_process(player, hand)
     emit('reload', {}, room=room)
 
 
@@ -70,14 +75,15 @@ def stand_(message):
     print('I got stand')
     room = session.get('room')
     game = current_app.config["GAME"]
+    table = game.get_table_by_name(table_name=room)
 
     hand_id = message['hand_id']
-    hand = game.get_hand_by_id(hand_id)
-    player = game.get_player_by_hand_id(hand_id)
+    hand = table.get_hand_by_id(hand_id)
+    player = table.get_player_by_hand_id(hand_id)
 
-    game.stand_process(hand)
+    table.stand_process(hand)
     emit('reload', {}, room=room)
-    bandker_check(game, player, room)
+    bandker_check(player)
 
 
 @socketio.on('fold_', namespace='/table')
@@ -85,34 +91,42 @@ def fold_(message):
     print('I got fold')
     room = session.get('room')
     game = current_app.config["GAME"]
-    player_id = message['player_id']
+    table = game.get_table_by_name(table_name=room)
 
-    player = game.get_player_by_id(player_id)
-    game.fold_process(player)
+    player_id = message['player_id']
+    player = table.get_player_by_id(player_id)
+
+    table.fold_process(player)
     emit('reload', {}, room=room)
-    bandker_check(game, player, room)
+    bandker_check(player)
 
 @socketio.on('banker_', namespace='/table')
 def banker_(message):
     print("I got banker")
     room = session.get('room')
     game = current_app.config["GAME"]
-    game.reveal_banker_card()
-    game.deal_to_banker()
-    if game.get_is_banker_bust():
-        game.banker_bust_process(table_name=room)
+    table = game.get_table_by_name(table_name=room)
+
+    table.reveal_banker_card()
+    table.deal_to_banker()
+
+    if table.get_is_banker_bust():
+        table.banker_bust_process()
     else:
-        game.compare_cards(table_name=room)
+        table.compare_cards()
 
 
-def bandker_check(game, player, room):
+def bandker_check(player):
 
-    if game.get_is_players_finish(room):
+    room = session.get('room')
+    game = current_app.config["GAME"]
+    table = game.get_table_by_name(table_name=room)
+    if table.get_is_players_finish():
         # Banker Round
         print('All Players are finish')
         return
 
-    if game.get_is_player_finish(player):
+    if table.get_is_player_finish(player):
         # Next Player Round
         print('Player is finish')
         return

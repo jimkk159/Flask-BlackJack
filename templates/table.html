@@ -1,5 +1,5 @@
 {% include "header.html" %}
-{% set current_table = game.get_table_by_name(room) %}
+{% set current_table = table %}
 {% set current_player = current_table.get_player_by_id(current_user.id) %}
 {% set current_hand = current_player.get_current_hand() %}
 <div class="page table-page" xmlns="http://www.w3.org/1999/html">
@@ -10,7 +10,7 @@
                     <div class="row">
                         <h1 class="mx-auto page-title">
                             <span class="table-name">Room {{ room }}</span>
-                            <span class="table-capability">( {{ game.get_table_name_players_num(room) }}/{{ game.get_table_name_max(room) }} )</span>
+                            <span class="table-capability">( {{ current_table.get_player_num() }}/{{ current_table.get_max_player() }} )</span>
                         </h1>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="row player-cards-row">
                             <div class="card-content">
-                                {% for player in game.get_table_name_players(room) %}
+                                {% for player in current_table.get_players() %}
                                 {% for hand in player.get_hands() %}
                                 {% for card in hand.get_cards() %}
                                 <img class="poker-card"
@@ -146,13 +146,13 @@
                                     <div class="row">
                                         <div class="col-lg-12 text-center">
                                             <h1>Table Rule</h1>
-                                            <p>Number of decks: {{ game.get_table_deck_num(current_table) }}</p>
-                                            <p>Minimum Bet: {{ game.get_table_min_bet(current_table) }}</p>
-                                            <p>BlackJack Ration: {{ game.get_table_blackjack_ratio(current_table) }}</p>
-                                            <p>Insurance: {{ "Open" if game.get_table_is_insurance(current_table) else "Close" }}</p>
-                                            <p>Over 10 Insurance: {{ "Open" if game.get_table_insurance_over_10(current_table) else "Close"
+                                            <p>Number of decks: {{ current_table.get_deck_num() }}</p>
+                                            <p>Minimum Bet: {{ current_table.get_min_bet() }}</p>
+                                            <p>BlackJack Ration: {{ current_table.get_blackjack_ratio() }}</p>
+                                            <p>Insurance: {{ "Open" if current_table.get_is_insurance() else "Close" }}</p>
+                                            <p>Over 10 Insurance: {{ "Open" if current_table.get_is_insurance_over_10() else "Close"
                                                 }}</p>
-                                            <p>Double Down: {{ "Open" if game.get_table_is_double(current_table) else "Close" }}</p>
+                                            <p>Double Down: {{ "Open" if current_table.get_is_double() else "Close" }}</p>
                                         </div>
                                     </div>
                                 </div>

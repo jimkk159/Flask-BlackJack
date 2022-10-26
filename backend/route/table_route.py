@@ -17,34 +17,34 @@ from backend.game_component.card import Card
 
 
 # Check Blackjack
-def check_blackjack(game, player):
-    if game.get_is_banker_blackjack():
-        game.reveal_banker_card()
+def check_blackjack(table_, player):
+    if table_.get_is_banker_blackjack():
+        table_.reveal_banker_card()
 
-    if game.check_player_blackjack(player):
+    if table_.check_player_blackjack(player):
         return True
     return False
 
 
 # Set Card Location
-def set_cards_location(game, table_name=None):
-    set_banker_location(game.get_banker_cards())
-    table_ = game.get_table_by_name(str(table_name))
-    if game.get_table_players_num(table_) == 1:
+def set_cards_location(table_):
+    set_banker_location(table_.get_banker_cards())
+
+    if table_.get_player_num() == 1:
         set_table_players_location(init_x=TABLE_WIDTH / 2 - CARD_WIDTH / 2,
                                    table_=table_)
 
-    elif game.get_table_players_num(table_) == 2:
+    elif table_.get_player_num() == 2:
         set_table_players_location(init_x=TABLE_WIDTH / 4 - 2 * CARD_WIDTH, player_x_space=43 - CARD_WIDTH,
                                    table_=table_)
 
-    elif game.get_table_players_num(table_) == 3:
+    elif table_.get_player_num() == 3:
         set_table_players_location(init_x=TABLE_WIDTH / 5 - 2 * CARD_WIDTH,
                                    player_x_space=30 - CARD_WIDTH,
                                    hand_x_space=INIT_HAND_X_SPACE - 2,
                                    table_=table_)
 
-    elif game.get_table_players_num(table_) == 4:
+    elif table_.get_player_num() == 4:
         set_table_players_location(init_x=TABLE_WIDTH / 6 - 2 * CARD_WIDTH,
                                    player_x_space=25 - CARD_WIDTH,
                                    hand_x_space=INIT_HAND_X_SPACE - 2,
@@ -106,7 +106,6 @@ def table():
 
     # Config
     game = current_app.config["GAME"]
-    game_end = current_app.config["END"]
     show_insurance = current_app.config["SHOW_INSURANCE"]
     is_check_blackjack = current_app.config["SHOW_BLACKJACK"]
 
@@ -114,32 +113,36 @@ def table():
     name = session.get('name', '')
     room = session.get('room', '')
 
-    banker = game.get_banker_cards()
-    set_cards_location(game, room)
+    table_ = game.get_table_by_name(room)
+    banker_ = table_.get_banker_cards()
+    player = table_.get_player_by_id(current_user.id)
+    set_cards_location(table_)
 
-    if show_insurance and game.get_is_insurance() and game.get_judge_insurance():
-        return render_template('table.html', banker=banker, game=game, ask_insurance=True,
-                               game_end=game_end, name=name, room=room), 200
+    if show_insurance and table_.get_is_insurance() and table_.get_judge_insurance():
+        return render_template('table.html', banker=banker_, table=table_, ask_insurance=True, name=name,
+                               room=room), 200
+
     if is_check_blackjack:
         current_app.config["SHOW_BLACKJACK"] = False
+        table_.check_player_blackjack(player)
 
-        player = game.get_player_by_id(current_user.id)
-        if check_blackjack(game, player):
-            return redirect(url_for('game_route.end'))
-    return render_template('table.html', banker=banker, game=game, ask_insurance=False,
-                           game_end=game_end, name=name, room=room), 200
+    return render_template('table.html', banker=banker_, table=table_, ask_insurance=False, name=name, room=room), 200
 
 
 @game_route.route("/table/insurance/<int:answer>")
 def insurance(answer):
     print('I got insurance')
     game = current_app.config["GAME"]
+    room = session.get('room', '')
+
     current_app.config["SHOW_INSURANCE"] = False
     current_app.config["SHOW_BLACKJACK"] = False
-    player = game.get_player_by_id(current_user.id)
+
+    table_ = game.get_table_by_name(room)
+    player = table_.get_player_by_id(current_user.id)
     if answer == 1:
-        game.player_has_insurance(player)
-    if check_blackjack(game, player):
+        table_.player_has_insurance(player)
+    if table_.check_player_blackjack(player):
         return redirect(url_for('game_route.end'))
     return redirect(url_for('game_route.table'))
 
@@ -219,10 +222,12 @@ def banker():
 def end():
     print("I got end")
     game = current_app.config["GAME"]
-    player = game.get_player_by_id(current_user.id)
+    room = session.get('room', '')
+
+    table_ = game.get_table_by_name(room)
+    player = table_.get_player_by_id(current_user.id)
     # ToDo need to wait for other player finish
-    game.give_money(player)
-    current_app.config["END"] = True
+    table_.give_money(player)
     return redirect(url_for('game_route.table'))
 
 
@@ -232,12 +237,12 @@ def reset():
     game = current_app.config["GAME"]
 
     # ToDo need to split by table
-    current_app.config["END"] = False
     current_app.config["SHOW_INSURANCE"] = True
     current_app.config["SHOW_BLACKJACK"] = True
 
     name = session.get('name', '')
     room = session.get('room', '')
+
     if name == '' or room == '':
         return redirect(url_for('game_route.login'))
     game.create_table(table_name=room)
@@ -245,20 +250,20 @@ def reset():
                      money=current_user.money)
 
     table = game.get_table_by_name(table_name=room)
-    player = game.get_player_by_id(current_user.id)
+    player = table.get_player_by_id(current_user.id)
 
-    game.reset(table)
-    game.pay_player_stake(player)
-    game.deal_initial(table)
+    table.reset()
+    table.player_pay_stake(player)
+    table.deal_initial()
 
     # For Debug
     # if len(game.get_players()) > 1:
     #     print("Player 1", game.get_players()[0].get_id())
     #     print("Player 2", game.get_players()[1].get_id())
-    # game.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
-    #                Card(symbol='A', suit='heart', value=11)]
-    # game.get_table_name_players(table_name=room)[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                                                         Card(symbol='J', value=10, suit='heart')]
+    table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+                    Card(symbol='A', suit='heart', value=11)]
+    table.get_players()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
+                                                   Card(symbol='A', value=11, suit='heart')]
     # game.get_players()[0].append_empty_hand()
     # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
     #                                               Card(symbol='A', value=11, suit='heart')]
