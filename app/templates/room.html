@@ -16,6 +16,11 @@
             </div>
         </div>
     </div>
+
+    {% for table in game.get_tables() %}
+    <a href="{{ url_for('game_route.enter_room', room=table.get_name()) }}"><h1>{{ table.get_name() }}</h1></a>
+    {% endfor %}
+    <a href="{{ url_for('game_route.create_room') }}"><h1>Create Room</h1></a>
 </div>
 {% include "footer.html" %}
 {% endblock %}

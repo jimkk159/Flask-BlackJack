@@ -230,9 +230,9 @@ def end():
     return redirect(url_for('game_route.table'))
 
 
-@game_route.route("/table/reset")
-def reset():
-    print("I got reset")
+@game_route.route("/wait")
+def wait():
+    print("I got wait")
     game = current_app.config["GAME"]
 
     # ToDo need to split by table
@@ -244,9 +244,7 @@ def reset():
 
     if name == '' or room == '':
         return redirect(url_for('game_route.login'))
-    game.create_table(table_name=room)
-    game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name,
-                     money=current_user.money)
+
 
     table = game.get_table_by_name(table_name=room)
     player = table.get_player_by_id(current_user.id)
@@ -259,21 +257,7 @@ def reset():
     # if len(game.get_players()) > 1:
     #     print("Player 1", game.get_players()[0].get_id())
     #     print("Player 2", game.get_players()[1].get_id())
-    table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
-                    Card(symbol='A', suit='heart', value=11)]
-    table.get_players()[0].get_hands()[0].cards = [Card(symbol='A', value=11, suit='spade'),
-                                                   Card(symbol='K', value=10, suit='heart')]
-    # game.get_players()[0].append_empty_hand()
-    # game.get_players()[0].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                               Card(symbol='A', value=11, suit='heart')]
-    # game.get_players()[1].append_empty_hand()
-    # game.get_players()[1].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                               Card(symbol='A', value=11, suit='heart')]
-    # game.get_players()[2].append_empty_hand()
-    # game.get_players()[2].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                               Card(symbol='A', value=11, suit='heart')]
-    # game.get_players()[3].append_empty_hand()
-    # game.get_players()[3].get_hands()[1].cards = [Card(symbol='A', value=11, suit='spade'),
-    #                                               Card(symbol='A', value=11, suit='heart')]
+    # table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+    #                 Card(symbol='A', suit='heart', value=11)]
 
     return redirect(url_for('game_route.table'))

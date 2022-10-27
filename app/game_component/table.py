@@ -6,10 +6,10 @@ from app.game_component.card import Deck
 
 class Table:
 
-    def __init__(self, id_=None, name=None, deck_num=None, max_player=None, min_bet=None, blackjack_ratio=None,
+    def __init__(self, id_=None, table_name=None, deck_num=None, max_player=None, min_bet=None, bj_ratio=None,
                  is_insurance=True, is_insurance_over_10=False, is_double=True):
         self.id = id_ if id_ else uuid.uuid1()
-        self.name = name
+        self.name = table_name
 
         self.player_num = 0
         self.in_ = []
@@ -18,7 +18,7 @@ class Table:
         self.deck_num = deck_num if deck_num else 4
         self.max_player = max_player if max_player else 4
         self.min_bet = min_bet if min_bet else 5
-        self.blackjack_ratio = blackjack_ratio if blackjack_ratio else 1.5
+        self.bj_ratio = bj_ratio if bj_ratio else 1.5
         self.is_insurance = is_insurance
         self.is_insurance_over_10 = is_insurance_over_10
         self.is_double = is_double
@@ -55,7 +55,7 @@ class Table:
         return self.min_bet
 
     def get_blackjack_ratio(self):
-        return self.blackjack_ratio
+        return self.bj_ratio
 
     def get_is_insurance(self):
         return self.is_insurance
@@ -133,7 +133,7 @@ class Table:
         self.is_double = is_double
 
     def set_blackjack_ratio(self, blackjack_ratio):
-        self.blackjack_ratio = blackjack_ratio
+        self.bj_ratio = blackjack_ratio
 
     def set_blackjack_value(self):
         poker_value_dict = {"K": 10, "Q": 10, "J": 10, "10": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5,
@@ -233,13 +233,13 @@ class Table:
         if hand.get_result() == "blackjack":
 
             if player.get_double():
-                player.add_money(2 * (1 + self.blackjack_ratio) * player.get_basic_stake())
+                player.add_money(2 * (1 + self.bj_ratio) * player.get_basic_stake())
 
             elif hand.get_is_charlie():
-                player.money.add_money(floor((1 + 3 * self.blackjack_ratio) * player.get_basic_stake()))
+                player.money.add_money(floor((1 + 3 * self.bj_ratio) * player.get_basic_stake()))
 
             else:
-                player.add_money(floor((1 + self.blackjack_ratio) * player.get_basic_stake()))
+                player.add_money(floor((1 + self.bj_ratio) * player.get_basic_stake()))
 
         if hand.get_result() == "push":
             if player.get_double():

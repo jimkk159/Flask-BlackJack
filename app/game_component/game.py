@@ -13,7 +13,8 @@ class Blackjack:
         self.tables = []
 
     # Table Maintain
-    def create_table(self, table_name=None):
+    def create_table(self, table_name=None, deck_num=None, max_player=None, min_bet=None, bj_ratio=None,
+                     is_insurance=True, is_insurance_over_10=False, is_double=True):
 
         if not table_name:
             return
@@ -27,7 +28,9 @@ class Blackjack:
         if self.get_table_by_name(table_name):
             return
 
-        self.tables.append(Table(name=table_name))
+        self.tables.append(
+            Table(table_name=table_name, deck_num=deck_num, max_player=max_player, min_bet=min_bet, bj_ratio=bj_ratio,
+                  is_insurance=is_insurance, is_insurance_over_10=is_insurance_over_10, is_double=is_double))
 
     def enter_table(self, table_name=None, player_id=None, player_name="Unknown", money=0):
 
@@ -123,6 +126,11 @@ class Blackjack:
 
     def get_is_table_empty(self, table):
         if len(table.get_players()) == 0:
+            return True
+        return False
+
+    def get_is_table_exit(self, table):
+        if self.get_table_by_name(table):
             return True
         return False
 

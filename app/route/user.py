@@ -24,10 +24,9 @@ def login():
             db.session.commit()
             login_user(new_user)
         session['name'] = login_form.name.data
-        session['room'] = login_form.room.data
-        return redirect(url_for('game_route.reset'))
+        return redirect(url_for('game_route.room_map'))
+
     login_form.name.data = session.get('name', '')
-    login_form.room.data = session.get('room', '')
     return render_template('login.html', register_form=login_form), 200
 
 

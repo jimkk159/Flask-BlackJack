@@ -5,27 +5,30 @@
 <div class="page setting-page container-fluid mx-auto">
     <div class="page-inside setting-page-inside">
         <h1 class="page-title">Setting</h1>
-        <form method="POST" action="{{ url_for('game_route.setting') }}" novalidate>
+        <form method="POST" action="{{ url_for('game_route.create_room') }}" novalidate>
             {{ setting_form.csrf_token }}
+            <p>
+                {{ setting_form.room.label }} {{ setting_form.room() }}
+            </p>
             <p>
                 {{ setting_form.decks.label }} {{ setting_form.decks(oninput="this.nextElementSibling.value =
                 this.value") }}
-                <output>{{ game.get_deck_num() }}</output>
+                <output>4</output>
             </p>
             <p>
                 {{ setting_form.players.label }} {{ setting_form.players(oninput="this.nextElementSibling.value =
                 this.value") }}
-                <output>{{ game.get_players_num() }}</output>
+                <output>4</output>
             </p>
             <p>
                 {{ setting_form.min_bet.label }} {{ setting_form.min_bet(oninput="this.nextElementSibling.value =
                 this.value") }}
-                <output>{{ game.get_min_bet() }}</output>
+                <output>5</output>
             </p>
             <p>
                 {{ setting_form.bj_ratio.label }} {{ setting_form.bj_ratio(oninput="this.nextElementSibling.value =
                 this.value") }}
-                <output>{{ game.get_blackjack_ratio() }}</output>
+                <output>1.5</output>
             </p>
             <div class="d-flex flex-row setting-checkbox">
                 <div class="d-flex flex-col setting-checkbox-col-1">
@@ -33,7 +36,7 @@
                 </div>
                 <div class="d-flex flex-col setting-checkbox-col-2">
                     <div class="round-checkbox">
-                        {{ setting_form.is_insurance(id="checkbox-1", checked=game.get_is_insurance()) }}<label
+                        {{ setting_form.is_insurance(id="checkbox-1", checked=True) }}<label
                             for="checkbox-1"></label>
                     </div>
                 </div>
@@ -44,7 +47,7 @@
                 </div>
                 <div class="d-flex flex-col setting-checkbox-col-2">
                     <div class="round-checkbox">
-                        {{ setting_form.is_over_10(id="checkbox-2", checked=game.get_insurance_over_10()) }}<label
+                        {{ setting_form.is_over_10(id="checkbox-2", checked=False) }}<label
                             for="checkbox-2"></label>
                     </div>
                 </div>
@@ -55,18 +58,12 @@
                 </div>
                 <div class="d-flex flex-col setting-checkbox-col-2">
                     <div class="round-checkbox">
-                        {{ setting_form.is_double(id="checkbox-3", checked=game.get_is_double()) }}<label
+                        {{ setting_form.is_double(id="checkbox-3", checked=True) }}<label
                             for="checkbox-3"></label>
                     </div>
                 </div>
             </div>
 
-
-            {% if submit_result %}
-            <div class="text-center">
-                <span class="submit-alert">Submit Success</span>
-            </div>
-            {% endif %}
             {{ setting_form.submit(class_="btn btn-primary") }}
         </form>
         <div class="row">
