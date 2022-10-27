@@ -1,5 +1,5 @@
 import uuid
-from backend.game_component.table import Table
+from app.game_component.table import Table
 
 
 class Blackjack:

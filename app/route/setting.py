@@ -1,7 +1,7 @@
 from flask import session, render_template, current_app
 
 # self import
-from backend.forms import SettingForm
+from app.forms import SettingForm
 from . import game_route
 
 

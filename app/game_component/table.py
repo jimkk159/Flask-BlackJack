@@ -1,7 +1,7 @@
 import uuid
 from math import floor
-from backend.game_component.player import Player, Hand
-from backend.game_component.card import Deck
+from app.game_component.player import Player, Hand
+from app.game_component.card import Deck
 
 
 class Table:

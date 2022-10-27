@@ -2,7 +2,7 @@ import uuid
 from flask_login import UserMixin
 
 # self import
-from backend.extension import db
+from app.extension import db
 
 
 def setup_db(app):

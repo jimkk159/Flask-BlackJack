@@ -13,7 +13,7 @@ INIT_PLAYER_Y_SPACE = 0.0
 
 # self import
 from . import game_route
-from backend.game_component.card import Card
+from app.game_component.card import Card
 
 
 # Check Blackjack

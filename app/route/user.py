@@ -4,8 +4,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 # self import
 from . import game_route
-from backend.extension import db
-from backend.forms import LoginForm
+from app.extension import db
+from app.forms import LoginForm
 from SQL.SQL_management import User
 
 
