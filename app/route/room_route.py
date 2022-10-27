@@ -1,4 +1,3 @@
-from flask import render_template
 from flask_login import current_user
 from flask import render_template, current_app, redirect, url_for, session
 
@@ -23,13 +22,14 @@ def room_map():
 @game_route.route('/room/enter/<room>')
 def enter_room(room):
     print('I got enter room')
+
     game = current_app.config["GAME"]
 
     # Room Name
     session['room'] = room
     game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name,
                      money=current_user.money)
-    return redirect(url_for('game_route.wait')), 200
+    return redirect(url_for('game_route.wait'))
 
 
 @game_route.route('/room/create', methods=['GET', 'POST'])
@@ -79,6 +79,6 @@ def create_room():
         game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name,
                          money=current_user.money)
 
-        return redirect(url_for('game_route.room_map')), 200
+        return redirect(url_for('game_route.wait'))
 
     return render_template('setting.html', setting_form=setting_form, game=game), 200
