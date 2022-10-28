@@ -15,7 +15,7 @@ class Table:
         self.in_ = []
 
         # Table Status
-        self.status = "wait"
+        self.game_start = False
 
         # Table Rule
         self.deck_num = deck_num if deck_num else 4
@@ -47,6 +47,9 @@ class Table:
 
     def get_players(self):
         return self.in_
+
+    def get_game_start(self):
+        return self.game_start
 
     def get_deck_num(self):
         return self.deck_num
@@ -117,6 +120,9 @@ class Table:
                     return hand
 
     # SET
+    def set_game_start(self, game_start):
+        self.game_start = game_start
+
     def set_deck_num(self, number):
         self.deck_num = number
 

@@ -79,6 +79,6 @@ def create_room():
         game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name,
                          money=current_user.money)
 
-        return render_template('waiting.html', setting_form=setting_form, game=game), 200
+        return redirect(url_for('game_route.wait'))
 
     return render_template('setting.html', setting_form=setting_form, game=game), 200
