@@ -14,6 +14,9 @@ class Table:
         self.player_num = 0
         self.in_ = []
 
+        # Table Status
+        self.status = "wait"
+
         # Table Rule
         self.deck_num = deck_num if deck_num else 4
         self.max_player = max_player if max_player else 4

@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1 id="countDown"></h1>
-<h1>Waiting for RoomOwner to confirm</h1>
-<a href="{{ url_for('game_route.wait') }}"><h1>Start</h1></a>
-</body>
-<script>
+{% include "header.html" %}
+<h1>Waiting for RoomOwner to confirm<span id="countDown">5</span></h1>
+<a href="{{ url_for('game_route.wait') }}">
+    <h1>Start</h1>
+</a>
 
+<script>
 function startTimer(duration, display){
     var timer = duration;
 
     setInterval(function() {
-        console.log("123")
         display.textContent = timer;
-        timer--;
-        if (timer < 0){
+        if (--timer < 0){
             display.textContent = "The End";
              window.location.href = "{{ url_for('game_route.wait') }}";
         }
@@ -26,9 +18,8 @@ function startTimer(duration, display){
 }
 
 window.onload  = function() {
-    console.log("123")
-    var fiftySecond = 15, display= document.querySelector('#countDown');
+    var fiftySecond = 5, display= document.querySelector('#countDown');
     startTimer(fiftySecond, display);
 };
 </script>
-</html>
+{% include "footer.html" %}
