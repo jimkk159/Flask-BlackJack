@@ -1,8 +1,6 @@
 from flask import render_template, current_app, redirect, url_for, session
 from flask_login import current_user
 
-
-
 # self import
 from . import game_route
 from app.game_component.card import Card
@@ -26,12 +24,13 @@ def table():
     banker_ = table_.get_banker_cards()
     player = table_.get_player_by_id(current_user.id)
     set_cards_location(table_)
+    game_start =  table_.get_game_start()
 
-    if show_insurance and table_.get_is_insurance() and table_.get_judge_insurance():
+    if game_start and show_insurance and table_.get_is_insurance() and table_.get_judge_insurance():
         return render_template('table.html', banker=banker_, table=table_, ask_insurance=True, name=name,
                                room=room), 200
 
-    if is_check_blackjack:
+    if game_start and is_check_blackjack:
         current_app.config["SHOW_BLACKJACK"] = False
         table_.check_player_blackjack(player)
         return redirect(url_for('game_route.end'))
@@ -142,24 +141,15 @@ def end():
 @game_route.route("/wait")
 def wait():
     print("I got wait")
-    game = current_app.config["GAME"]
-
-    # ToDo need to split by table
-    current_app.config["SHOW_INSURANCE"] = True
-    current_app.config["SHOW_BLACKJACK"] = True
 
     name = session.get('name', '')
     room = session.get('room', '')
 
+    # ToDo need to split by table
+    current_app.config["SHOW_INSURANCE"] = True
+    current_app.config["SHOW_BLACKJACK"] = True
     if name == '' or room == '':
         return redirect(url_for('game_route.login'))
-
-    table = game.get_table_by_name(table_name=room)
-    player = table.get_player_by_id(current_user.id)
-
-    table.reset()
-    table.player_pay_stake(player)
-    table.deal_initial()
 
     # For Debug
     # if len(game.get_players()) > 1:
@@ -168,4 +158,25 @@ def wait():
     # table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
     #                 Card(symbol='A', suit='heart', value=11)]
 
+    return redirect(url_for('game_route.table'))
+
+
+@game_route.route("/start")
+def start():
+    print("I got start")
+    game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+
+    # ToDo need to split by table
+    current_app.config["SHOW_INSURANCE"] = True
+    current_app.config["SHOW_BLACKJACK"] = True
+
+    table = game.get_table_by_name(table_name=room)
+    player = table.get_player_by_id(current_user.id)
+    table.set_game_start(True)
+
+    table.reset()
+    table.player_pay_stake(player)
+    table.deal_initial()
     return redirect(url_for('game_route.table'))
