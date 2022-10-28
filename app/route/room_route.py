@@ -78,7 +78,8 @@ def create_room():
 
         game.enter_table(table_name=room, player_id=current_user.id, player_name=current_user.name,
                          money=current_user.money)
-
+        table = game.get_table_by_name(room)
+        table.set_owner()
         return redirect(url_for('game_route.wait'))
 
     return render_template('setting.html', setting_form=setting_form, game=game), 200

@@ -16,6 +16,7 @@ class Table:
 
         # Table Status
         self.game_start = False
+        self.owner = None
 
         # Table Rule
         self.deck_num = deck_num if deck_num else 4
@@ -78,6 +79,17 @@ class Table:
     def get_banker_cards(self):
         return self.banker
 
+    # Check Owner
+    def get_is_owner(self, player):
+        if str(self.get_players()[0].get_id()) == player.get_id():
+            return True
+        return False
+
+    def get_is_owner_by_id(self, id_):
+        if str(self.in_[0].id) == id_:
+            return True
+        return False
+
     # Check Card Enough
     def get_cards_enough(self):
 
@@ -122,6 +134,10 @@ class Table:
     # SET
     def set_game_start(self, game_start):
         self.game_start = game_start
+
+    def set_owner(self):
+
+        self.owner = self.in_[0]
 
     def set_deck_num(self, number):
         self.deck_num = number

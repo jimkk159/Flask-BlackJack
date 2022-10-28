@@ -20,10 +20,12 @@
                 <div class="px-1 table"
                      style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
                     <div class="row game-status-row">
+                        {% if current_table.get_is_owner(current_player) %}
                         <div class="waiting-alarm">
                             <h1>Waiting for Game Begin </h1>
                             <h1>(<span id="countDown">5</span>/60)</h1>
                         </div>
+                        {% endif %}
                         {% if not current_table.get_game_start() %}
                         <div class="row banker-status-row">
                             <div class="player-status-content">
