@@ -656,15 +656,27 @@ font-size: 30px;
 .waiting-alarm{
     position:absolute;
     top:15rem;
-    width: 70%;
-    margin:0 15%;
+    width: 50%;
+    margin:0 25%;
 
     text-align:center;
     font-family: PriceDown Black;
+
     color:white;
     background-color:#444;
 
     border: solid 5px;
     border-radius:1rem;
+    padding: 3% 0;
 
+}
+.waiting-alarm h1{
+    font-family: 'Oswald', sans-serif;
+    padding:0 0 0.5rem;
+    margin:0;
+    font-size: 2rem;
+}
+.waiting-alarm button{
+    font-family: PriceDown Black;
+    font-size: 2rem;
 }
