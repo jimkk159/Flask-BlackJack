@@ -25,7 +25,9 @@
                         <div class="waiting-alarm">
                             <h1>Confirm to Start the Game </h1>
                             <h1><span class="countDown">5</span></h1>
-                            <button type="button" class="btn btn-primary" onclick="location.href = '{{ url_for('game_route.start') }}' ">Start</button>
+                            <button type="button" class="btn btn-primary"
+                                    onclick="location.href = '{{ url_for('game_route.start') }}' ">Start
+                            </button>
                         </div>
                         {% else %}
                         <div class="waiting-alarm">
@@ -295,6 +297,7 @@
             location.reload()
         });
     });
+
     function leave_room() {
         socket.emit('left', {}, function() {
             socket.disconnect();
@@ -303,6 +306,7 @@
             window.location.href = "{{ url_for('game_route.logout') }}";
         });
     }
+
     function hit_click(data) {
         socket.emit('hit_', data);
     }
@@ -320,23 +324,23 @@
         socket.emit('fold_', data);
     }
 
-}
-
     function startTimer(duration, display){
-    var timer = duration;
+        var timer = duration;
 
-    setInterval(function() {
-        display.textContent = timer;
-        if (--timer < 0){
-            display.textContent = "The End";
-             window.location.href = "{{ url_for('game_route.start') }}";
-        }
-    }, 1000)
+        setInterval(function() {
+            display.textContent = timer;
+            if (--timer < 0){
+                display.textContent = "Game Start";
+                 window.location.href = "{{ url_for('game_route.start') }}";
+            }
+        }, 1000)
+    }
 
-<!--window.onload  = function() {-->
-<!--    var fiftySecond = 5, display= document.querySelector('.countDown');-->
-<!--    startTimer(fiftySecond, display);-->
-<!--};-->
+window.onload  = function() {
+    var fiftySecond = 4, display= document.querySelector('.countDown');
+    startTimer(fiftySecond, display);
+};
+
 
 </script>
 {% include "footer.html" %}
