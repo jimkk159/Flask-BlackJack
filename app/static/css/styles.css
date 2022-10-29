@@ -734,3 +734,7 @@ font-size: 30px;
     border: solid 5px white;
     color:white;
 }
+/* Flash */
+.flash{
+    color:red;
+}

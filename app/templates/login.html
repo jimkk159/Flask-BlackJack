@@ -4,6 +4,13 @@
 <div class="page login-page container-fluid mx-auto">
     <div class="page-inside login-page-inside">
         <h1 class="page-title">What is your name</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flash">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         {{ wtf.quick_form(register_form, novalidate=True, button_map={"submit": "primary"}) }}
     </div>
     <div class="row">

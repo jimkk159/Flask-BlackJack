@@ -1,5 +1,5 @@
 from flask_login import current_user
-from flask import render_template, current_app, redirect, url_for, session
+from flask import render_template, current_app, redirect, url_for, session, flash
 
 # self import
 from . import game_route
@@ -43,10 +43,18 @@ def create_room():
 
         name = session.get('name', '')
         if name == '':
+            flash('Login Please')
             return redirect(url_for('game_route.login'))
 
         room = setting_form.room.data
+
+        if room == '':
+            flash('Empty Room name')
+            print(1)
+            return redirect(url_for('game_route.create_room'))
+
         if room == '' or game.get_is_table_exit(room):
+            flash('Room already exists')
             return redirect(url_for('game_route.create_room'))
 
         # Room Name

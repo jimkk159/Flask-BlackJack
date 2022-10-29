@@ -1,5 +1,5 @@
 import uuid
-from flask import render_template, redirect, url_for, session, current_app
+from flask import render_template, redirect, url_for, session, current_app, flash
 from flask_login import login_user, logout_user, login_required, current_user
 
 # self import
@@ -12,11 +12,16 @@ from SQL.SQL_management import User
 # Setting
 @game_route.route('/login', methods=['GET', 'POST'])
 def login():
+    print('I got login')
+    game = current_app.config["GAME"]
     login_form = LoginForm()
     if login_form.validate_on_submit():
 
         query_user = User.query.filter_by(name=login_form.name.data).first()
-        if query_user:
+        if query_user and game.get_player_name_table(login_form.name.data):
+            flash('User Name already exist!')
+            return redirect(url_for('game_route.login'))
+        elif query_user:
             login_user(query_user)
         else:
             new_user = User(id=str(uuid.uuid1()), name=login_form.name.data, money=100)
@@ -34,6 +39,7 @@ def login():
 @game_route.route('/logout')
 @login_required
 def logout():
+    print('I got logout')
     # Config
     game = current_app.config["GAME"]
     table = game.get_player_table(current_user)

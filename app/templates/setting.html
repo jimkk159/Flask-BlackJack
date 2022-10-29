@@ -5,6 +5,13 @@
 <div class="page setting-page container-fluid mx-auto">
     <div class="page-inside setting-page-inside">
         <h1 class="page-title">Setting</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flash">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <form method="POST" action="{{ url_for('game_route.create_room') }}" novalidate>
             {{ setting_form.csrf_token }}
             <p>

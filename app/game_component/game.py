@@ -164,3 +164,9 @@ class Blackjack:
             for player in table.get_players():
                 if str(input_player.get_id()) == str(player.get_id()):
                     return table
+
+    def get_player_name_table(self, player_name):
+        for table in self.get_tables():
+            for player in table.get_players():
+                if player_name == str(player.get_name()):
+                    return table
