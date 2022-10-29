@@ -276,6 +276,7 @@
 <script type="text/javascript" charset="utf-8">
     var socket;
     $(document).ready(function(){
+
         socket = io.connect('http://' + document.domain + ':' + location.port + '/table')
         socket.on('connect', function() {
             console.log('connect');
@@ -326,21 +327,21 @@
 
     function startTimer(duration, display){
         var timer = duration;
-
-        setInterval(function() {
+        setInterval(function(){
             display.textContent = timer;
             if (--timer < 0){
                 display.textContent = "Game Start";
                  window.location.href = "{{ url_for('game_route.start') }}";
             }
-        }, 1000)
+        }, 1000);
     }
 
-window.onload  = function() {
-    var fiftySecond = 4, display= document.querySelector('.countDown');
-    startTimer(fiftySecond, display);
-};
-
+    if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {
+        window.onload = function(){
+                var fiftySecond = 4, display= document.querySelector('.countDown');
+            startTimer(fiftySecond, display);
+        };
+    }
 
 </script>
 {% include "footer.html" %}
