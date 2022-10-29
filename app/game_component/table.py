@@ -58,6 +58,7 @@ class Table:
     def get_max_player(self):
         return self.max_player
 
+
     def get_min_bet(self):
         return self.min_bet
 
@@ -78,6 +79,12 @@ class Table:
 
     def get_banker_cards(self):
         return self.banker
+
+    # Check Table Full
+    def get_is_full(self):
+        if len(self.get_players()) >= self.max_player:
+            return True
+        return False
 
     # Check Owner
     def get_is_owner(self, player):

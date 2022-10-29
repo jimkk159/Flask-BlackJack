@@ -45,7 +45,8 @@ class Blackjack:
             return
         if table.get_is_player_id(player_id):
             return
-
+        if table.get_is_full():
+            return
         table.append_by_id(id_=player_id, player_name=player_name, money=money)
 
     def delete_table(self, table_name=None):

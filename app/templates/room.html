@@ -6,6 +6,7 @@
 
         <div class="row">
             {% for num in range(game.get_table_num()) %}
+            {% if not game.get_table_by_order(num).get_is_full() %}
             <div class="room-col col-lg-4">
                 <div class="dark-background"
                      style=" background-image: url(https://i.ibb.co/nrmkm7d/five-bells-washed-out-logo.png) , linear-gradient(to right, rgba(58, 61, 62, 1) 0%, rgba(58, 61, 62, 1) 100%);">
@@ -16,11 +17,19 @@
                                     <!-- Room Title -->
                                     {% if num == 1 or num ==3 %}
                                     <h1 class="room-name room-name-type-1"> Room {{ game.get_table_order_name(num)
-                                        }}</h1>
+                                        }}
+                                        <span class="room-capability">( {{
+                                            game.get_table_by_order(num).get_player_num() }}/{{
+                                            game.get_table_by_order(num).get_max_player() }} )</span>
+                                    </h1>
                                     {% else %}
                                     <h1 class="room-name room-name-type-2"> Room {{ game.get_table_order_name(num)
-                                        }}</h1>
+                                        }}<span class="room-capability">( {{
+                                            game.get_table_by_order(num).get_player_num() }}/{{
+                                            game.get_table_by_order(num).get_max_player() }} )</span>
+                                    </h1>
                                     {% endif %}
+
                                     <!-- Image Content -->
                                     <img class="room-img"
                                          src="{{ url_for('static', filename='img/room/room' ~ num ~ '.jpg') }}">
@@ -30,6 +39,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
             {% if not game.get_is_full() %}
             <div class="room-col col-lg-4">

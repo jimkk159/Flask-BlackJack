@@ -710,11 +710,16 @@ font-size: 30px;
     left: 0;
     right: 0;
 
-    width: 10rem;
+    width: 14rem;
+    min-width: 14rem;
+
     border: solid 5px white;
     color:white;
     font-size: 2rem;
     position:absolute;
+}
+.room-page .room-capability{
+    font-size: 30px;
 }
 .room-page .build-room{
     width: 14rem;
@@ -729,10 +734,15 @@ font-size: 30px;
     border: solid 5px #444;
     color:#444;
 }
-
+.room-page .room-name-type-1 span{
+    color:#EBC24E;
+}
 .room-page .room-name-type-2{
     border: solid 5px white;
     color:white;
+}
+.room-page .room-name-type-2 span{
+    color:#444;
 }
 /* Flash */
 .flash{
