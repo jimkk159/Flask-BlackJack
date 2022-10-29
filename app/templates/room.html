@@ -3,6 +3,31 @@
 {% include "header.html" %}
 <div class="page room-page container-fluid mx-auto">
     <div class="page-inside room-page-inside">
+
+        <div class="row">
+            {% for num in range(6) %}
+            <div class="room-col col-lg-4">
+                <div class="dark-background"
+                     style=" background-image: url(https://i.ibb.co/nrmkm7d/five-bells-washed-out-logo.png) , linear-gradient(to right, rgba(58, 61, 62, 1) 0%, rgba(58, 61, 62, 1) 100%);">
+                    <div class="outer-border">
+                        <div class="mid-border">
+                            <div class="room-border inner-border">
+                                <!-- Room Title -->
+                                {% if num == 1 or num ==3 %}
+                                <h1 class="room-name room-name-type-1"> Room 123</h1>
+                                {% else %}
+                                <h1 class="room-name room-name-type-2"> Room 123</h1>
+                                {% endif %}
+                                <!-- Image Content -->
+                                <img class="room-img"
+                                     src="{{ url_for('static', filename='img/room/room' ~ num ~ '.jpg') }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         {% for table in game.get_tables() %}
         <a href="{{ url_for('game_route.enter_room', room=table.get_name()) }}"><h1>{{ table.get_name() }}</h1></a>
         {% endfor %}

@@ -680,3 +680,43 @@ font-size: 30px;
     font-family: PriceDown Black;
     font-size: 2rem;
 }
+/* Room */
+.room-page{
+    padding:1.5rem;
+}
+.room-page .room-col{
+    margin:2rem 0;
+}
+.room-page .dark-background, .room-col .outer-border, .room-col .inner-border{
+    min-height:20rem;
+}
+.room-img{
+    height: 20rem;
+}
+.room-border{
+    text-align:center;
+}
+.room-page .room-name{
+
+    margin-left:auto;
+    margin-right:auto;
+
+    padding:1%;
+    top: 0.5rem;
+    left: 0;
+    right: 0;
+
+    width: 10rem;
+    border: solid 5px white;
+    color:white;
+    font-size: 2rem;
+    position:absolute;
+}
+.room-page .room-name-type-1{
+    border: solid 5px #444;
+    color:#444;
+}
+.room-page .room-name-type-2{
+    border: solid 5px white;
+    color:white;
+}
