@@ -231,11 +231,15 @@ strong{
    background-color:#1D5229;
    color:#EBC24E;
 }
-.login-page .leave-button{
+.login-page .leave-button, .room-page .leave-button{
     position:absolute;
+}
+.login-page .leave-button{
     bottom:3rem;
 }
-
+.room-page .leave-button{
+    bottom:10rem;
+}
 /*Alert */
 .alert-dark p{
     color:#000;
@@ -712,10 +716,20 @@ font-size: 30px;
     font-size: 2rem;
     position:absolute;
 }
+.room-page .build-room{
+    width: 14rem;
+}
+.room-img{
+    height: 20rem;
+}
+.room-page .build-room-img{
+    object-fit: contain;
+}
 .room-page .room-name-type-1{
     border: solid 5px #444;
     color:#444;
 }
+
 .room-page .room-name-type-2{
     border: solid 5px white;
     color:white;

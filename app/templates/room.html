@@ -5,33 +5,53 @@
     <div class="page-inside room-page-inside">
 
         <div class="row">
-            {% for num in range(6) %}
+            {% for num in range(game.get_table_num()) %}
             <div class="room-col col-lg-4">
                 <div class="dark-background"
                      style=" background-image: url(https://i.ibb.co/nrmkm7d/five-bells-washed-out-logo.png) , linear-gradient(to right, rgba(58, 61, 62, 1) 0%, rgba(58, 61, 62, 1) 100%);">
                     <div class="outer-border">
                         <div class="mid-border">
-                            <div class="room-border inner-border">
-                                <!-- Room Title -->
-                                {% if num == 1 or num ==3 %}
-                                <h1 class="room-name room-name-type-1"> Room 123</h1>
-                                {% else %}
-                                <h1 class="room-name room-name-type-2"> Room 123</h1>
-                                {% endif %}
-                                <!-- Image Content -->
-                                <img class="room-img"
-                                     src="{{ url_for('static', filename='img/room/room' ~ num ~ '.jpg') }}">
-                            </div>
+                            <a href="{{ url_for('game_route.enter_room', room=game.get_table_order_name(num)) }}">
+                                <div class="room-border inner-border">
+                                    <!-- Room Title -->
+                                    {% if num == 1 or num ==3 %}
+                                    <h1 class="room-name room-name-type-1"> Room {{ game.get_table_order_name(num)
+                                        }}</h1>
+                                    {% else %}
+                                    <h1 class="room-name room-name-type-2"> Room {{ game.get_table_order_name(num)
+                                        }}</h1>
+                                    {% endif %}
+                                    <!-- Image Content -->
+                                    <img class="room-img"
+                                         src="{{ url_for('static', filename='img/room/room' ~ num ~ '.jpg') }}">
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
+            {% if not game.get_is_full() %}
+            <div class="room-col col-lg-4">
+                <div class="dark-background"
+                     style=" background-image: url(https://i.ibb.co/nrmkm7d/five-bells-washed-out-logo.png) , linear-gradient(to right, rgba(58, 61, 62, 1) 0%, rgba(58, 61, 62, 1) 100%);">
+                    <div class="outer-border">
+                        <div class="mid-border">
+                            <a href="{{ url_for('game_route.create_room') }}">
+                                <div class="room-border inner-border">
+                                    <!-- Room Title -->
+                                    <h1 class="room-name room-name-type-2 build-room"> Create Room</h1>
+                                    <!-- Image Content -->
+                                    <img class="room-img build-room-img"
+                                         src="{{ url_for('static', filename='img/room/build-room.jpg') }}">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        {% for table in game.get_tables() %}
-        <a href="{{ url_for('game_route.enter_room', room=table.get_name()) }}"><h1>{{ table.get_name() }}</h1></a>
-        {% endfor %}
-        <a href="{{ url_for('game_route.create_room') }}"><h1>Create Room</h1></a>
     </div>
     <div class="row">
         <div class="col-lg-10">

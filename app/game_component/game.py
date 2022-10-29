@@ -93,10 +93,29 @@ class Blackjack:
     def get_tables(self):
         return self.tables
 
+    def get_max_table(self):
+        return self.max_table
+
+    def get_is_full(self):
+        if self.get_table_num() >= self.get_max_table():
+            return True
+        return False
+
+    def get_table_num(self):
+        return len(self.tables)
+
     def get_table_by_name(self, table_name):
         for table in self.tables:
             if table.get_name() == str(table_name):
                 return table
+
+    def get_table_order_name(self, order):
+        if order < len(self.tables):
+            return self.tables[order].get_name()
+
+    def get_table_by_order(self, order):
+        if order < len(self.tables):
+            return self.tables[order]
 
     def get_table_name_players(self, table_name):
         return self.get_table_by_name(table_name).get_players()
