@@ -181,6 +181,8 @@ def banker_check(player):
 
     if table.get_is_player_finish(player):
         # Next Player Round
+        table.set_next()
+        socketio.emit('reload', {}, room=room)
         print('Player is finish')
         return
 

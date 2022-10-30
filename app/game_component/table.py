@@ -224,6 +224,10 @@ class Table:
         while self.get_hand_sum_switch_ace(self.banker) < 17:
             self.deal(self.banker)
 
+    # Next player
+    def set_next(self):
+        self.set_dominance(self.get_dominance()+1)
+
     # Banker
     def reveal_banker_card(self):
         self.banker[0].set_faced(True)

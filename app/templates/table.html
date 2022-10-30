@@ -229,8 +229,8 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-2">
-                        {% if current_table.get_game_start() and not ask_insurance and current_hand and not
-                        current_table.get_is_dominance(current_player) and current_hand.get_is_finish() %}
+                        {% if current_table.get_game_start() and not ask_insurance and current_hand and
+                        current_table.get_is_dominance(current_player) and not current_hand.get_is_finish() %}
                         <a href="#" onclick="stand_click( { hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-stand"
                                  src="{{ url_for('static',filename='img/gestures/gesture-stand-no-bg.png') }}">
