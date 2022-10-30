@@ -318,6 +318,16 @@ class Table:
         if self.get_is_banker_blackjack() and player.get_insurance:
             player.add_money(2 * floor(player.get_basic_stake() / 2))
 
+        # Already pay
+        player.set_pay_yet(True)
+
+    def give_remain_money(self):
+
+        for player in self.get_players():
+            if not player.get_pay_yet():
+                self.give_money(player)
+
+
     # Append Player
     def append_by_id(self, id_=None, player_name="Unknown", money=0):
         player = Player(id_=id_, name=player_name, money=money)
@@ -357,6 +367,7 @@ class Table:
         self.reset_hands()
         self.reset_show_insurance()
         self.reset_show_blackjack()
+        self.reset_pay_yet()
 
     def refresh(self):
         self.in_ = []
@@ -392,6 +403,11 @@ class Table:
 
         for player in self.in_:
             player.set_show_blackjack(False)
+
+    def reset_pay_yet(self):
+
+        for player in self.in_:
+            player.reset_pay_yet(False)
 
     # Insurance
     def get_judge_insurance(self):
@@ -665,3 +681,7 @@ class Table:
         if players:
             return all(map(self.get_is_player_finish, players))
         return False
+
+    # Game End
+    def end_process(self):
+        self.give_remain_money()

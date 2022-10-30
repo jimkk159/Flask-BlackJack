@@ -154,28 +154,13 @@ def fold_(message):
     banker_check(player)
 
 
-@socketio.on('banker_', namespace='/table')
-def banker_(message):
-    print("I got banker")
-    room = session.get('room')
-    game = current_app.config["GAME"]
-    table = game.get_table_by_name(table_name=room)
-
-    table.reveal_banker_card()
-    table.deal_to_banker()
-
-    if table.get_is_banker_bust():
-        table.banker_bust_process()
-    else:
-        table.compare_cards()
-
-
 def banker_check(player):
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)
     if table.get_is_players_finish():
         # Banker Round
+        banker_()
         print('All Players are finish')
         return
 
@@ -189,3 +174,21 @@ def banker_check(player):
     # Player Next Hand action
     print('Player next hand')
     socketio.emit('reload', {}, room=room)
+
+
+def banker_():
+    print("I got banker")
+    room = session.get('room')
+    game = current_app.config["GAME"]
+    table = game.get_table_by_name(table_name=room)
+
+    table.reveal_banker_card()
+    table.deal_to_banker()
+
+    if table.get_is_banker_bust():
+        table.banker_bust_process()
+    else:
+        table.compare_cards()
+
+    table.end_process()
+    emit('reload', {}, room=room)

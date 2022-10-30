@@ -82,6 +82,7 @@ class Player:
         self.fold = False
         self.double = False
         self.insurance = False
+        self.already_pay = False
 
         # Show
         self.show_insurance = True
@@ -136,6 +137,9 @@ class Player:
 
     def get_show_blackjack(self):
         return self.show_blackjack
+
+    def get_pay_yet(self):
+        return self.already_pay
 
     def get_able_double(self):
         return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2 and not self.get_is_finish()
@@ -205,6 +209,9 @@ class Player:
 
     def set_show_blackjack(self, show_blackjack: bool):
         self.show_blackjack = show_blackjack
+
+    def set_pay_yet(self, pay_yet: bool):
+        self.already_pay = pay_yet
 
     def append_empty_hand(self):
         self.hands.append(Hand())
