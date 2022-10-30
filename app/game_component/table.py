@@ -316,7 +316,7 @@ class Table:
         if player.get_fold():
             player.add_money(floor(player.get_basic_stake() / 2))
 
-        if self.get_is_banker_blackjack() and player.get_insurance:
+        if self.get_is_banker_blackjack() and player.get_insurance():
             player.add_money(2 * floor(player.get_basic_stake() / 2))
 
         # Already pay
@@ -398,12 +398,12 @@ class Table:
     def reset_show_insurance(self):
 
         for player in self.in_:
-            player.set_show_insurance(False)
+            player.set_show_insurance(True)
 
     def reset_show_blackjack(self):
 
         for player in self.in_:
-            player.set_show_blackjack(False)
+            player.set_show_blackjack(True)
 
     def reset_pay_yet(self):
 
@@ -685,4 +685,5 @@ class Table:
 
     # Game End
     def end_process(self):
+        self.reveal_banker_card()
         self.give_remain_money()

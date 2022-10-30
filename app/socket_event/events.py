@@ -56,7 +56,7 @@ def pay(message):
 
 @socketio.on('deal', namespace='/table')
 def deal(message):
-    print("I got deal2")
+    print("I got deal")
     game = current_app.config["GAME"]
 
     room = session.get('room', '')
@@ -186,7 +186,7 @@ def banker_():
 
     table.reveal_banker_card()
     table.deal_to_banker()
-    print(123, len(table.banker))
+
     if table.get_is_banker_bust():
         table.banker_bust_process()
     else:

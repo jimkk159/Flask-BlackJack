@@ -37,7 +37,7 @@ def table():
         table_.check_player_blackjack(player)
         if player.get_is_blackjack():
             table_.give_player_money(player)
-        return redirect(url_for('game_route.end'))
+        table_.end_process()
 
     return render_template('table.html', banker=banker_, table=table_, ask_insurance=False, name=name, room=room), 200
 
@@ -59,90 +59,6 @@ def insurance(answer):
     if answer == 1:
         table_.player_has_insurance(player)
 
-    return redirect(url_for('game_route.table'))
-
-
-@game_route.route("/table/double")
-def double():
-    print('I got double')
-    game = current_app.config["GAME"]
-    player = game.get_player_by_id(current_user.id)
-    if game.double_down_process(player):
-        return redirect(url_for('game_route.end'))
-    # ToDo after double need to wait for other player finish
-    return redirect(url_for('game_route.banker'))
-
-
-@game_route.route("/table/split/<string:hand_id>")
-def split(hand_id):
-    print('I got split')
-    game = current_app.config["GAME"]
-    player = game.get_player_by_id(current_user.id)
-    hand = player.get_hand_by_id(hand_id)
-    game.split_process(player, hand)
-    return redirect(url_for('game_route.table'))
-
-
-@game_route.route("/table/hit/<string:hand_id>")
-def hit(hand_id):
-    print('I got hit')
-    game = current_app.config["GAME"]
-    player = game.get_player_by_id(current_user.id)
-    hand = player.get_hand_by_id(hand_id)
-    game.hit_process(hand)
-    if game.get_is_player_end(player):
-        return redirect(url_for('game_route.end'))
-
-    if game.get_is_player_finish(player):
-        return redirect(url_for('game_route.banker'))
-
-    return redirect(url_for('game_route.table'))
-
-
-@game_route.route("/table/stand/<string:hand_id>")
-def stand(hand_id):
-    print('I got stand')
-    game = current_app.config["GAME"]
-    player = game.get_player_by_id(current_user.id)
-    hand = player.get_hand_by_id(hand_id)
-    game.stand_process(hand)
-    if game.get_is_player_finish(player):
-        return redirect(url_for('game_route.banker'))
-    return redirect(url_for('game_route.table'))
-
-
-@game_route.route("/table/fold")
-def fold():
-    print('I got fold')
-    game = current_app.config["GAME"]
-    player = game.get_player_by_id(current_user.id)
-    game.fold_process(player)
-    return redirect(url_for('game_route.end'))
-
-
-@game_route.route("/table/banker")
-def banker():
-    print("I got banker")
-    game = current_app.config["GAME"]
-    game.reveal_banker_card()
-    game.deal_to_banker()
-    if game.get_is_banker_bust():
-        game.banker_bust_process(table)
-    else:
-        game.compare_cards(table)
-    return redirect(url_for('game_route.end'))
-
-
-@game_route.route("/table/end")
-def end():
-    print("I got end")
-    game = current_app.config["GAME"]
-    room = session.get('room', '')
-
-    table_ = game.get_table_by_name(room)
-    player = table_.get_player_by_id(current_user.id)
-    # ToDo need to wait for other player finish
-    table_.give_player_money(player)
     return redirect(url_for('game_route.table'))
 
 
