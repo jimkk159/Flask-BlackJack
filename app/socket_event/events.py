@@ -21,6 +21,38 @@ def left(message):
     # emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room)
 
 
+@socketio.on('start', namespace='/table')
+def start(message):
+    print("I got start")
+    game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+
+    table = game.get_table_by_name(table_name=room)
+    table.set_game_start(True)
+
+    table.reset()
+    emit('start_', {}, room=room)
+
+
+@socketio.on('pay', namespace='/table')
+def pay(message):
+    print("I got pay")
+    game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+
+    table = game.get_table_by_name(table_name=room)
+
+    player_id = message['player_id']
+    player = table.get_player_by_id(player_id)
+
+    table.player_pay_stake(player)
+    table.deal_initial()
+
+    print(player_id)
+
+
 @socketio.on('hit_', namespace='/table')
 def hit_(message):
     print('I got hit')
@@ -37,7 +69,7 @@ def hit_(message):
 
     table.hit_process(hand)
     emit('reload', {}, room=room)
-    bandker_check(player)
+    banker_check(player)
 
 
 @socketio.on('double_', namespace='/table')
@@ -54,7 +86,7 @@ def double_(message):
 
     table.double_down_process(player)
     emit('reload', {}, room=room)
-    bandker_check(player)
+    banker_check(player)
 
 
 @socketio.on('split_', namespace='/table')
@@ -91,7 +123,7 @@ def stand_(message):
 
     table.stand_process(hand)
     emit('reload', {}, room=room)
-    bandker_check(player)
+    banker_check(player)
 
 
 @socketio.on('fold_', namespace='/table')
@@ -108,7 +140,8 @@ def fold_(message):
 
     table.fold_process(player)
     emit('reload', {}, room=room)
-    bandker_check(player)
+    banker_check(player)
+
 
 @socketio.on('banker_', namespace='/table')
 def banker_(message):
@@ -126,8 +159,7 @@ def banker_(message):
         table.compare_cards()
 
 
-def bandker_check(player):
-
+def banker_check(player):
     room = session.get('room')
     game = current_app.config["GAME"]
     table = game.get_table_by_name(table_name=room)

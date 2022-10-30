@@ -24,15 +24,15 @@
                         {% if current_table.get_is_owner(current_player) %}
                         <div class="waiting-alarm">
                             <h1>Confirm to Start the Game </h1>
-                            <h1><span class="countDown">5</span></h1>
+                            <h1><span class="countDown">60</span></h1>
                             <button type="button" class="btn btn-primary"
-                                    onclick="location.href = '{{ url_for('game_route.start') }}' ">Start
+                                    onclick="game_start();">Start
                             </button>
                         </div>
                         {% else %}
                         <div class="waiting-alarm">
                             <h1>Waiting for Game Begin </h1>
-                            <h1><span class="countDown">5</span></h1>
+                            <h1><span class="countDown">60</span></h1>
                         </div>
                         {% endif %}
                         {% else %}
@@ -275,6 +275,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" charset="utf-8">
     var socket;
+    var setIntervalId;
     $(document).ready(function(){
 
         socket = io.connect('http://' + document.domain + ':' + location.port + '/table')
@@ -297,6 +298,10 @@
         socket.on('reload', function(data) {
             location.reload()
         });
+
+        socket.on('start_', function(data) {
+            socket.emit('pay', { player_id: '{{ current_user.id }}' });
+        });
     });
 
     function leave_room() {
@@ -308,6 +313,7 @@
         });
     }
 
+    <!--  Player Choice  -->
     function hit_click(data) {
         socket.emit('hit_', data);
     }
@@ -325,23 +331,34 @@
         socket.emit('fold_', data);
     }
 
+    <!-- Game Start -->
+    function game_start() {
+        console.log("game start");
+        socket.emit('start', {});
+        clearInterval(setIntervalId);
+    }
+
     function startTimer(duration, display){
         var timer = duration;
-        setInterval(function(){
-            display.textContent = timer;
-            if (--timer < 0){
-                display.textContent = "Game Start";
-                 window.location.href = "{{ url_for('game_route.start') }}";
-            }
-        }, 1000);
+        setIntervalId = setInterval(function(){
+                            display.textContent = timer;
+                            if (--timer < 0){
+                                 display.textContent = "Game Start";
+                <!--                 window.location.href = "{{ url_for('game_route.start') }}";-->
+                                 game_start();
+                            }
+                        }, 1000);
     }
 
     if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {
         window.onload = function(){
-                var fiftySecond = 4, display= document.querySelector('.countDown');
+            var fiftySecond = 4, display= document.querySelector('.countDown');
             startTimer(fiftySecond, display);
         };
     }
+
+
+
 
 </script>
 {% include "footer.html" %}

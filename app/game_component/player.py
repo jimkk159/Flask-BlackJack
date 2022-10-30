@@ -83,6 +83,10 @@ class Player:
         self.double = False
         self.insurance = False
 
+        # Show
+        self.show_insurance = True
+        self.show_blackjack = True
+
     # GET
     def get_x(self):
         first_hand = self.get_hands()[0]
@@ -126,6 +130,12 @@ class Player:
 
     def get_insurance(self):
         return self.insurance
+
+    def get_show_insurance(self):
+        return self.show_insurance
+
+    def get_show_blackjack(self):
+        return self.show_blackjack
 
     def get_able_double(self):
         return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2 and not self.get_is_finish()
@@ -175,6 +185,9 @@ class Player:
     def set_total_stake(self, stake: int):
         self.total_stake = stake
 
+    def set_hands(self, hands):
+        self.hands = [hands]
+
     def add_total_stake(self, stake: int):
         self.total_stake += stake
 
@@ -186,6 +199,12 @@ class Player:
 
     def set_insurance(self, insurance: bool):
         self.insurance = insurance
+
+    def set_show_insurance(self, show_insurance: bool):
+        self.show_insurance = show_insurance
+
+    def set_show_blackjack(self, show_blackjack: bool):
+        self.show_blackjack = show_blackjack
 
     def append_empty_hand(self):
         self.hands.append(Hand())

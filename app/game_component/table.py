@@ -240,7 +240,7 @@ class Table:
             basic_stake = player.get_basic_stake()
             player.set_total_stake(basic_stake)
 
-    def pay_all_stake(self):
+    def all_pay_stake(self):
         result = []
         for player in self.get_players():
             result.append(self.player_pay_stake(player))
@@ -315,6 +315,8 @@ class Table:
         self.reset_fold()
         self.reset_insurance()
         self.reset_hands()
+        self.reset_show_insurance()
+        self.reset_show_blackjack()
 
     def refresh(self):
         self.in_ = []
@@ -324,22 +326,32 @@ class Table:
 
         # Reset Player
         for player in self.in_:
-            player.hands = [Hand()]
+            player.set_hands(Hand())
 
     def reset_double(self):
 
         for player in self.in_:
-            player.double = False
+            player.set_double(False)
 
     def reset_fold(self):
 
         for player in self.in_:
-            player.fold = False
+            player.set_fold(False)
 
     def reset_insurance(self):
 
         for player in self.in_:
-            player.insurance = False
+            player.set_insurance(False)
+
+    def reset_show_insurance(self):
+
+        for player in self.in_:
+            player.set_show_insurance(False)
+
+    def reset_show_blackjack(self):
+
+        for player in self.in_:
+            player.set_show_blackjack(False)
 
     # Insurance
     def get_judge_insurance(self):
