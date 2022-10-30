@@ -6,7 +6,8 @@
 
         <div class="row">
             {% for num in range(game.get_table_num()) %}
-            {% if not game.get_table_by_order(num).get_is_full() %}
+            {% if not game.get_table_by_order(num).get_is_full() and not game.get_table_by_order(num).get_game_start()
+            %}
             <div class="room-col col-lg-4">
                 <div class="dark-background"
                      style=" background-image: url(https://i.ibb.co/nrmkm7d/five-bells-washed-out-logo.png) , linear-gradient(to right, rgba(58, 61, 62, 1) 0%, rgba(58, 61, 62, 1) 100%);">

@@ -17,6 +17,7 @@ class Table:
         # Table Status
         self.game_start = False
         self.owner = None
+        self.dominance = 0
 
         # Table Rule
         self.deck_num = deck_num if deck_num else 4
@@ -52,12 +53,17 @@ class Table:
     def get_game_start(self):
         return self.game_start
 
+    def get_owner(self):
+        return self.owner
+
+    def get_dominance(self):
+        return self.dominance
+
     def get_deck_num(self):
         return self.deck_num
 
     def get_max_player(self):
         return self.max_player
-
 
     def get_min_bet(self):
         return self.min_bet
@@ -76,6 +82,11 @@ class Table:
 
     def get_deck(self):
         return self.deck.get_deck()
+
+    def get_is_dominance(self, player):
+        if player.get_id() == self.get_player_by_order(self.dominance).get_id():
+            return True
+        return False
 
     def get_banker_cards(self):
         return self.banker
@@ -105,6 +116,10 @@ class Table:
         return False
 
     # Player
+    def get_player_by_order(self, order):
+        if order < len(self.in_):
+            return self.in_[order]
+
     def get_player_by_id(self, id_):
         for player in self.in_:
             if str(player.id) == id_:
@@ -145,6 +160,9 @@ class Table:
     def set_owner(self):
 
         self.owner = self.in_[0]
+
+    def set_dominance(self, dominance):
+        self.dominance = dominance
 
     def set_deck_num(self, number):
         self.deck_num = number
@@ -302,11 +320,17 @@ class Table:
         if self.get_cards_enough():
             self.deck.reset_deck()
 
+        # Reset Dominance
+        self.reset_dominance()
+        
         # Reset Player
         self.reset_players()
 
         # Reset Banker Cards
         self.banker = []
+
+    def reset_dominance(self):
+        self.dominance = 0
 
     def reset_players(self):
 
