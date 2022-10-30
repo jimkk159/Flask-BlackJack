@@ -1,6 +1,7 @@
 from app import socketio
-from flask import session, redirect, url_for, current_app
+from flask import session, current_app
 from flask_socketio import emit, join_room, leave_room
+from app.game_component.card import Card
 
 
 @socketio.on('joined', namespace='/table')
@@ -65,7 +66,8 @@ def deal(message):
     if not table.get_is_deal_initial():
         table.deal_initial()
         table.set_is_deal_initial(True)
-
+        table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+                        Card(symbol='A', suit='heart', value=11)]
     emit('reload', {}, room=room)
 
 
@@ -184,7 +186,7 @@ def banker_():
 
     table.reveal_banker_card()
     table.deal_to_banker()
-
+    print(123, len(table.banker))
     if table.get_is_banker_bust():
         table.banker_bust_process()
     else:

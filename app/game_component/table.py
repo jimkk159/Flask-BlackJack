@@ -222,6 +222,7 @@ class Table:
 
     def deal_to_banker(self):
         while self.get_hand_sum_switch_ace(self.banker) < 17:
+
             self.deal(self.banker)
 
     # Next player
@@ -307,7 +308,7 @@ class Table:
             else:
                 player.add_money(player.get_basic_stake())
 
-    def give_money(self, player):
+    def give_player_money(self, player):
 
         for hand in player.get_hands():
             self.give_hand_money(hand, player)
@@ -325,7 +326,7 @@ class Table:
 
         for player in self.get_players():
             if not player.get_pay_yet():
-                self.give_money(player)
+                self.give_player_money(player)
 
 
     # Append Player
@@ -407,7 +408,7 @@ class Table:
     def reset_pay_yet(self):
 
         for player in self.in_:
-            player.reset_pay_yet(False)
+            player.set_pay_yet(False)
 
     # Insurance
     def get_judge_insurance(self):

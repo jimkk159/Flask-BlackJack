@@ -45,14 +45,20 @@
                             </div>
                             <div class="card-content">
                                 {% for num in range(banker|length) %}
+                                {% if num == 0 %}
                                 {% if banker[num].get_faced() %}
                                 <img class="poker-card"
                                      src="{{ url_for('static',filename='img/poker/'+banker[num].get_suit()+'/'+banker[num].get_img()) }}"
-                                     style="left:{{ 40+2*num }}rem;">
+                                     style="left:34rem;">
                                 {% else %}
                                 <img class="poker-card"
                                      src="{{ url_for('static',filename='img/poker/poker_back.svg') }}"
                                      style="left:34rem;">
+                                {% endif %}
+                                {% else %}
+                                <img class="poker-card"
+                                     src="{{ url_for('static',filename='img/poker/'+banker[num].get_suit()+'/'+banker[num].get_img()) }}"
+                                     style="left:{{ 40+2*num }}rem;">
                                 {% endif %}
                                 {% endfor %}
                             </div>
@@ -360,6 +366,7 @@
             startTimer(fiftySecond, display);
         };
     }
+
 
 
 

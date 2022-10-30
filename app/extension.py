@@ -12,14 +12,6 @@ INIT_HAND_Y_SPACE = 0.0
 INIT_PLAYER_X_SPACE = 30.0
 INIT_PLAYER_Y_SPACE = 0.0
 
-# Check Blackjack
-def check_blackjack(table_, player):
-    if table_.get_is_banker_blackjack():
-        table_.reveal_banker_card()
-
-    if table_.check_player_blackjack(player):
-        return True
-    return False
 
 # Set Card Location
 def set_cards_location(table_):

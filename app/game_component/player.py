@@ -153,6 +153,20 @@ class Player:
     def get_is_finish(self):
         return all(map(self.get_is_hand_finish, self.get_hands()))
 
+    # Blackjack
+    def get_is_blackjack(self):
+
+        if len(self.hands) != 1:
+            return False
+
+        cards = self.hands[0].get_cards()
+        if len(cards) != 2:
+            return False
+
+        if cards[0].get_value() + cards[1].get_value() != 21:
+            return False
+        return True
+
     # find hand
     def get_hand_by_id(self, id_):
         for hand in self.get_hands():
@@ -222,4 +236,3 @@ class Player:
             self.add_money(-self.basic_stake)
             return True
         return False
-

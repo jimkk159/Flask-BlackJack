@@ -3,8 +3,7 @@ from flask_login import current_user
 
 # self import
 from . import game_route
-from app.game_component.card import Card
-from app.extension import check_blackjack, set_cards_location
+from app.extension import set_cards_location
 
 
 @game_route.route("/table")
@@ -36,6 +35,8 @@ def table():
     if game_start and is_check_blackjack:
         player.set_show_blackjack(False)
         table_.check_player_blackjack(player)
+        if player.get_is_blackjack():
+            table_.give_player_money(player)
         return redirect(url_for('game_route.end'))
 
     return render_template('table.html', banker=banker_, table=table_, ask_insurance=False, name=name, room=room), 200
@@ -44,6 +45,8 @@ def table():
 @game_route.route("/table/insurance/<int:answer>")
 def insurance(answer):
     print('I got insurance')
+
+    # Config
     game = current_app.config["GAME"]
     room = session.get('room', '')
     table_ = game.get_table_by_name(room)
@@ -139,7 +142,7 @@ def end():
     table_ = game.get_table_by_name(room)
     player = table_.get_player_by_id(current_user.id)
     # ToDo need to wait for other player finish
-    table_.give_money(player)
+    table_.give_player_money(player)
     return redirect(url_for('game_route.table'))
 
 
@@ -152,13 +155,6 @@ def wait():
 
     if name == '' or room == '':
         return redirect(url_for('game_route.login'))
-
-    # For Debug
-    # if len(game.get_players()) > 1:
-    #     print("Player 1", game.get_players()[0].get_id())
-    #     print("Player 2", game.get_players()[1].get_id())
-    # table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
-    #                 Card(symbol='A', suit='heart', value=11)]
 
     return redirect(url_for('game_route.table'))
 
