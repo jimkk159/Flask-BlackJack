@@ -55,14 +55,16 @@ def pay(message):
 
 @socketio.on('deal', namespace='/table')
 def deal(message):
-    print("I got deal")
+    print("I got deal2")
     game = current_app.config["GAME"]
 
     room = session.get('room', '')
 
     table = game.get_table_by_name(table_name=room)
 
-    table.deal_initial()
+    if not table.get_is_deal_initial():
+        table.deal_initial()
+        table.set_is_deal_initial(True)
 
     emit('reload', {}, room=room)
 

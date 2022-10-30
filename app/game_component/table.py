@@ -17,6 +17,7 @@ class Table:
         # Table Status
         self.game_start = False
         self.owner = None
+        self.is_deal_initial = False
         self.dominance = 0
 
         # Table Rule
@@ -35,7 +36,6 @@ class Table:
 
         # Setting Banker
         self.banker = []
-
 
     # GET
     def get_id(self):
@@ -82,6 +82,9 @@ class Table:
 
     def get_deck(self):
         return self.deck.get_deck()
+
+    def get_is_deal_initial(self):
+        return self.is_deal_initial
 
     def get_is_dominance(self, player):
         if player.get_id() == self.get_player_by_order(self.dominance).get_id():
@@ -160,6 +163,9 @@ class Table:
     def set_owner(self):
 
         self.owner = self.in_[0]
+
+    def set_is_deal_initial(self, is_deal_initial: bool):
+        self.is_deal_initial = is_deal_initial
 
     def set_dominance(self, dominance):
         self.dominance = dominance
@@ -320,14 +326,20 @@ class Table:
         if self.get_cards_enough():
             self.deck.reset_deck()
 
+        # Reset Deal
+        self.reset_is_deal_initial()
+
         # Reset Dominance
         self.reset_dominance()
-        
+
         # Reset Player
         self.reset_players()
 
         # Reset Banker Cards
         self.banker = []
+
+    def reset_is_deal_initial(self):
+        self.is_deal_initial = False
 
     def reset_dominance(self):
         self.dominance = 0
@@ -649,8 +661,3 @@ class Table:
         if players:
             return all(map(self.get_is_player_finish, players))
         return False
-
-
-
-
-
