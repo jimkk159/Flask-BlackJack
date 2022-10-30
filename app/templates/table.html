@@ -299,8 +299,12 @@
             location.reload()
         });
 
-        socket.on('start_', function(data) {
+        socket.on('start_ans', function(data) {
             socket.emit('pay', { player_id: '{{ current_user.id }}' });
+        });
+
+        socket.on('pay_ans', function(data) {
+            socket.emit('deal', {});
         });
     });
 
@@ -344,7 +348,6 @@
                             display.textContent = timer;
                             if (--timer < 0){
                                  display.textContent = "Game Start";
-                <!--                 window.location.href = "{{ url_for('game_route.start') }}";-->
                                  game_start();
                             }
                         }, 1000);

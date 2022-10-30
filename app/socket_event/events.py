@@ -32,7 +32,7 @@ def start(message):
     table.set_game_start(True)
 
     table.reset()
-    emit('start_', {}, room=room)
+    emit('start_ans', {}, room=room)
 
 
 @socketio.on('pay', namespace='/table')
@@ -47,16 +47,29 @@ def pay(message):
     player_id = message['player_id']
     player = table.get_player_by_id(player_id)
 
+    # ToDo need to check player is able to pay
     table.player_pay_stake(player)
+
+    emit('pay_ans', {}, room=room)
+
+
+@socketio.on('deal', namespace='/table')
+def deal(message):
+    print("I got deal")
+    game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+
+    table = game.get_table_by_name(table_name=room)
+
     table.deal_initial()
 
-    print(player_id)
+    emit('reload', {}, room=room)
 
 
 @socketio.on('hit_', namespace='/table')
 def hit_(message):
     print('I got hit')
-    current_app.config["SHOW_INSURANCE"] = False
 
     room = session.get('room')
     game = current_app.config["GAME"]
@@ -75,7 +88,6 @@ def hit_(message):
 @socketio.on('double_', namespace='/table')
 def double_(message):
     print('I got double')
-    current_app.config["SHOW_INSURANCE"] = False
 
     room = session.get('room')
     game = current_app.config["GAME"]
@@ -92,7 +104,6 @@ def double_(message):
 @socketio.on('split_', namespace='/table')
 def split_(message):
     print('I got split')
-    current_app.config["SHOW_INSURANCE"] = False
 
     room = session.get('room')
     game = current_app.config["GAME"]
@@ -111,7 +122,6 @@ def split_(message):
 @socketio.on('stand_', namespace='/table')
 def stand_(message):
     print('I got stand')
-    current_app.config["SHOW_INSURANCE"] = False
 
     room = session.get('room')
     game = current_app.config["GAME"]
@@ -129,7 +139,6 @@ def stand_(message):
 @socketio.on('fold_', namespace='/table')
 def fold_(message):
     print('I got fold')
-    current_app.config["SHOW_INSURANCE"] = False
 
     room = session.get('room')
     game = current_app.config["GAME"]
