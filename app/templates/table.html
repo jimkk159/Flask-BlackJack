@@ -20,7 +20,7 @@
                 <div class="px-1 table"
                      style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
                     <div class="row game-status-row">
-                        {% if not current_table.get_game_start() %}
+                        {% if not current_table.get_game_start() and current_table.get_game_wait() %}
                         {% if current_table.get_is_owner(current_player) %}
                         <div class="waiting-alarm">
                             <h1>Confirm to Start the Game </h1>
@@ -35,6 +35,16 @@
                             <h1><span class="countDown">60</span></h1>
                         </div>
                         {% endif %}
+                        {% elif current_player.get_is_end() %}
+                        <div class="waiting-alarm">
+                            <h1>Continue?</h1>
+                            <button type="button" class="btn btn-primary"
+                                    onclick="">Yes
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                    onclick="leave_room();">No
+                            </button>
+                        </div>
                         {% else %}
                         <div class="row banker-status-row">
                             <div class="player-status-content">
@@ -315,6 +325,14 @@
         });
     });
 
+    <!-- Game Start -->
+    function game_start() {
+        console.log("game start");
+        socket.emit('start', {});
+        clearInterval(setIntervalId);
+    }
+
+    <!-- Leave Room -->
     function leave_room() {
         socket.emit('left', {}, function() {
             socket.disconnect();
@@ -322,6 +340,11 @@
             // go back to the logout page
             window.location.href = "{{ url_for('game_route.logout') }}";
         });
+    }
+
+    <!-- Player waiting -->
+    function waiting() {
+         window.location.href = "{{ url_for('game_route.wait') }}";
     }
 
     <!--  Player Choice  -->
@@ -342,13 +365,6 @@
         socket.emit('fold_', data);
     }
 
-    <!-- Game Start -->
-    function game_start() {
-        console.log("game start");
-        socket.emit('start', {});
-        clearInterval(setIntervalId);
-    }
-
     function startTimer(duration, display){
         var timer = duration;
         setIntervalId = setInterval(function(){
@@ -366,10 +382,6 @@
             startTimer(fiftySecond, display);
         };
     }
-
-
-
-
 
 
 

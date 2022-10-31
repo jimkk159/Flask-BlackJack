@@ -72,5 +72,7 @@ def wait():
     if name == '' or room == '':
         return redirect(url_for('game_route.login'))
 
+    # ToDo need to separate to player
+    self.set_game_wait(True)
     return redirect(url_for('game_route.table'))
 

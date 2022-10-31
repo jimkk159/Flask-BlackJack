@@ -16,6 +16,7 @@ class Table:
 
         # Table Status
         self.game_start = False
+        self.game_wait = True
         self.owner = None
         self.is_deal_initial = False
         self.dominance = 0
@@ -52,6 +53,9 @@ class Table:
 
     def get_game_start(self):
         return self.game_start
+
+    def get_game_wait(self):
+        return self.game_wait
 
     def get_owner(self):
         return self.owner
@@ -159,6 +163,9 @@ class Table:
     # SET
     def set_game_start(self, game_start):
         self.game_start = game_start
+
+    def set_game_wait(self, game_wait):
+        self.game_wait = game_wait
 
     def set_owner(self):
 
@@ -337,6 +344,9 @@ class Table:
 
     # Reset
     def reset(self):
+
+        self.set_game_start(True)
+        self.set_game_wait(False)
 
         if self.get_cards_enough():
             self.deck.reset_deck()
@@ -687,3 +697,5 @@ class Table:
     def end_process(self):
         self.reveal_banker_card()
         self.give_remain_money()
+        self.set_game_start(False)
+

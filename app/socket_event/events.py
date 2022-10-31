@@ -30,7 +30,6 @@ def start(message):
     room = session.get('room', '')
 
     table = game.get_table_by_name(table_name=room)
-    table.set_game_start(True)
 
     table.reset()
     emit('start_ans', {}, room=room)

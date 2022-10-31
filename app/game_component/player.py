@@ -153,6 +153,13 @@ class Player:
     def get_is_finish(self):
         return all(map(self.get_is_hand_finish, self.get_hands()))
 
+    def get_is_hand_end(self, hand):
+        return hand.get_is_end()
+
+    def get_is_end(self):
+        return all(map(self.get_is_hand_end, self.get_hands()))
+
+
     # Blackjack
     def get_is_blackjack(self):
 
