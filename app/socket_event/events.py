@@ -74,6 +74,26 @@ def deal(message):
     emit('reload', {}, room=room)
 
 
+@socketio.on('continue_', namespace='/table')
+def continue_(message):
+    print("I got continue")
+
+    # Config
+    game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+    table_ = game.get_table_by_name(table_name=room)
+
+    player_id = message['player_id']
+    player = table_.get_player_by_id(player_id)
+
+    player.set_is_ready(True)
+    if table_.get_is_ready():
+        table_.set_game_wait(True)
+
+    emit('reload', {}, room=room)
+
+
 @socketio.on('hit_', namespace='/table')
 def hit_(message):
     print('I got hit')

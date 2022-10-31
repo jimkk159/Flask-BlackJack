@@ -44,7 +44,7 @@
                         <div class="waiting-alarm">
                             <h1>Continue?</h1>
                             <button type="button" class="btn btn-primary"
-                                    onclick="ask_continue()">Yes
+                                    onclick="ask_continue( { player_id:'{{ current_player.id }}' } )">Yes
                             </button>
                             <button type="button" class="btn btn-primary"
                                     onclick="leave_room();">No
@@ -348,8 +348,8 @@
     }
 
     <!-- Player waiting -->
-    function ask_continue() {
-         window.location.href = "{{ url_for('game_route.ask_continue') }}";
+    function ask_continue(data) {
+         socket.emit('continue_', data);
     }
 
     <!--  Player Choice  -->
