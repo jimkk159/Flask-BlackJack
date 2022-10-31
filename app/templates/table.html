@@ -39,7 +39,7 @@
                         <div class="waiting-alarm">
                             <h1>Continue?</h1>
                             <button type="button" class="btn btn-primary"
-                                    onclick="">Yes
+                                    onclick="ask_continue()">Yes
                             </button>
                             <button type="button" class="btn btn-primary"
                                     onclick="leave_room();">No
@@ -205,7 +205,7 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-2">
                         {% if current_table.get_game_start() and not ask_insurance and current_hand and
-                        current_table.get_is_dominance(current_player) and current_hand.get_able_hit()%}
+                        current_table.get_is_dominance(current_player) and current_hand.get_able_hit() %}
                         <a href="#" onclick="hit_click( { hand_id:'{{ current_hand.id }}' } );">
                             <img class="gestures gestures-hit"
                                  src="{{ url_for('static',filename='img/gestures/gesture-hit-no-bg.png') }}">
@@ -376,12 +376,12 @@
                         }, 1000);
     }
 
-    if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {
-        window.onload = function(){
-            var fiftySecond = 10, display= document.querySelector('.countDown');
-            startTimer(fiftySecond, display);
-        };
-    }
+<!--    if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {-->
+<!--        window.onload = function(){-->
+<!--            var fiftySecond = 10, display= document.querySelector('.countDown');-->
+<!--            startTimer(fiftySecond, display);-->
+<!--        };-->
+<!--    }-->
 
 
 

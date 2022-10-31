@@ -709,6 +709,7 @@ class Table:
 
     # Game End
     def end_process(self):
+        print('I got end')
         self.reveal_banker_card()
         self.give_remain_money()
         self.set_game_start(False)

@@ -27,7 +27,6 @@ def table():
     player = table_.get_player_by_id(current_user.id)
     set_cards_location(table_)
     game_start = table_.get_game_start()
-
     if game_start and show_insurance and table_.get_is_insurance() and table_.get_judge_insurance():
         return render_template('table.html', banker=banker_, table=table_, ask_insurance=True, name=name,
                                room=room), 200
@@ -37,7 +36,8 @@ def table():
         table_.check_player_blackjack(player)
         if player.get_is_blackjack():
             table_.give_player_money(player)
-        table_.end_process()
+        if table_.get_is_banker_blackjack():
+            table_.end_process()
 
     return render_template('table.html', banker=banker_, table=table_, ask_insurance=False, name=name, room=room), 200
 
@@ -90,3 +90,4 @@ def ask_continue():
     if table_.get_is_ready():
         table_.set_game_wait(True)
         return redirect(url_for('game_route.wait'))
+    return redirect(url_for('game_route.table'))

@@ -33,6 +33,7 @@ def start(message):
 
     table.set_owner()
     table.reset()
+
     emit('start_ans', {}, room=room)
 
 
@@ -66,8 +67,9 @@ def deal(message):
     if not table.get_is_deal_initial():
         table.deal_initial()
         table.set_is_deal_initial(True)
-        table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
-                        Card(symbol='A', suit='heart', value=11)]
+        # table.banker = [Card(symbol='K', suit='spade', value=10, faced=False),
+        #                 Card(symbol='A', suit='heart', value=11)]
+
     emit('reload', {}, room=room)
 
 

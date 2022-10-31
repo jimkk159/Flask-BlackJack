@@ -56,7 +56,6 @@ def create_room():
 
         if room == '':
             flash('Empty Room name')
-            print(1)
             return redirect(url_for('game_route.create_room'))
 
         if room == '' or game.get_is_table_exit(room):
