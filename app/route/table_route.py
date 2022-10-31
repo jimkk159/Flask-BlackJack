@@ -76,3 +76,16 @@ def wait():
     self.set_game_wait(True)
     return redirect(url_for('game_route.table'))
 
+
+@game_route.route("/ask_continue")
+def ask_continue():
+    print("I got continue")
+
+    # Config
+    game = current_app.config["GAME"]
+
+    room = session.get('room', '')
+
+    table_ = game.get_table_by_name(room)
+    player = table_.get_player_by_id(current_user.id)
+    player.set_is_ready(True)

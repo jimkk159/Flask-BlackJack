@@ -1,6 +1,9 @@
 import uuid
 from math import floor
-from app.game_component.player import Player, Hand
+
+# self module
+from app.game_component.player import Player
+from app.game_component.hand import Hand
 from app.game_component.card import Deck
 
 
@@ -229,12 +232,11 @@ class Table:
 
     def deal_to_banker(self):
         while self.get_hand_sum_switch_ace(self.banker) < 17:
-
             self.deal(self.banker)
 
     # Next player
     def set_next(self):
-        self.set_dominance(self.get_dominance()+1)
+        self.set_dominance(self.get_dominance() + 1)
 
     # Banker
     def reveal_banker_card(self):
@@ -335,7 +337,6 @@ class Table:
             if not player.get_pay_yet():
                 self.give_player_money(player)
 
-
     # Append Player
     def append_by_id(self, id_=None, player_name="Unknown", money=0):
         player = Player(id_=id_, name=player_name, money=money)
@@ -419,6 +420,11 @@ class Table:
 
         for player in self.in_:
             player.set_pay_yet(False)
+
+    def reset_ready(self):
+
+        for player in self.in_:
+            player.set_is_ready(False)
 
     # Insurance
     def get_judge_insurance(self):
@@ -698,4 +704,4 @@ class Table:
         self.reveal_banker_card()
         self.give_remain_money()
         self.set_game_start(False)
-
+        self.reset_ready()

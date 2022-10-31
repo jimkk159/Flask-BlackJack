@@ -31,6 +31,7 @@ def start(message):
 
     table = game.get_table_by_name(table_name=room)
 
+    table.set_owner()
     table.reset()
     emit('start_ans', {}, room=room)
 

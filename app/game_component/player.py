@@ -1,73 +1,7 @@
 import uuid
-from flask import Blueprint
 
-player_blueprint = Blueprint('player', __name__)
-
-
-class Hand:
-
-    def __init__(self):
-        self.id = uuid.uuid1()
-        self.cards = []
-        self.is_able_hit = True
-        self.is_ace_split = False
-        self.is_finish = False
-        self._5_card_charlie = False
-        self.result = ""
-
-    def get_id(self):
-        return self.id
-
-    def get_cards(self):
-        return self.cards
-
-    def get_cards_num(self):
-        return len(self.cards)
-
-    def get_able_hit(self):
-        return self.is_able_hit
-
-    def get_is_ace_split(self):
-        return self.is_ace_split
-
-    def get_is_ace_pair(self):
-        if len(self.cards) == 2 and self.cards[0].get_symbol() == 'A' and self.cards[1].get_symbol() == 'A':
-            return True
-        return False
-
-    def get_is_charlie(self):
-        return self._5_card_charlie
-
-    def get_result(self):
-        return self.result
-
-    def get_is_finish(self):
-        return self.is_finish
-
-    def get_is_end(self):
-        result = self.get_result()
-        return True if (result != "" and result != "stand") else False
-
-    def get_able_split(self):
-        return len(self.cards) == 2 and self.cards[0].get_symbol() == self.cards[1].get_symbol()
-
-    def get_x(self):
-        return self.get_cards()[0].get_x()
-
-    def set_able_hit(self, is_hit: bool):
-        self.is_able_hit = is_hit
-
-    def set_is_ace_split(self, is_ace_split: bool):
-        self.is_ace_split = is_ace_split
-
-    def set_charlie(self, charlie):
-        self._5_card_charlie = charlie
-
-    def set_is_finish(self, is_finish: bool):
-        self.is_finish = is_finish
-
-    def set_result(self, result):
-        self.result = result
+# self module
+from app.game_component.hand import Hand
 
 
 class Player:
@@ -83,6 +17,7 @@ class Player:
         self.double = False
         self.insurance = False
         self.already_pay = False
+        self.ready = True
 
         # Show
         self.show_insurance = True
@@ -141,6 +76,9 @@ class Player:
     def get_pay_yet(self):
         return self.already_pay
 
+    def get_is_ready(self):
+        return self.ready
+
     def get_able_double(self):
         return len(self.hands) == 1 and len(self.hands[0].get_cards()) == 2 and not self.get_is_finish()
 
@@ -158,7 +96,6 @@ class Player:
 
     def get_is_end(self):
         return all(map(self.get_is_hand_end, self.get_hands()))
-
 
     # Blackjack
     def get_is_blackjack(self):
@@ -233,6 +170,9 @@ class Player:
 
     def set_pay_yet(self, pay_yet: bool):
         self.already_pay = pay_yet
+
+    def set_is_ready(self, ready: bool):
+        self.ready = ready
 
     def append_empty_hand(self):
         self.hands.append(Hand())
