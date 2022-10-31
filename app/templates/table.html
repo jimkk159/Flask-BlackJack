@@ -24,7 +24,7 @@
                         {% if current_table.get_is_owner(current_player) %}
                         <div class="waiting-alarm">
                             <h1>Confirm to Start the Game </h1>
-                            <h1><span class="countDown">60</span></h1>
+                            <h1><span class="countDown">30</span></h1>
                             <button type="button" class="btn btn-primary"
                                     onclick="game_start();">Start
                             </button>
@@ -32,16 +32,18 @@
                         {% else %}
                         <div class="waiting-alarm">
                             <h1>Waiting for Game Begin </h1>
-                            <h1><span class="countDown">60</span></h1>
+                            <h1><span class="countDown">30</span></h1>
                         </div>
                         {% endif %}
                         {% else %}
                         {% if current_player.get_is_end() and current_player.get_is_ready() %}
                         <div class="waiting-alarm">
+                            <h1><span class="countDown">60</span></h1>
                             <h1>Waiting for others to confirm...</h1>
                         </div>
                         {% elif current_player.get_is_end() %}
                         <div class="waiting-alarm">
+                            <h1><span class="countDown">60</span></h1>
                             <h1>Continue?</h1>
                             <button type="button" class="btn btn-primary"
                                     onclick="ask_continue( { player_id:'{{ current_player.id }}' } )">Yes
@@ -332,7 +334,6 @@
 
     <!-- Game Start -->
     function game_start() {
-        console.log("game start");
         socket.emit('start', {});
         clearInterval(setIntervalId);
     }
@@ -374,19 +375,28 @@
         var timer = duration;
         setIntervalId = setInterval(function(){
                             display.textContent = timer;
+                            console.log("{{ current_player.get_is_ready() }}")
                             if (--timer < 0){
-                                 display.textContent = "Game Start";
-                                 game_start();
+
+                                if ("{{ current_player.get_is_ready() }}" == "True") {
+                                    display.textContent = "Game Start";
+                                    game_start();
+                                } else if ("{{ current_player.get_is_ready() }}" == "False") {
+                                    leave_room();
+                                };
                             }
                         }, 1000);
     }
 
-<!--    if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {-->
-<!--        window.onload = function(){-->
-<!--            var fiftySecond = 10, display= document.querySelector('.countDown');-->
-<!--            startTimer(fiftySecond, display);-->
-<!--        };-->
-<!--    }-->
+    if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {
+        window.onload = function(){
+            var fiftySecond = 30, display= document.querySelector('.countDown');
+            console.log(setIntervalId)
+            startTimer(fiftySecond, display);
+        };
+    }
+
+
 
 
 
