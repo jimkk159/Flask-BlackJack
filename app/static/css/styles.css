@@ -673,6 +673,7 @@ font-size: 30px;
     border-radius:1rem;
     padding: 3% 0;
 
+    z-index: 1;
 }
 .waiting-alarm h1{
     font-family: 'Oswald', sans-serif;

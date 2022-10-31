@@ -35,6 +35,11 @@
                             <h1><span class="countDown">60</span></h1>
                         </div>
                         {% endif %}
+                        {% else %}
+                        {% if current_player.get_is_end() and current_player.get_is_ready() %}
+                        <div class="waiting-alarm">
+                            <h1>Waiting for others to confirm...</h1>
+                        </div>
                         {% elif current_player.get_is_end() %}
                         <div class="waiting-alarm">
                             <h1>Continue?</h1>
@@ -45,7 +50,7 @@
                                     onclick="leave_room();">No
                             </button>
                         </div>
-                        {% else %}
+                        {% endif %}
                         <div class="row banker-status-row">
                             <div class="player-status-content">
                                 <p class="player-name">Player: <span>{{ current_player.get_name() }}</span></p>
@@ -382,6 +387,7 @@
 <!--            startTimer(fiftySecond, display);-->
 <!--        };-->
 <!--    }-->
+
 
 
 
