@@ -699,6 +699,14 @@ class Table:
             return all(map(self.get_is_player_finish, players))
         return False
 
+    # Check Ready
+    def get_is_ready(self):
+
+        players = self.get_players()
+        if players:
+            return all([player.get_is_ready() for player in players])
+        return False
+
     # Game End
     def end_process(self):
         self.reveal_banker_card()
