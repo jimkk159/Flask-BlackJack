@@ -707,6 +707,18 @@ class Table:
             return all([player.get_is_ready() for player in players])
         return False
 
+    # Leave Table
+    def leave_by_id(self, id_):
+
+        player_num = -1
+        for num in range(len(self.in_)):
+            if str(self.in_[num].get_id()) == id_:
+                player_num = num
+
+        if player_num >= 0:
+            self.in_.pop(player_num)
+            self.player_num = len(self.in_)
+
     # Game End
     def end_process(self):
         print('I got end')

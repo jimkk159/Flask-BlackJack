@@ -73,17 +73,7 @@ class Blackjack:
 
     def leave_table(self, player, table):
 
-        player_num = None
-        players = table.get_players()
-        for num in range(len(players)):
-            # Find Player
-            if str(players[num].get_id()) == str(player.get_id()):
-                player_num = num
-                break
-
-        # Player leave table
-        if player_num is not None:
-            table.get_players().pop(player_num)
+        table.leave_by_id(str(player.get_id()))
 
     # GET
     def get_table_by_id(self, table_id):
