@@ -13,11 +13,11 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-4">
+                            <div class="d-flex align-items-center col-xxl-4 col-xl-5 content-img-col">
                                 <img class="img-left content-img"
                                      src="{{ url_for('static',filename='img/stake.jpg') }}">
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xxl-8 col-xl-7 content-text-col">
                                 <p>In Blackjack, everyone plays against the dealer (the house).
                                     Your goal is to draw cards with
                                     a
@@ -62,8 +62,8 @@
                             <h2>Blackjack Rules</h2>
                             <hr>
                         </div>
-                        <div class="row section-row-2">
-                            <div class="col-lg-9 align-left-text">
+                        <div class="d-flex row section-row-2">
+                            <div class="col-xl-8 col-lg-6 align-left-text">
                                 <p>The dealer begins the game. Depending on how many people are playing, the dealer
                                     will deal each player two cards (face up).The dealer is also deal two cards, one
                                     face up, and one face down. (The dealers faced
@@ -71,10 +71,9 @@
                                         card</strong>.")
                                 </p>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 col-lg-6 banker-img">
                                 <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/banker.jpg') }}"
-                                     style="width: 23rem;">
+                                     src="{{ url_for('static',filename='img/banker.jpg') }}">
                             </div>
                         </div>
                     </div>
@@ -90,7 +89,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 align-left-text">
+                            <div class="col-xxl-8 align-left-text">
                                 <p>When you receive your first two cards, you may either "<strong>Stand</strong>",
                                     "<strong>Hit</strong>”, "<strong>Double</strong>” or
                                     "<strong>Split</strong>”.</p>
@@ -133,7 +132,7 @@
                                     on all soft 17 hands until he or she obtains a point total of a hard 17 or higher.
                                 </p>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xxl-4">
                                 <img class="img-right content-img"
                                      src="{{ url_for('static',filename='img/blackjack-player.jpg') }}"
                                      style="width: 23rem;">
@@ -148,7 +147,7 @@
         </section>
         <section class="rule-section">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     <div class="card number-card">
                         <div class="card-body card-value-body">
                             <img class="clip-card-img clip-card-img-top content-img"
@@ -158,7 +157,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     <div class="card face-card">
                         <div class="card-body card-value-body">
                             <img class="clip-card-img clip-card-img-top content-img"
@@ -169,7 +168,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     <div class="card a-card">
                         <div class="card-body card-value-body">
                             <img class="clip-card-img clip-card-img-top content-img"
@@ -186,7 +185,7 @@
             <h3 class="card-value-title">Player Choice</h3>
         </section>
         <section class="rule-section">
-            <div class="card">
+            <div class="card hit-card">
                 <div class="card-body">
                     <div class="section-row-outside">
                         <div class="row section-row-1">
@@ -194,7 +193,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 choice-block align-left-text">
+                            <div class="col-xl-8 col-md-7 choice-block align-left-text">
                                 <div class="choice-content">
                                     <p>"<strong>Hit</strong>" is your intention is to "draw more cards". You "Hit" when
                                         you feel your
@@ -214,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 col-md-5">
                                 <img class="stand-img content-img"
                                      src="{{ url_for('static',filename='img/gestures/hit.png') }}"
                                      style="width: 20rem;">
@@ -233,7 +232,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 choice-block align-left-text">
+                            <div class="col-xl-8 col-md-7 choice-block align-left-text">
                                 <div class="choice-content">
                                     <p>When you <strong>Stand</strong> in Blackjack, your intention is to "stay" with
                                         the original two cards
@@ -256,7 +255,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 col-md-5">
                                 <img class="stand-img content-img"
                                      src="{{ url_for('static',filename='img/gestures/stand.png') }}"
                                      style="width: 20rem;">
@@ -275,7 +274,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 choice-block align-left-text">
+                            <div class="col-xl-8 col-md-7 choice-block align-left-text">
                                 <div class="choice-content">
                                     <p>After receiving your <strong>first two cards</strong>, or on the first two cards
                                         of any split
@@ -303,7 +302,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 col-md-5">
                                 <img class="stand-img content-img"
                                      src="{{ url_for('static',filename='img/gestures/double.png') }}"
                                      style="width: 20rem;">
@@ -322,7 +321,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 choice-block align-left-text">
+                            <div class="col-xl-8 col-md-7 choice-block align-left-text">
                                 <div class="choice-content">
                                     <p>If your <strong>first two cards</strong> are of <strong>equal value</strong>, you
                                         have the option of "splitting"
@@ -348,7 +347,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 col-md-5">
                                 <img class="stand-img content-img"
                                      src="{{ url_for('static',filename='img/gestures/split.png') }}"
                                      style="width: 20rem;">
@@ -371,7 +370,7 @@
                         </div>
                         <div class="row section-row-2">
 
-                            <div class="col-lg-9 align-left-text">
+                            <div class="col-xl-8 col-md-7 align-left-text">
                                 <p>In Blackjack, the hand with the highest total wins as long as it doesn't exceed 21. A
                                     hand with a value over 21 is called a
                                     "<strong>Bust</strong>” or "<strong>Break</strong>" and it is an
@@ -381,10 +380,9 @@
                                 <p>When you "Bust", you lose your wager and that round is over for
                                     you. No matter the banker or dealer also bust or not later.</p>
                             </div>
-                            <div class="col-lg-3">
-                                <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/Boom-graphic.jpg') }}"
-                                     style="width: 23rem;">
+                            <div class="col-xl-4 col-md-5">
+                                <img class="img-right content-img bust-img"
+                                     src="{{ url_for('static',filename='img/Boom-graphic.jpg') }}">
                             </div>
                         </div>
                     </div>
@@ -400,7 +398,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 align-left-text">
+                            <div class="col-xl-8 col-md-7 align-left-text">
                                 <p>the best possible hand in Blackjack is a combination of an Ace with a 10-card or a
                                     face card. This is an
                                     automatic
@@ -417,7 +415,7 @@
                                     back.
                                 </p>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 col-md-5">
                                 <img class="img-right content-img"
                                      src="{{ url_for('static',filename='img/blackjack_cards.jpg') }}"
                                      style="width: 20rem;">
@@ -436,12 +434,11 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-4">
-                                <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/push.png') }}"
-                                     style="width: 30rem;">
+                            <div class="col-xl-5 push-img">
+                                <img class="img-left content-img"
+                                     src="{{ url_for('static',filename='img/push.png') }}">
                             </div>
-                            <div class="col-lg-8 align-left-text">
+                            <div class="col-xl-7 align-right-text">
                                 <p>A "<strong>Push</strong>" happens when both you and the dealer have the SAME total
                                     value of all cards.</p>
                                 <br>
@@ -477,7 +474,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 align-left-text">
+                            <div class="col-xl-8 align-left-text">
                                 <p><strong>Insurance</strong> is a side bet protecting you against the possibility that
                                     the dealer has a
                                     blackjack. </p>
@@ -495,10 +492,9 @@
                                     have a Blackjack, he takes the insurance bet and the game continues as normal.</p>
                                 </p>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 insurance-img">
                                 <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/insurance.jpg') }}"
-                                     style="width: 23rem;">
+                                     src="{{ url_for('static',filename='img/insurance.jpg') }}">
                             </div>
                         </div>
                     </div>
@@ -514,7 +510,7 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-9 align-left-text">
+                            <div class="col-xl-8 align-left-text">
                                 <p>In Blackjack, players have the option of surrendering one <strong>half</strong> of
                                     their original
                                     wager after receiving their
@@ -528,10 +524,9 @@
                                     available on the Double Deck game.)
                                 </p>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 surrender-img">
                                 <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/gestures/surrender.jpg') }}"
-                                     style="width: 23rem;">
+                                     src="{{ url_for('static',filename='img/gestures/surrender.jpg') }}">
                             </div>
                         </div>
                     </div>
@@ -550,12 +545,11 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-3">
+                            <div class="col-xl-4 chip-img">
                                 <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/chip.jpg') }}"
-                                     style="width: 23rem;">
+                                     src="{{ url_for('static',filename='img/chip.jpg') }}">
                             </div>
-                            <div class="col-lg-9 align-left-text">
+                            <div class="col-xl-8 align-left-text">
                                 <p> At the conclusion of each round of play, the dealer will collect all losing wagers
                                     and pay off all winning
                                     wagers.</p>
@@ -585,12 +579,11 @@
                             <hr>
                         </div>
                         <div class="row section-row-2">
-                            <div class="col-lg-5">
-                                <img class="img-right content-img"
-                                     src="{{ url_for('static',filename='img/hard-and-soft-hands.png') }}"
-                                     style="width: 40rem;">
+                            <div class="col-xxl-6 soft-hard-img">
+                                <img class="img-left content-img"
+                                     src="{{ url_for('static',filename='img/hard-and-soft-hands.png') }}">
                             </div>
-                            <div class="col-lg-7 align-left-text">
+                            <div class="col-xxl-6 align-left-text">
                                 <p>A hand in which an Ace's value is counted as 11 is called a <strong>Soft
                                     hand</strong>, because it
                                     cannot be busted if the

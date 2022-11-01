@@ -164,6 +164,9 @@ strong{
 .align-left-text{
     padding-right:3rem;
 }
+.align-right-text{
+    padding-left:3rem;
+}
 .card-value-title{
     min-width: 340px;
     max-width: 30%;
@@ -207,11 +210,11 @@ strong{
     position:relative;
 }
 .rule-section .choice-content{
-    min-height: 50%;
+
     position:relative;
 }
 .rule-section .choice-alert{
-    min-height: 30%;
+
     padding-right:3rem;
     position:absolute;
     bottom: 0;
@@ -749,3 +752,138 @@ font-size: 30px;
 .flash{
     color:red;
 }
+@media only screen and (min-width: 768px) {
+    .rule-section .choice-alert {
+        position:relative;
+        padding:0;
+    }
+    .rule-section .img-left , .rule-section .img-right{
+        margin: auto;
+        margin-bottom: 1.5rem;
+    }
+    .rule-section .banker-img{
+        order:-1;
+    }
+    .rule-section .bust-img{
+        width: 20rem;
+    }
+    .rule-section .insurance-container{
+        flex-direction: column;
+    }
+    .rule-section .insurance-img{
+        order: -1;
+    }
+    .rule-section .insurance-img img{
+        width: 25rem;
+    }
+    .rule-section .surrender-img{
+        order: -1;
+    }
+    .rule-section .surrender-img img{
+        width: 25rem;
+    }
+    .rule-section .chip-img img{
+        width: 23rem;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .rule-section .banker-img{
+        order:0;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .rule-section img {
+        width: 25rem;
+    }
+    .rule-section .img-left , .rule-section .img-right{
+        margin: auto;
+    }
+    .rule-section .banker-img img{
+        width: 20rem;
+    }
+    .rule-section .push-img img{
+        width: 25rem;
+    }
+    .rule-section .insurance-img{
+        order: 0;
+    }
+    .rule-section .insurance-img img{
+        width: 20rem;
+    }
+    .rule-section .surrender-img img{
+        width: 20rem;
+    }
+    .rule-section .chip-img img{
+        width: 20rem;
+    }
+    .rule-section .soft-hard-img{
+        margin-bottom: 1rem;
+    }
+    .rule-section .soft-hard-img img{
+        width: 30rem;
+    }
+}
+@media only screen and (min-width: 1400px) {
+    .rule-section img {
+        width: 23rem;
+    }
+    .rule-section .img-left , .rule-section .img-right{
+        margin: auto;
+    }
+    .rule-section .banker-img img{
+        width: 23rem;
+    }
+    .rule-section .push-img img{
+        width: 30rem;
+    }
+    .rule-section .insurance-img{
+        order: 0;
+    }
+    .rule-section .insurance-img img{
+        width: 23rem;
+    }
+    .rule-section .soft-hard-img img{
+        width: 35rem;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .rule-section img {
+        width: 30rem;
+    }
+    .rule-section .img-left , .rule-section .img-right{
+        margin: auto;
+    }
+    .card-value-title{
+        max-width: 50%;
+    }
+    .align-left-text {
+        padding-right: 2rem;
+    }
+    .rule-section .choice-alert {
+        position:relative;
+        padding:0;
+    }
+    .rule-section .bust-img{
+        width: 20rem;
+    }
+    .rule-section .push-img img{
+        width: 35rem;
+    }
+    .rule-section .insurance-img{
+        order: 0;
+    }
+    .rule-section .insurance-img img{
+        width: 30rem;
+    }
+    .rule-section .surrender-img img{
+        width: 30rem;
+    }
+    .rule-section .chip-img img{
+        width: 30rem;
+    }
+    .rule-section .soft-hard-img img{
+        width: 45rem;
+    }
+}
+
