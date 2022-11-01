@@ -44,9 +44,16 @@ def logout():
     game = current_app.config["GAME"]
     table = game.get_player_table(current_user)
     table_name = table.get_name()
+    current_player = table.get_player_by_id(current_user.id)
 
     game.leave_table(current_user, table)
     logout_user()
+
+    # Update Player money
+    query_user = User.query.filter_by(name=current_player.get_name()).first()
+    query_user.money = current_player.get_money()
+    db.session.commit()
+
     if game.get_is_table_empty(table):
         game.delete_table(table_name)
     return redirect(url_for('game_route.home'))
