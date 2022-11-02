@@ -35,7 +35,7 @@ hr{
 
 /* Page */
 .page{
-    min-height:89vh;
+    min-height:90vh;
     padding: 5%;
     margin:auto;
     text-align:center;
@@ -64,7 +64,7 @@ hr{
 
 .main_page a button{
    font-family: Neuton-Bold;
-   font-size:35px;
+   font-size:2rem;
    text-decoration:none;
    background-color:#31663D;
    color:#EBC24E;
@@ -848,6 +848,8 @@ font-size: 30px;
 }
 
 @media only screen and (min-width: 1920px) {
+
+    /* Rule section*/
     .rule-section img {
         width: 30rem;
     }
@@ -884,6 +886,17 @@ font-size: 30px;
     }
     .rule-section .soft-hard-img img{
         width: 45rem;
+    }
+
+    /* home page */
+    .main_page .page-title{
+        font-size: 8rem;
+    }
+    .main_page img{
+        width:30rem;
+    }
+    .main_page a button{
+        font-size: 3rem;
     }
 }
 
