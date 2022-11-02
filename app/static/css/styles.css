@@ -56,24 +56,24 @@ hr{
     margin-bottom: 1rem;
 }
 /* Main Page */
-.main_page-inside img{
+.main-page-inside img{
     margin: 1%;
     border-radius: 20px;
     width: 20rem;
 }
 
-.main_page a button{
+.main-page a button{
    font-family: Neuton-Bold;
    font-size:2rem;
    text-decoration:none;
    background-color:#31663D;
    color:#EBC24E;
 }
-.main_page a button:hover{
+.main-page a button:hover{
    background-color:#EBC24E;
    color:#31663D;
 }
-.main_page a{
+.main-page a{
     text-decoration:none;
 }
 /* Login Page */
@@ -81,13 +81,9 @@ hr{
       padding-top: 10rem;
       position: relative;
 }
-.login-page-inside{
-    height: 100%;
-    position: relative;
-}
 .login-page form{
       width: 100%;
-      max-width: 330px;
+      max-width:20.5rem;
       padding: 15px;
       margin: 0 auto;
 
@@ -222,6 +218,7 @@ strong{
 /* Leave button */
 .leave-button{
     margin: 2rem 0rem 0rem;
+    text-align:right;
 }
 .leave-button button{
    font-family: Neuton-Bold;
@@ -234,11 +231,8 @@ strong{
    background-color:#1D5229;
    color:#EBC24E;
 }
-.login-page .leave-button, .room-page .leave-button{
+.room-page .leave-button{
     position:absolute;
-}
-.login-page .leave-button{
-    bottom:3rem;
 }
 .room-page .leave-button{
     bottom:10rem;
@@ -785,10 +779,31 @@ font-size: 30px;
     .rule-section .chip-img img{
         width: 23rem;
     }
+
+    /* login page */
+    .login-page .page-title{
+        font-size: 5rem;
+    }
+    .login-page form{
+        max-width:18rem;
+        height:13rem;
+        margin-top: 2rem;
+    }
+    .login-page form label{
+        font-size: 2.5rem;
+    }
+    .login-page form input, .login-page form #submit{
+        font-size: 1rem;
+    }
 }
 @media only screen and (min-width: 992px) {
     .rule-section .banker-img{
         order:0;
+    }
+    /* login page */
+    .login-page form{
+        max-width:20rem;
+        height:20rem;
     }
 }
 @media only screen and (min-width: 1200px) {
@@ -822,6 +837,22 @@ font-size: 30px;
     .rule-section .soft-hard-img img{
         width: 30rem;
     }
+
+    /* login page */
+    .login-page .page-title{
+        font-size: 6rem;
+    }
+    .login-page form{
+        max-width:23rem;
+        height:20rem;
+        margin-top: 2rem;
+    }
+    .login-page form label{
+        font-size: 3rem;
+    }
+    .login-page form input, .login-page form #submit{
+        font-size: 1.5rem;
+    }
 }
 @media only screen and (min-width: 1400px) {
     .rule-section img {
@@ -844,6 +875,22 @@ font-size: 30px;
     }
     .rule-section .soft-hard-img img{
         width: 35rem;
+    }
+
+    /* login page */
+    .login-page .page-title{
+        font-size: 7rem;
+    }
+    .login-page form{
+        max-width:25rem;
+        height:15rem;
+        margin-top: 2rem;
+    }
+    .login-page form label{
+        font-size: 3rem;
+    }
+    .login-page form input, .login-page form #submit{
+        font-size: 1.5rem;
     }
 }
 
@@ -889,14 +936,29 @@ font-size: 30px;
     }
 
     /* home page */
-    .main_page .page-title{
+    .main-page .page-title{
         font-size: 8rem;
     }
-    .main_page img{
+    .main-page img{
         width:30rem;
     }
-    .main_page a button{
+    .main-page a button{
         font-size: 3rem;
+    }
+
+    /* login page */
+    .login-page .page-title{
+        font-size: 10rem;
+    }
+    .login-page form{
+        max-width:28rem;
+        height:30rem;
+    }
+    .login-page form label{
+        font-size: 4rem;
+    }
+    .login-page form input, .login-page form #submit{
+        font-size: 2rem;
     }
 }
 

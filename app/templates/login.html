@@ -1,8 +1,8 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
 {% include "header.html" %}
-<div class="page login-page container-fluid mx-auto">
-    <div class="page-inside login-page-inside">
+<div class="row page login-page d-flex align-items-center">
+    <div class="row page-inside login-page-inside">
         <h1 class="page-title">What is your name</h1>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -13,17 +13,13 @@
         {% endwith %}
         {{ wtf.quick_form(register_form, novalidate=True, button_map={"submit": "primary"}) }}
     </div>
-    <div class="row">
-        <div class="col-lg-10">
+
+        <div class="row leave-button">
+            <a href="{{ url_for('game_route.home') }}">
+                <button class="btn btn-secondary btn-lg">Leave</button>
+            </a>
         </div>
-        <div class="col-lg-2">
-            <div class="leave-button">
-                <a href="{{ url_for('game_route.home') }}">
-                    <button class="btn btn-secondary btn-lg">Leave</button>
-                </a>
-            </div>
-        </div>
-    </div>
+
 </div>
 {% include "footer.html" %}
 {% endblock %}
