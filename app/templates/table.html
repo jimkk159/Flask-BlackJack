@@ -66,16 +66,16 @@
                                 {% if banker[num].get_faced() %}
                                 <img class="poker-card"
                                      src="{{ url_for('static',filename='img/poker/'+banker[num].get_suit()+'/'+banker[num].get_img()) }}"
-                                     style="left:34rem;">
+                                     style="left:{{ banker[num].get_x() }}rem;">
                                 {% else %}
                                 <img class="poker-card"
                                      src="{{ url_for('static',filename='img/poker/poker_back.svg') }}"
-                                     style="left:34rem;">
+                                     style="left:{{ banker[num].get_x() }}rem;">
                                 {% endif %}
                                 {% else %}
                                 <img class="poker-card"
                                      src="{{ url_for('static',filename='img/poker/'+banker[num].get_suit()+'/'+banker[num].get_img()) }}"
-                                     style="left:{{ 40+2*num }}rem;">
+                                     style="left:{{ banker[num].get_x() }}rem;">
                                 {% endif %}
                                 {% endfor %}
                             </div>

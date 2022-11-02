@@ -43,7 +43,7 @@ def set_banker_location(cards):
         cards[0].set_x(34)
 
     for num in range(len(cards)):
-        if num > 1:
+        if num > 0:
             cards[num].set_x(40 + 2 * num)
 
 
