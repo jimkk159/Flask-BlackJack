@@ -42,6 +42,7 @@ hr{
 }
 .page-inside{
     text-align:center;
+    min-height:80vh;
 }
 .page-title{
     font-family: PriceDown Black;
@@ -56,10 +57,15 @@ hr{
     margin-bottom: 1rem;
 }
 /* Main Page */
+.main-page-inside{
+    min-height:30rem;
+}
+
 .main-page-inside img{
     margin: 1%;
     border-radius: 20px;
     width: 20rem;
+
 }
 
 .main-page a button{
@@ -78,8 +84,11 @@ hr{
 }
 /* Login Page */
 .login-page{
-      padding-top: 10rem;
-      position: relative;
+  padding-top: 10rem;
+  position: relative;
+}
+.login-page-inside{
+    min-height:0;
 }
 .login-page form{
       width: 100%;
@@ -231,12 +240,7 @@ strong{
    background-color:#1D5229;
    color:#EBC24E;
 }
-.room-page .leave-button{
-    position:absolute;
-}
-.room-page .leave-button{
-    bottom:10rem;
-}
+
 /*Alert */
 .alert-dark p{
     color:#000;
@@ -684,16 +688,13 @@ font-size: 30px;
 }
 /* Room */
 .room-page{
-    padding:1.5rem;
+    padding:2rem;
 }
 .room-page .room-col{
     margin:2rem 0;
 }
 .room-page .dark-background, .room-col .outer-border, .room-col .inner-border{
     min-height:20rem;
-}
-.room-img{
-    height: 20rem;
 }
 .room-border{
     text-align:center;
@@ -726,7 +727,7 @@ font-size: 30px;
     height: 20rem;
 }
 .room-page .build-room-img{
-    object-fit: contain;
+    object-fit: cover;
 }
 .room-page .room-name-type-1{
     border: solid 5px #444;
@@ -795,15 +796,43 @@ font-size: 30px;
     .login-page form input, .login-page form #submit{
         font-size: 1rem;
     }
+    /* room page */
+    .room-page .room-name{
+        min-width: 18rem;
+    }
 }
 @media only screen and (min-width: 992px) {
     .rule-section .banker-img{
         order:0;
     }
+
+    /* home page */
+    .main-page .page-title{
+        font-size: 4rem;
+    }
+    .main-page img{
+        width:15rem;
+    }
+    .main-page a button{
+        font-size: 1.5rem;
+    }
+
     /* login page */
     .login-page form{
         max-width:20rem;
         height:20rem;
+    }
+
+    /* room page */
+    .room-page .room-name, .room-page .room-capability{
+        min-width: 12rem;
+        font-size:1.5rem;
+    }
+    .room-page .dark-background, .room-col .outer-border, .room-col .inner-border {
+        min-height: 15rem;
+    }
+    .room-img {
+        height: 15rem;
     }
 }
 @media only screen and (min-width: 1200px) {
@@ -838,6 +867,17 @@ font-size: 30px;
         width: 30rem;
     }
 
+    /* home page */
+    .main-page .page-title{
+        font-size: 5rem;
+    }
+    .main-page img{
+        width:20rem;
+    }
+    .main-page a button{
+        font-size: 2rem;
+    }
+
     /* login page */
     .login-page .page-title{
         font-size: 6rem;
@@ -852,6 +892,15 @@ font-size: 30px;
     }
     .login-page form input, .login-page form #submit{
         font-size: 1.5rem;
+    }
+
+    /* room page */
+    .room-page .room-name, .room-page .room-capability {
+        min-width: 14rem;
+        font-size:2rem;
+    }
+    .room-img {
+        height: 20rem;
     }
 }
 @media only screen and (min-width: 1400px) {
@@ -877,6 +926,17 @@ font-size: 30px;
         width: 35rem;
     }
 
+    /* home page */
+    .main-page .page-title{
+        font-size: 6rem;
+    }
+    .main-page img{
+        width:23rem;
+    }
+    .main-page a button{
+        font-size: 2.5rem;
+    }
+
     /* login page */
     .login-page .page-title{
         font-size: 7rem;
@@ -891,6 +951,10 @@ font-size: 30px;
     }
     .login-page form input, .login-page form #submit{
         font-size: 1.5rem;
+    }
+    /* room page */
+    .room-page .room-name {
+        min-width: 16rem;
     }
 }
 
@@ -959,6 +1023,11 @@ font-size: 30px;
     }
     .login-page form input, .login-page form #submit{
         font-size: 2rem;
+    }
+    /* room page */
+    .room-page .room-name , .room-page .room-capability{
+        min-width: 18rem;
+        font-size:2.5rem;
     }
 }
 

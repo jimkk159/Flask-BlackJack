@@ -14,12 +14,11 @@
         {{ wtf.quick_form(register_form, novalidate=True, button_map={"submit": "primary"}) }}
     </div>
 
-        <div class="row leave-button">
-            <a href="{{ url_for('game_route.home') }}">
-                <button class="btn btn-secondary btn-lg">Leave</button>
-            </a>
-        </div>
-
+    <div class="row leave-button">
+        <a href="{{ url_for('game_route.home') }}">
+            <button class="btn btn-secondary btn-lg">Leave</button>
+        </a>
+    </div>
 </div>
 {% include "footer.html" %}
 {% endblock %}
