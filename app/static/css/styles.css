@@ -215,11 +215,9 @@ strong{
     position:relative;
 }
 .rule-section .choice-content{
-
     position:relative;
 }
 .rule-section .choice-alert{
-
     padding-right:3rem;
     position:absolute;
     bottom: 0;
@@ -375,19 +373,17 @@ font-size: 30px;
     min-height:40rem;
     border-radius: 10px;
 }
+
+.table-rule, .dark-background, .inner-border, .outer-border{
+    min-height:37rem;
+}
 .table-rule{
     border: 2px;
-    min-height:37rem;
 }
-.dark-background{
-    min-height:37rem;
-}
-
 .inner-border {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    min-height:37rem;
 }
 
 .outer-border {
@@ -396,7 +392,6 @@ font-size: 30px;
     width: 98%;
     padding: 6px;
     margin: 0 auto;
-    min-height:37rem;
 }
 
 .mid-border {
@@ -422,11 +417,12 @@ font-size: 30px;
 .inner-border p{
 	color:white;
 	font-family: Neuton-Bold;
-	font-size: 28px;
 	text-align:left;
 	padding:0 1rem;
 }
-
+.table-rule-content p{
+    font-size: 28px;
+}
 .player-status-content p{
 	margin-bottom:0;
 	padding:0;
@@ -476,10 +472,7 @@ font-size: 30px;
     position:absolute;
     right:0;
 }
-.table-page .leave-button{
-    margin: 3rem 3rem 0;
-    bottom:3rem;
-}
+
 .table .poker-card{
     height: 10rem;
 }
@@ -800,6 +793,41 @@ font-size: 30px;
     .room-page .room-name{
         min-width: 18rem;
     }
+    /* table page */
+    .table-page .table-name{
+        width: 15%;
+    }
+    .table-page .table-name, .table-page .table-capability {
+        font-size: 3rem;
+    }
+    .table-page .page-title {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+    .table-rule h1{
+        margin-bottom: 2rem;
+    }
+    .table-rule, .dark-background, .inner-border, .outer-border{
+        min-height:15rem;
+    }
+    .table-rule-title h1{
+        font-size: 35px;
+    }
+    .table-rule-content p{
+        font-size: 20px;
+    }
+    .leave-button {
+        margin-bottom: 2rem;
+    }
+    .control-panel .gestures {
+        margin: 1rem 0.5rem;
+        height: 8rem;
+        width: 8rem;
+    }
+    .gestures-padding{
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
 }
 @media only screen and (min-width: 992px) {
     .rule-section .banker-img{
@@ -828,7 +856,7 @@ font-size: 30px;
         min-width: 12rem;
         font-size:1.5rem;
     }
-    .room-page .dark-background, .room-col .outer-border, .room-col .inner-border {
+    .room-page .dark-background, .room-col .outer-border, .room-col .inner-border{
         min-height: 15rem;
     }
     .room-img {
@@ -901,6 +929,26 @@ font-size: 30px;
     }
     .room-img {
         height: 20rem;
+    }
+
+    /* table page */
+    .table-rule, .dark-background, .inner-border, .outer-border{
+        min-height:37rem;
+    }
+    .table-rule-title h1{
+        font-size: 45px;
+    }
+    .table-rule-content p{
+        font-size: 22px;
+    }
+    .gestures-padding{
+        flex: 0;
+        padding:0;
+        width: 0;
+    }
+    .gestures-content{
+        margin-right:0.5rem;
+        margin-left:0.5rem;
     }
 }
 @media only screen and (min-width: 1400px) {

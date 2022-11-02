@@ -6,7 +6,7 @@
     <div class="table-screen container-fluid mx-auto">
         <div class="page-inside table-page-inside row">
             <div class="row">
-                <div class="col-lg-9 table-title-padding ">
+                <div class="col-xxl-9 col-xl-8 table-title-padding ">
                     <div class="row">
                         <h1 class="mx-auto page-title">
                             <span class="table-name">Room {{ room }}</span>
@@ -14,9 +14,9 @@
                         </h1>
                     </div>
                 </div>
-                <div class="col-lg-3"></div>
+                <div class="col-xxl-3 col-xl-4"></div>
             </div>
-            <div class="col-lg-9 table-col-1">
+            <div class="col-xxl-9 col-xl-8 table-col-1">
                 <div class="px-1 table"
                      style="background-image: url({{ url_for('static',filename='img/blackjack-table.png') }});">
                     <div class="row game-status-row">
@@ -165,7 +165,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 table-col-2">
+            <div class="col-xxl-3 col-xl-4 table-col-2">
                 <div class="table-rule">
                     <div class="dark-background"
                          style=" background-image: url(https://i.ibb.co/nrmkm7d/five-bells-washed-out-logo.png) , linear-gradient(to right, rgba(58, 61, 62, 1) 0%, rgba(58, 61, 62, 1) 100%);">
@@ -183,16 +183,28 @@
 
                                     <!-- Page Content -->
                                     <div class="row">
-                                        <div class="col-lg-12 text-center">
+                                        <div class="col-sm-12 table-rule-title">
                                             <h1>Table Rule</h1>
+                                        </div>
+                                        <div class="col-xl-12 col-md-4 ps-4 table-rule-content">
                                             <p>Number of decks: {{ current_table.get_deck_num() }}</p>
+                                        </div>
+                                        <div class="col-xl-12 col-md-4 ps-4 table-rule-content">
                                             <p>Minimum Bet: {{ current_table.get_min_bet() }}</p>
+                                        </div>
+                                        <div class="col-xl-12 col-md-4 ps-4 table-rule-content">
                                             <p>BlackJack Ration: {{ current_table.get_blackjack_ratio() }}</p>
+                                        </div>
+                                        <div class="col-xl-12 col-md-4 ps-4 table-rule-content">
                                             <p>Insurance: {{ "Open" if current_table.get_is_insurance() else "Close"
                                                 }}</p>
+                                        </div>
+                                        <div class="col-xl-12 col-md-4 ps-4 table-rule-content">
                                             <p>Over 10 Insurance: {{ "Open" if current_table.get_is_insurance_over_10()
                                                 else "Close"
                                                 }}</p>
+                                        </div>
+                                        <div class="col-xl-12 col-md-4 ps-4 table-rule-content">
                                             <p>Double Down: {{ "Open" if current_table.get_is_double() else "Close"
                                                 }}</p>
                                         </div>
@@ -205,12 +217,12 @@
             </div>
         </div>
     </div>
-    <div class="control-panel container-fluid">
+    <div class="control-panel">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-xl-8">
                 <div class="row">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-2">
+                    <div class="gestures-padding col-md-1"></div>
+                    <div class="gestures-content col-xl-2 col-md-2">
                         {% if current_table.get_game_start() and not ask_insurance and current_hand and
                         current_table.get_is_dominance(current_player) and current_hand.get_able_hit() %}
                         <a href="#" onclick="hit_click( { hand_id:'{{ current_hand.id }}' } );">
@@ -223,7 +235,7 @@
                              style="filter: grayscale(100%);">
                         {% endif %}
                     </div>
-                    <div class="col-lg-2">
+                    <div class="gestures-content col-xl-2 col-md-2">
                         {% if current_table.get_game_start() and not ask_insurance and
                         current_table.get_is_dominance(current_player) and current_player.get_able_double() %}
                         <a href="#" onclick="double_click( { player_id:'{{ current_player.id }}' } );">
@@ -236,7 +248,7 @@
                              style="filter: grayscale(100%);">
                         {% endif %}
                     </div>
-                    <div class="col-lg-2">
+                    <div class="gestures-content col-xl-2 col-md-2">
                         {% if current_table.get_game_start() and not ask_insurance and current_hand and
                         current_table.get_is_dominance(current_player) and current_hand.get_able_split() and not
                         current_hand.get_is_finish()%}
@@ -251,7 +263,7 @@
                              style="filter: grayscale(100%);">
                         {% endif %}
                     </div>
-                    <div class="col-lg-2">
+                    <div class="gestures-content col-xl-2 col-md-2">
                         {% if current_table.get_game_start() and not ask_insurance and current_hand and
                         current_table.get_is_dominance(current_player) and not current_hand.get_is_finish() %}
                         <a href="#" onclick="stand_click( { hand_id:'{{ current_hand.id }}' } );">
@@ -264,7 +276,7 @@
                              style="filter: grayscale(100%);">
                         {% endif %}
                     </div>
-                    <div class="col-lg-2">
+                    <div class="gestures-content col-xl-2 col-md-2">
                         {% if current_table.get_game_start() and not ask_insurance and current_player.get_able_fold()
                         and current_table.get_is_dominance(current_player)%}
                         <a href="#" onclick="fold_click( { player_id:'{{ current_player.id }}' } );">
@@ -277,17 +289,16 @@
                              style="filter: grayscale(100%);">
                         {% endif %}
                     </div>
-                    <div class="col-lg-1"></div>
+                    <div class="gestures-padding col-md-1"></div>
                 </div>
             </div>
 
-            <div class="col-lg-3">
-                <div class="leave-button">
-                    <a href="#" onclick="leave_room();">
-                        <button class="btn btn-secondary btn-lg">Leave</button>
-                    </a>
-                </div>
+            <div class="col-xl-3 leave-button">
+                <a href="#" onclick="leave_room();">
+                    <button class="btn btn-secondary btn-lg">Leave</button>
+                </a>
             </div>
+            <div class="col-xl-1"></div>
         </div>
     </div>
 </div>
@@ -389,14 +400,11 @@
 
     if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {
         window.onload = function(){
-            var fiftySecond = 30, display= document.querySelector('.countDown');
-            console.log(setIntervalId)
-            startTimer(fiftySecond, display);
+<!--            var fiftySecond = 30, display= document.querySelector('.countDown');-->
+<!--            console.log(setIntervalId)-->
+<!--            startTimer(fiftySecond, display);-->
         };
     }
-
-
-
 
 
 
