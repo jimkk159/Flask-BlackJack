@@ -218,9 +218,19 @@ strong{
     position:relative;
 }
 .rule-section .choice-alert{
-    padding-right:3rem;
-    position:absolute;
     bottom: 0;
+}
+.rule-section .clip-card-img{
+    width: 8rem;
+}
+.rule-section .hit-img, .rule-section .stand-img, .rule-section .double-img,.rule-section .fold-img,.rule-section .split-img{
+     width: 15rem;
+}
+.rule-section  .bj-img{
+    width: 15rem;
+}
+.rule-section .banker-img img{
+    width: 20rem;
 }
 /* Leave button */
 .leave-button{
@@ -687,7 +697,7 @@ font-size: 30px;
     margin:2rem 0;
 }
 .room-page .dark-background, .room-col .outer-border, .room-col .inner-border{
-    min-height:20rem;
+    min-height:10rem;
 }
 .room-border{
     text-align:center;
@@ -741,6 +751,8 @@ font-size: 30px;
     color:red;
 }
 @media only screen and (min-width: 768px) {
+
+    /* rule page */
     .rule-section .choice-alert {
         position:relative;
         padding:0;
@@ -753,7 +765,7 @@ font-size: 30px;
         order:-1;
     }
     .rule-section .bust-img{
-        width: 20rem;
+        width: 18rem;
     }
     .rule-section .insurance-container{
         flex-direction: column;
@@ -770,8 +782,24 @@ font-size: 30px;
     .rule-section .surrender-img img{
         width: 25rem;
     }
-    .rule-section .chip-img img{
-        width: 23rem;
+    .rule-section .clip-card-img{
+        width: 9rem;
+    }
+    .rule-section  .bj-img{
+        width: 18rem;
+    }
+    .rule-section .hit-img, .rule-section .stand-img, .rule-section .double-img, .rule-section .fold-img, .rule-section .split-img{
+        width: 15rem;
+    }
+    /* home page */
+    .main-page .page-title{
+        font-size: 4rem;
+    }
+    .main-page img{
+        width:15rem;
+    }
+    .main-page a button{
+        font-size: 1.5rem;
     }
 
     /* login page */
@@ -789,6 +817,7 @@ font-size: 30px;
     .login-page form input, .login-page form #submit{
         font-size: 1rem;
     }
+
     /* room page */
     .room-page .room-name{
         min-width: 18rem;
@@ -828,23 +857,29 @@ font-size: 30px;
         flex: 0 0 auto;
         width: 8.33333333%;
     }
+
+    /* leave button */
+    .leave-button button {
+        font-size: 20px;
+    }
+    font-size: 35px;
 }
 @media only screen and (min-width: 992px) {
     .rule-section .banker-img{
         order:0;
     }
-
-    /* home page */
-    .main-page .page-title{
-        font-size: 4rem;
+    .rule-section .banker-img img{
+        width: 25rem;
     }
-    .main-page img{
-        width:15rem;
+    .rule-section .clip-card-img{
+        width: 10rem;
     }
-    .main-page a button{
-        font-size: 1.5rem;
+    .rule-section  .bj-img{
+        width: 20rem;
     }
-
+    .rule-section .hit-img, .rule-section .stand-img, .rule-section .double-img, .rule-section .fold-img, .rule-section .split-img{
+        width: 20rem;
+    }
     /* login page */
     .login-page form{
         max-width:20rem;
@@ -894,32 +929,34 @@ font-size: 30px;
     .rule-section .soft-hard-img img{
         width: 30rem;
     }
-
+    .rule-section .clip-card-img{
+        width: 12rem;
+    }
     /* home page */
     .main-page .page-title{
-        font-size: 5rem;
+        font-size: 4rem;
     }
     .main-page img{
-        width:20rem;
+        width:15rem;
     }
     .main-page a button{
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     /* login page */
     .login-page .page-title{
-        font-size: 6rem;
+        font-size: 4.5rem;
     }
     .login-page form{
-        max-width:23rem;
+        max-width:15rem;
         height:20rem;
         margin-top: 2rem;
     }
     .login-page form label{
-        font-size: 3rem;
+        font-size: 2rem;
     }
     .login-page form input, .login-page form #submit{
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 
     /* room page */
@@ -950,6 +987,10 @@ font-size: 30px;
         margin-right:0.5rem;
         margin-left:0.5rem;
     }
+    /* leave button */
+    .leave-button button {
+        font-size: 30px;
+    }
 }
 @media only screen and (min-width: 1400px) {
     .rule-section img {
@@ -976,33 +1017,58 @@ font-size: 30px;
 
     /* home page */
     .main-page .page-title{
-        font-size: 6rem;
+        font-size: 4.5rem;
     }
     .main-page img{
-        width:23rem;
+        width:15rem;
     }
     .main-page a button{
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     /* login page */
     .login-page .page-title{
-        font-size: 7rem;
+        font-size: 5rem;
     }
     .login-page form{
-        max-width:25rem;
+        max-width:15rem;
         height:15rem;
         margin-top: 2rem;
     }
     .login-page form label{
-        font-size: 3rem;
+        font-size: 2rem;
     }
     .login-page form input, .login-page form #submit{
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
     /* room page */
     .room-page .room-name {
         min-width: 16rem;
+    }
+
+    /* table page */
+    .table-rule, .dark-background, .inner-border, .outer-border{
+        min-height:37rem;
+    }
+    .table-rule-title h1{
+        font-size: 45px;
+    }
+    .table-rule-content p{
+        font-size: 22px;
+    }
+    .control-panel .gestures {
+        margin: 1rem 0.5rem;
+        height: 10rem;
+        width: 10rem;
+    }
+    .gestures-padding{
+        flex: 0;
+        padding:0;
+        width: 0;
+    }
+    .gestures-content{
+        margin-right:0.75rem;
+        margin-left:0.75rem;
     }
 }
 
@@ -1072,10 +1138,32 @@ font-size: 30px;
     .login-page form input, .login-page form #submit{
         font-size: 2rem;
     }
+
+
     /* room page */
     .room-page .room-name , .room-page .room-capability{
         min-width: 18rem;
         font-size:2.5rem;
+    }
+
+    /* table page */
+    .control-panel .gestures {
+        margin: 1rem 0.5rem;
+        height: 12rem;
+        width: 12rem;
+    }
+    .gestures-padding{
+        flex: 0;
+        padding:0;
+        width: 0;
+    }
+    .gestures-content{
+        margin-right:1.25rem;
+        margin-left:1.25rem;
+    }
+    /* leave button */
+    .leave-button button {
+        font-size: 35px;
     }
 }
 
