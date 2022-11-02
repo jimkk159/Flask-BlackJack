@@ -401,8 +401,8 @@
     if (window.location.href.match('http://' + document.domain + ':' + location.port + '/table') != null) {
         window.onload = function(){
 <!--            var fiftySecond = 30, display= document.querySelector('.countDown');-->
-<!--            console.log(setIntervalId)-->
 <!--            startTimer(fiftySecond, display);-->
+                socket.emit('screen_size', { width:window.innerWidth, height:window.innerHeight });
         };
     }
 

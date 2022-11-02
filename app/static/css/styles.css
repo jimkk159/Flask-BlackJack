@@ -239,7 +239,7 @@ strong{
 }
 .leave-button button{
    font-family: Neuton-Bold;
-   font-size:35px;
+   font-size:20px;
    padding: 0.5rem 5rem;
    background-color:#31663D;
    color:#EBC24E;
@@ -897,6 +897,11 @@ font-size: 30px;
     .room-img {
         height: 15rem;
     }
+
+    /* leave button */
+    .rule-page .leave-button button {
+        font-size: 35px;
+    }
 }
 @media only screen and (min-width: 1200px) {
     .rule-section img {
@@ -948,7 +953,6 @@ font-size: 30px;
         font-size: 4.5rem;
     }
     .login-page form{
-        max-width:15rem;
         height:20rem;
         margin-top: 2rem;
     }

@@ -23,6 +23,14 @@ def left(message):
     # emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room)
 
 
+@socketio.on('screen_size', namespace='/table')
+def screen_size(message):
+    print('I got size')
+
+    session['height'] = message['height']
+    session['width'] = message['width']
+
+
 @socketio.on('start', namespace='/table')
 def start(message):
     print("I got start")
