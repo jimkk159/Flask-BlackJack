@@ -602,14 +602,12 @@ font-size: 30px;
     position:relative;
     min-height:6rem;
     top:4rem;
-    left:23rem;
 }
 .banker-dialog{
     position:absolute;
 }
 .banker-dialog-name{
     min-height:6.5rem;
-    left:23.5rem;
 }
 .player-dialog-name{
     min-height:4rem;
