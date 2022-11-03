@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_session import Session
 from flask_socketio import SocketIO
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
@@ -23,6 +24,9 @@ def create_app():
     with app_.app_context():
         db_drop_and_create()
 
+    # Wrap the Server Side Session
+    Session(app_)
+
     # Login
     login_manager = LoginManager()
     login_manager.init_app(app_)
@@ -41,6 +45,7 @@ def create_app():
     app_.register_blueprint(game_route)
 
     # Internet Socket
-    socketio.init_app(app_)
+    # socketio.init_app(app_) #
+    socketio.init_app(app_, manage_session=False)  # Server Side session management
 
     return app_

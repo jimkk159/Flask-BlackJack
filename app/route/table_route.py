@@ -21,6 +21,7 @@ def table():
     # Session
     name = session.get('name', '')
     room = session.get('room', '')
+    width = session.get('width', '')
 
     table_ = game.get_table_by_name(room)
     banker_ = table_.get_banker_cards()
