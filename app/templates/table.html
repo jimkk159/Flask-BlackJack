@@ -81,7 +81,7 @@
                             </div>
                             {% if ask_insurance %}
                             <div class="banker-dialog">
-                                <div class="row dialog-name banker-dialog-name" style="left:{{ banker[0].get_x() -11.5 }}rem;">
+                                <div class="row dialog-name banker-dialog-name" style="left:{{ banker[0].get_x() -table_anchor['dialog_x_space'] + 0.5 }}rem;">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
                                             <div class="mainDialog">Dealer</div>
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row dialog-content" style="left:{{ banker[0].get_x() -12 }}rem;">
+                                <div class="row dialog-content" style="left:{{ banker[0].get_x() -table_anchor['dialog_x_space'] }}rem;">
                                     <div class="leftAlign">
                                         <div class="dialogContainer">
                                             <div class="mainDialog">Buy Insurance?<br>

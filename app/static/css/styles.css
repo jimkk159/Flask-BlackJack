@@ -989,10 +989,20 @@ font-size: 30px;
         margin-right:0.5rem;
         margin-left:0.5rem;
     }
+
+    /* Dialog */
+    .mainDialog {
+      font-size: 15px;
+    }
+    /* Card */
+    .table .poker-card{
+        height:8rem;
+    }
     /* leave button */
     .leave-button button {
         font-size: 30px;
     }
+
 }
 @media only screen and (min-width: 1400px) {
     .rule-section img {
@@ -1071,6 +1081,13 @@ font-size: 30px;
     .gestures-content{
         margin-right:0.75rem;
         margin-left:0.75rem;
+    }
+    /* Dialog */
+    .mainDialog {
+      font-size: 20px;
+    }
+    .table .poker-card{
+        height:10rem;
     }
 }
 
