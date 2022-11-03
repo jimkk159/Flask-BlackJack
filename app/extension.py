@@ -2,9 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-TABLE_WIDTH = 81
-CARD_WIDTH = 5
-
+INIT_CARD_WIDTH = 5
 INIT_CARD_X_SPACE = 2.0
 INIT_CARD_Y_SPACE = 15.0
 INIT_HAND_X_SPACE = 12.0
@@ -13,38 +11,64 @@ INIT_PLAYER_X_SPACE = 30.0
 INIT_PLAYER_Y_SPACE = 0.0
 
 
+# Set Card Anchor
+def set_card_anchor(width):
+    table_anchor = {'table_width': None,
+                    'card_width': INIT_CARD_WIDTH,
+                    'card_x_space': INIT_CARD_X_SPACE,
+                    'card_y_space': INIT_CARD_Y_SPACE,
+                    'hand_x_space': INIT_HAND_X_SPACE,
+                    'hand_y_space': INIT_HAND_Y_SPACE,
+                    'player_x_space': INIT_PLAYER_X_SPACE,
+                    'player_y_space': INIT_PLAYER_Y_SPACE
+                    }
+    if width >= 1400:
+
+        # page layout
+        width *= 0.92
+        width_ = width * 0.75  # set grid
+        width_ -= 3.5 * 16 + 8
+        table_anchor['table_width'] = int(width_ / 16)  # to rem
+
+        return table_anchor
+    else:
+        return table_anchor
+
+
 # Set Card Location
-def set_cards_location(table_):
-    set_banker_location(table_.get_banker_cards())
+def set_cards_location(table_, table_anchor):
+    set_banker_location(table_.get_banker_cards(), table_anchor)
 
     if table_.get_player_num() == 1:
-        set_table_players_location(init_x=TABLE_WIDTH / 2 - CARD_WIDTH / 2,
+        set_table_players_location(init_x=table_anchor['table_width'] / 2 - table_anchor['card_width'] / 2,
                                    table_=table_)
 
     elif table_.get_player_num() == 2:
-        set_table_players_location(init_x=TABLE_WIDTH / 4 - 2 * CARD_WIDTH, player_x_space=43 - CARD_WIDTH,
+        set_table_players_location(init_x=table_anchor['table_width'] / 4 - 2 * table_anchor['card_width'],
+                                   player_x_space=43 - table_anchor['card_width'],
                                    table_=table_)
 
     elif table_.get_player_num() == 3:
-        set_table_players_location(init_x=TABLE_WIDTH / 5 - 2 * CARD_WIDTH,
-                                   player_x_space=30 - CARD_WIDTH,
-                                   hand_x_space=INIT_HAND_X_SPACE - 2,
+        set_table_players_location(init_x=table_anchor['table_width'] / 5 - 2 * table_anchor['card_width'],
+                                   player_x_space=30 - table_anchor['card_width'],
+                                   hand_x_space=table_anchor['hand_x_space'] - 2,
                                    table_=table_)
 
     elif table_.get_player_num() == 4:
-        set_table_players_location(init_x=TABLE_WIDTH / 6 - 2 * CARD_WIDTH,
-                                   player_x_space=25 - CARD_WIDTH,
-                                   hand_x_space=INIT_HAND_X_SPACE - 2,
+        set_table_players_location(init_x=table_anchor['table_width'] / 6 - 2 * table_anchor['card_width'],
+                                   player_x_space=25 - table_anchor['card_width'],
+                                   hand_x_space=table_anchor['hand_x_space'] - 2,
                                    table_=table_)
 
 
-def set_banker_location(cards):
+def set_banker_location(cards, anchor):
+    table_middle = anchor['table_width'] / 2
     if len(cards) > 0:
-        cards[0].set_x(34)
+        cards[0].set_x(table_middle - anchor['card_width'])
 
     for num in range(len(cards)):
         if num > 0:
-            cards[num].set_x(40 + 2 * num)
+            cards[num].set_x(table_middle + 1.5 + 2 * num)
 
 
 def set_table_players_location(init_x=0.0, init_y=0.0, card_x_space=None, card_y_space=None, hand_x_space=None,

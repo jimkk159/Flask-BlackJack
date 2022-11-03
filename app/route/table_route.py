@@ -3,7 +3,7 @@ from flask_login import current_user
 
 # self import
 from . import game_route
-from app.extension import set_cards_location
+from app.extension import set_card_anchor, set_cards_location
 
 
 @game_route.route("/table")
@@ -26,7 +26,8 @@ def table():
     table_ = game.get_table_by_name(room)
     banker_ = table_.get_banker_cards()
     player = table_.get_player_by_id(current_user.id)
-    set_cards_location(table_)
+    table_anchor = set_card_anchor(width)
+    set_cards_location(table_, table_anchor)
     game_start = table_.get_game_start()
     if game_start and show_insurance and table_.get_is_insurance() and table_.get_judge_insurance():
         return render_template('table.html', banker=banker_, table=table_, ask_insurance=True, name=name,
